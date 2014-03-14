@@ -36,7 +36,7 @@ require_once "../application/includes/session.inc.php";
         <div id="js_mFooter"></div>
     </div> <!--App container END-->
     <!-- SCRIPTS -->
-    <script data-main="script/app" src="script/require/require.js"></script>    
+    <script data-main="script/blocks/app" src="script/shared/require/require.js"></script>    
     <script id="appdata">
         window.APP = { user: '<?php echo $user; ?>', year: '<?php echo $year; ?>', domain: '<?php echo $domain; ?>' };
     </script>

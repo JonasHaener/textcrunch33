@@ -1,0 +1,33 @@
+
+/********* TABLES ********/
+
+
+
+@mixin crossed_table( $stroke_col, $fill_col, $type_col, $fill_col_altern ) {
+	
+	$table_border 		:  solid 1px $col_grey_l;
+	$table_border_l 	:  solid 1px $col_grey_l;
+
+	table {
+		width: 100%;
+	}
+	tr {		
+		
+		border: $table_border;
+		border-collapse: true;
+	}
+	/*
+	tr:nth-of-type(2n) {
+		background: $col_grey_lll;
+	}
+	*/
+	td {
+		padding: .5em 0.7em;
+		border-left: $table_border_l;
+	}
+	input[type=text] {
+		width: 100%;
+	}
+
+
+}

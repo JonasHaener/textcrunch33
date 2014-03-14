@@ -1,0 +1,52 @@
+/*warnings*/
+
+$col_danger: red;
+.egg-face-danger-txt-h:hover {
+	color: $col_danger;
+}
+.egg-face-danger-backgr-h:hover {
+	background: 		$col_danger !important;
+	background-color: 	$col_danger !important;
+}
+
+.egg-face-danger-backgr {
+	background: 		$col_danger !important;
+	background-color: 	$col_danger !important;
+}
+
+.egg-face-danger-backgr-h:hover > * {
+	color: #FFF !important;
+}
+
+$col_ok: #A4DA54;
+$col_error: red;
+
+.egg-face-confirm-backgr-h:hover {
+	background: 		$col_ok !important;
+	background-color: 	$col_ok !important;
+}
+.egg-face-confirm-backgr {
+	background: 		$col_ok !important;
+	background-color: 	$col_ok !important;
+}
+
+.egg-face-error-backgr {
+	background: 		$col_error !important;
+	background-color: 	$col_error !important;
+}
+
+.egg-face-formError {
+	border: 2px solid $col_danger !important;
+}
+
+.egg-face-inprogress {
+	background: 		#F1B73C !important;
+	background-color: 	#F1B73C !important;
+}
+
+.egg-face-unsaved-data {
+	background: 		rgb(70, 70, 70) !important;
+	background-color: 	rgb(70, 70, 70) !important;
+}
+
+

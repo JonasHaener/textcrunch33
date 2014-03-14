@@ -1,0 +1,8 @@
+/* Browser reset */
+/* line 3, ../sass/egg_reset.scss */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
+}

@@ -1,0 +1,29 @@
+/* GRADIENTS*/
+
+@mixin dropshadow-lll {
+	box-shadow: 0px 1px 1px $col_grey_l;	
+}
+
+@mixin dropshadow-ll {
+	box-shadow: 0px 1px 3px $col_grey_m;	
+}
+
+@mixin grad-grey-l {
+	background-image: linear-gradient(
+			to bottom,
+			$col_grey_ll 0%,
+			$col_grey_l 100%
+		);	
+
+}
+
+
+@mixin grad-grey-m-inv {
+	background-image: linear-gradient(
+			to bottom,
+			$col_grey_l 100%,
+			$col_grey_m 0%
+		);	
+
+}
+

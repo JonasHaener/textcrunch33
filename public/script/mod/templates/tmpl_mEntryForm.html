@@ -1,0 +1,53 @@
+<!--INPUT FORM-->                            
+<% if(domain < 3) { %>
+<section class="egg-m-inputform">
+        <ul class="egg-m-inputform__header">
+            <li>New Entry:&nbsp;</li>
+            <li class="js_show_form egg-navi glyphicon glyphicon-arrow-down" title="open form"></li>
+            <li class="js_hide_form egg-navi glyphicon glyphicon-arrow-up" title="close form"></li>
+            <li class="js_save_entry egg-navi glyphicon glyphicon-floppy-disk egg-face-confirm-backgr-h" title="save"></li>
+            <li class="js_clear_form egg-navi glyphicon glyphicon-trash" title="clear form"></li>
+        </ul>
+        <div class="js_form_content egg-is-hidden-anim">    
+            <div class="egg-m-inputform__tagging">
+                <div>
+                    <div id="" class="js_category_entry egg-tag-holder form-control" type="text"></div>
+                    <select class="js_pick_category form-control" placeholder="Pick a category">
+                        <option class="js_placeholder" value="0" disabled selected>-Pick category-</option>
+                    </select>
+                </div>
+                <div>
+                    <div id="entry-tags" class="js_tags_entry egg-tag-holder form-control" type="text"></div>
+                    <input class="js_pick_tag form-control" type="text" list="textblock-tags-list" placeholder="-Pick tags-" title="double-click to choose and enter to transfer">
+                    <datalist id="textblock-tags-list" class="js_tag_selection"></datalist>                               
+                </div>
+            </div>
+            <div class="egg-m-inputform__languages">
+                
+                <label>German:</label>
+                <textarea class="form-control" placeholder="Enter German here" data-blocklang="german"></textarea>
+                
+                <label>English:</label>
+                <textarea class="form-control" placeholder="Enter English here" data-blocklang="english"></textarea>
+                
+                <label>French:</label>
+                <textarea class="form-control" placeholder="Enter French here" data-blocklang="french"></textarea>
+                
+                <label>Dutch:</label>
+                <textarea class="form-control" placeholder="Enter Dutch here" data-blocklang="dutch"></textarea>
+                
+                <label>Italian:</label>
+                <textarea class="form-control" placeholder="Enter Italian here" data-blocklang="italian"></textarea>
+                
+                <label>Polish:</label>
+                <textarea class="form-control" placeholder="Enter Polish here" data-blocklang="polish"></textarea>
+                
+                <label>Spanish:</label>
+                <textarea class="form-control" placeholder="Enter Spanish here" data-blocklang="spanish"></textarea>
+                
+                <label>Japanese:</label>
+                <textarea class="form-control" placeholder="Enter Japanese here" data-blocklang="japanese"></textarea>
+            </div>
+        </div>    
+</section>
+<% } %>

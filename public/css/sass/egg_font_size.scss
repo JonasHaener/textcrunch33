@@ -1,0 +1,25 @@
+
+/*Basic font-sizes */
+
+$type_size_m    : 1.2em;
+
+
+$type_size_body : 1.6em;
+$type_size_h1 	: 3em;
+$type_size_h2 	: 2em;
+$type_size_navi : 1em;
+
+
+h1 {
+	font-size: $type_size_h1;
+}
+
+h2, .h2 {
+	font-size: $type_size_h2;
+}
+
+.compass {
+	
+}
+
+

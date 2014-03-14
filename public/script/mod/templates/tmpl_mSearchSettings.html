@@ -1,0 +1,54 @@
+  <!--SEARCH SETTINGS-->
+                <div class="egg-m-search-settings">
+                    <div class="list-group">
+                        <div class="list-group-item egg-header">Search settings</div>
+                            <table>
+                               <tr>
+                                   <td colspan="4">
+                                     <div class="js_search_items egg-main-search form-control"></div>  
+                                   </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-tag"></span>
+                                            <input data-searchkind="tag" class="js_search_tag egg-main-search-tags form-control" list="search-textblock-tags-list" type="text">
+                                            <datalist id="search-textblock-tags-list" class="js_tag_cat_selection" placeholder="--">
+                                                <option value="12664">
+                                                <option value="16541">
+                                                <option value="79156">
+                                            </datalist>     
+                                        </div> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <submit class="js_submit_search btn btn-default form-control egg-face-confirm-backgr-h">Go Search</submit>
+                                    </td>
+                                </tr>                                
+                                <tr>
+                                    <td>German:</td>
+                                    <td><input class="js_search_lang js_german" type="checkbox" checked data-search="searchGerman"></td>
+                                    <td>Get all:</td>
+                                    <td>
+                                        <input class="js_search_lang" type="checkbox" data-search="searchAllLang">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>English:</td>
+                                    <td>
+                                        <input class="js_search_lang" type="checkbox"  data-search="searchEnglish">
+                                    </td>
+                                     <td>Replace:</td>
+                                    <td>
+                                        <input class="js_search_replace_all" type="checkbox"  data-search="searchReplaceResults">
+                                    </td>
+                                </tr>
+                            <!--    <tr>
+                                    <td>Current-IDs</td>
+                                    <td colspan="3" class="egg-m-user-projects__result">1,2,3,64,8,4,</td>
+                                </tr>
+                            -->    
+                            </table>
+                    </div>
+                </div>

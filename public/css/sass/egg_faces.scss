@@ -1,0 +1,59 @@
+
+/*
+ *  Face style
+ *	Having no impact on structure
+ *	Only for good locks
+ */
+
+
+@mixin egg-face-category-marker {
+	li:first-of-type {
+		font-style: italic;
+	}
+}
+
+
+/*****************************
+	## TAGS ## 
+******************************/
+@mixin egg-face-tag {
+	display: inline-block;
+	padding: .2em .8em;
+	margin-right: .3em;
+	margin-bottom: 0.2em;
+	border-radius: 0.2em;
+}
+
+.egg-face-category {
+	@include egg-face-tag;
+	background-color: #F794BC !important;
+}
+
+.egg-face-tag {
+	@include egg-face-tag;
+	background-color: #DDACF5 !important;
+}
+
+.egg-face-id {
+	@include egg-face-tag;
+	background-color: #76D7F0 !important;
+}
+
+
+/*****************************
+	## PROGRESS ## 
+******************************/
+.egg-face-inprogess {
+	background-color: $col_green_lemon !important;
+	background: $col_green_lemon !important;
+}
+
+.egg-face-tags-loaded {
+	background-color: #DAE04A !important;
+	background: #DAE04A !important;
+}
+
+.egg-face-more-data {
+	background-color: #DAE04A !important;
+	background: #DAE04A !important;
+}

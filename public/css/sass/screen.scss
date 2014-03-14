@@ -1,0 +1,641 @@
+/*@import "compass/reset";*/
+@import "compass/css3";
+@import "egg_reset";
+@import "egg_colors";
+@import "egg_borders";
+@import "egg_font_size";
+@import "egg_tables";
+@import "egg_faces"; /* dependent on colors*/
+@import "egg_gradients"; /* dependent on colors*/
+@import "egg_warnings"; /* dependent on colors*/
+@import "egg_dropshadows";
+
+
+/*--------------------------------
+	RESETS
+--------------------------------*/
+* {
+	background-origin: border-box;
+}
+
+a {
+	cursor: default !important;
+}
+
+textarea, input, select, .egg-tag-holder {
+	border: 1px solid $col_grey_l !important;
+	border-radius: 0.2em;
+}
+.form-control, .input-group-addon {
+	border: 1px solid $col_grey_l;
+	border-radius: 0.2em;
+	box-shadow: 0 0 1px $col_grey_m;
+}
+
+/*--------------------------------
+	M I X I N S
+--------------------------------*/
+
+
+@mixin eggModuleHeader {
+	.egg-header {
+		color: #FFF;
+		background: $col_blue_m;
+		border: 1px solid $col_blue_m;
+		font-weight: bold;
+	}
+}
+
+
+/*--------------------------------
+	B O D Y
+--------------------------------*/
+
+body {
+	background-color: #F5F5F5;
+}
+
+footer {
+	color: $col_grey_m;
+}
+
+
+.egg-l-contents-container {
+	padding-top: 5em;
+}
+
+.egg-l-right-col-fixed {
+	position: fixed;
+	top: 70px;
+}
+
+
+@media (max-width: 800px) {
+	
+	.container {
+		min-width: 600px;
+	}
+
+
+	.navbar-header {
+		float: left;
+	}
+
+	.nav {
+		float: left;
+	}
+
+	.nav > li {
+		float: left;
+	}
+
+	.navbar-nav {
+    	float: left;
+    	margin: 0;
+  	}
+  	.navbar-nav > li {
+    	float: left;
+  	}
+
+  	.navbar-nav > li > a {
+  		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+}
+
+
+
+/*--------------------------------
+	S T A T E S
+--------------------------------*/
+.egg-is-hidden-anim {
+	transition: max-height 600ms;
+	max-height: 0 !important;
+	overflow: hidden;
+}
+
+.egg-is-visible-anim {
+	height: auto !important;
+	max-height: 100em !important;
+	transition: max-height 300ms;
+
+}
+
+/*--------------------------------
+	Global settings
+--------------------------------*/
+datalist {
+	height: 5em !important;
+}
+
+
+
+/*--------------------------------
+	Login
+--------------------------------*/
+.egg-m-login {
+	position: relative;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+
+.egg-m-login__header {
+	float: none !important;
+	padding: 1.5em 0 1.5em 0;
+}
+
+
+ .egg-m-login__logo {
+	display: block;
+	font-size: 8em;
+	font-weight: bold;
+	color: #091558;
+	/*highlight*/
+	/*shadow*/
+	text-shadow:
+		2px 2px 1px #507797, 
+		-1px -1px 1px #003477; 
+}
+
+@media (max-width: 1200px) {
+	.egg-m-login__form input {
+			width: 30em;
+		}	
+	}
+@media (min-width: 1200px) {
+	.egg-m-login__form input {
+			width: 25em;
+	}	
+}
+
+.egg-m-login__tagline {
+	display: block;
+	color: #111A4E;
+	font-size: 2em;
+}
+
+
+.egg-m-login__form {
+	padding: 7em 5em 7em 7em;
+	background: $col_blue_m;
+
+	input[type=text]:first-of-type {
+		margin-top: 3em;
+	}
+
+	button {
+		margin-top: 1em;
+	}
+}
+
+.egg-m-login__form__error {
+	height: 1em;
+	color: rgb(138, 7, 7);
+}
+
+
+.egg-m-login__brand-banner {
+
+}
+
+.egg-m-login__footer {
+	padding: .5em 3em 0 7em;
+	background-color: $col_grey_lll;
+}
+
+
+/*--------------------------------
+	M-navbar
+--------------------------------*/
+
+.egg-m-navbar {
+	@include grad-grey-l;
+	@include dropshadow-ll; 
+	
+	font-size: $type_size_navi;
+	overflow: hidden;
+
+	a {
+		color: $col_black;
+	}
+
+	border-bottom: 1px solid $col_grey_m;
+
+	.egg-m-item-count {
+		font-weight: bold;
+		text-align: center;
+	}
+
+}
+
+.egg-m-navbar__brand {
+	font-size: 1em;
+	font-weight: bold;
+	margin-right: 2em;
+}
+
+.egg-m-navbar__navi {
+	li {
+		padding: 0 1em 0 0;
+		border-right: 1px solid $col_grey_m;
+	}
+	li:first-of-type {
+		padding: 0 1em 0 0;
+		border-left: 1px solid $col_grey_m;
+	}
+	li a:hover {
+		text-decoration: none;
+	}
+}
+
+.egg-m-navbar__navi--h:hover {
+		@include grad-grey-m-inv;
+		cursor: pointer;
+
+		a:hover {
+			text-decoration: none;
+			color: $col_black;
+		}
+}
+
+
+
+/*--------------------------------
+	ICON large
+--------------------------------*/
+
+
+
+
+/*--------------------------------
+	M-search-settings
+--------------------------------*/
+.egg-m-search-settings {
+	/*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
+	@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );
+	@include eggModuleHeader;
+	@include dropshadow-lll;
+	background-color: $col_grey_lll;
+	
+	/*@include grad-grey-lll;*/
+
+	div.input-group {
+		width: 100%;
+	}
+	span.input-group-addon {
+		margin-top: -1px;
+		line-height: 0;
+	}
+	submit:hover {
+		color: #FFF;
+	}
+
+	.egg-main-search {
+		min-height: 3em;
+		height: 100%;
+	}
+}
+
+
+/*--------------------------------
+	M-inputform
+--------------------------------*/
+.egg-m-inputform {
+	/*@include grad-grey-ll;*/
+	@include dropshadow-lll;
+	
+	border: 1px solid $col_grey_l;
+	border-radius: .3em;
+	margin-bottom: 2em;
+	overflow: hidden;
+	width: 100%;
+
+}
+
+.egg-m-inputform__header {
+	background-color: $col_blue_m;
+	color: $col_grey_lll;
+	font-weight: bold;
+	height: 2.5em;
+
+
+	li {
+		display: inline-block;
+		border-right: solid 1px $col_blue_l;
+		float: left;
+		padding: .5em 1em 0.5em 1em; 
+		height: 100%;
+	}
+
+	.egg-entry-id {
+		background-color: $col_blue_l;
+		width: 15%;
+		
+	}
+	.egg-navi {
+		cursor: pointer;
+		position: relative;
+		margin: -1px; /*compensate ugly offset to top*/
+		padding-right: 2em; 
+		padding-top: .7em;
+	}
+	.egg-navi:hover {
+		background-color: #51A3E9;
+	}
+
+}
+
+.egg-m-inputform__tagging {
+	
+	border-bottom: 1px solid $col_grey_m;
+	padding: 0.5em;
+
+	.egg-tag-holder {
+		min-height: 3em;
+		height: 100%;
+		margin: 0.5em 0;	
+	}
+
+}
+
+.egg-m-inputform__languages {
+	
+	padding: 0.5em;
+
+	label{
+		display: block;
+	}
+	textarea {
+		height: 7em;
+		max-height: 7em;
+		max-width: 100%;
+		margin-bottom: 1em;
+		width: 100%;
+		
+	}
+
+}
+
+
+	#icon_large {
+		position: absolute;
+		z-index: -10;
+		left: 1em;
+		top: 1.5em;
+		font-size: 8em;
+		font-weight: bold;
+		color: #E9E9E9;
+		text-shadow: -1px -1px 2px #DBDBDB;
+		box-shadow: none;
+		border: none;
+	}
+
+/*--------------------------------
+	M-results
+--------------------------------*/
+.egg-m-results {
+	
+
+	@media (max-width: 800px) {
+		.egg-l-spacer {
+			height: 5em;
+			margin-bottom: 5em;
+		}
+	}
+
+	[data-category] {
+		/*@include dropshadow-ll;*/
+	}
+
+	[data-category = intro] .egg-m-textblock__header {
+		
+		background: rgb(51, 134, 167);
+		border: 1px solid rgb(51, 134, 167) !important;
+	}
+
+	[data-category = safety] .egg-m-textblock__header {
+		background: red;
+		border: 1px solid red !important;
+	}
+
+	[data-category = warning] .egg-m-textblock__header {
+		background: rgb(255, 102, 0);
+		border: 1px solid rgb(255, 102, 0) !important;
+	}
+
+	[data-category = use] .egg-m-textblock__header {
+		background: rgb(167, 51, 144);
+		border: 1px solid rgb(167, 51, 144) !important;
+	}
+
+	[data-category = cleaning] .egg-m-textblock__header {
+		background: rgb(167, 125, 51);
+		border: 1px solid rgb(167, 125, 51) !important;
+	}
+
+	[data-category = techdata] .egg-m-textblock__header {
+		background: rgb(51, 93, 167);
+		border: 1px solid rgb(51, 93, 167) !important;
+	}
+
+	[data-category = legal] .egg-m-textblock__header {
+		background: rgb(90, 9, 97);
+		border: 1px solid rgb(90, 9, 97) !important;
+	}
+
+	.egg-face-badge {
+		background-color: $col_grey_ll;
+		color: $col_black;
+		
+	}
+	.egg-face-badge.has-count {
+		background-color: #C1DAE6;
+	}
+
+	.egg-m-results__tabs {
+		@include dropshadow-lll;
+		margin-bottom: 1em;
+		border-radius: .2em;
+		border: solid 1px $col_grey_ll;
+		a {
+			color: $col_black;
+		}
+		margin-bottom: 1em;
+	}
+}
+
+/*--------------------------------
+	M-textblock
+--------------------------------*/
+.egg-m-textblock {
+	/*@include grad-grey-lll;*/
+	box-shadow: 0px 1px 3px #c5c5c5; 
+
+	border-radius: .2em;
+	margin-bottom: 1.2em;
+	overflow: hidden;
+	width: 100%
+
+}
+
+.egg-m-textblock__header {
+	background-color: $col_blue_m;
+	/*border-bottom: 1px solid $col_grey_m;*/
+	color: $col_grey_lll;
+	font-weight: bold;
+	height: 2.5em;
+
+
+	li {
+		display: inline-block;
+		border-right: solid 1px $col_grey_l;
+		float: left;
+		padding: .5em 1em 0.5em 1em; 
+		height: 100%;
+		min-width: 1em;
+	}
+
+	.egg-block-id {
+		min-width: 15%;
+		
+	}
+	.egg-navi {
+		cursor: pointer;
+		position: relative;
+		margin: -1px; /*compensate ugly offset to top*/
+		padding-right: 2em; 
+		padding-top: .7em;
+	}
+	.egg-navi:hover {
+		opacity: 0.8;
+	}
+}
+
+
+
+
+.egg-m-textblock__content {
+	border: 1px solid $col_grey_l;
+}
+
+.egg-m-textblock__tagging {
+	border-bottom: 1px solid $col_grey_l;
+	padding: 0.5em;
+
+	.egg-tag-holder {
+		min-height: 3em;
+		height: 100%;
+		margin: 0.5em 0;
+	}
+
+	input, select {
+		width: 45%;
+		display: inline-block;
+	}
+	input:first-of-type {
+		margin-right: .5em;
+	}
+}
+
+.egg-m-textblock__languages {
+	padding-top: 1em;
+	padding: 0.5em;
+
+	label {
+		display: block;
+	}
+
+	textarea {
+		overflow-x: hidden;
+		border: none;
+		/*border: 1px solid $col_grey_l;*/
+		border-radius: 0.2em ;
+		height: 5em;
+		max-height: 10em;
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: .3em;
+		box-shadow: 0 0 1px $col_grey_l; 
+
+	}
+}
+
+
+.egg-m-textblock__languages__tagsview {
+	border-bottom: 1px solid $col_grey_l;
+	margin: 0.3em 0 0.6em 0;
+	padding: 0.5em;
+}
+
+
+
+
+/*--------------------------------
+	M-user-projects
+--------------------------------*/
+.egg-m-user-projects {
+	/*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
+	@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );
+	@include eggModuleHeader;
+	@include dropshadow-ll;
+	/*@include grad-grey-lll;*/
+
+
+}
+
+.egg-m-user-projects .egg-m-user-projects__last-created {
+	padding-left: 0.8em;
+
+	a {
+		cursor: pointer;
+	}
+}
+
+.egg-m-user-projects__navi {
+	
+	$navi_border: 1px solid $col_grey_m;
+	/*@include grad-grey-ll;*/
+	
+	tr, td {
+		padding-top: 0;
+		padding-bottom: 0.1em;
+	}
+	td {
+		cursor: pointer;
+		text-align: center;
+
+	}
+	td:hover {
+		opacity: 0.6;
+		
+	}
+	td:last-of-type {
+		border-right: none;
+		text-indent: 0;
+	}
+	a {
+		color: $col_black;
+		padding: 0.35em 0.5em;
+		text-indent: -0.6em;
+		text-decoration: none;
+	}
+}
+
+.egg-m-user-projects__result {
+	/*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
+	font-weight: bold;
+}
+
+/*--------------------------------
+	Search stats
+--------------------------------*/
+.egg-m-search-stats {
+	/*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
+	@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );
+	@include eggModuleHeader;
+	@include dropshadow-ll;
+	@include grad-grey-lll;
+}
+

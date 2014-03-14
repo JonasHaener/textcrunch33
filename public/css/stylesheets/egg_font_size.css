@@ -1,0 +1,10 @@
+/*Basic font-sizes */
+/* line 13, ../sass/egg_font_size.scss */
+h1 {
+  font-size: 3em;
+}
+
+/* line 17, ../sass/egg_font_size.scss */
+h2, .h2 {
+  font-size: 2em;
+}

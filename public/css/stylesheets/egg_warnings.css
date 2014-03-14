@@ -1,0 +1,57 @@
+/*warnings*/
+/* line 4, ../sass/egg_warnings.scss */
+.egg-face-danger-txt-h:hover {
+  color: red;
+}
+
+/* line 7, ../sass/egg_warnings.scss */
+.egg-face-danger-backgr-h:hover {
+  background: red !important;
+  background-color: red !important;
+}
+
+/* line 12, ../sass/egg_warnings.scss */
+.egg-face-danger-backgr {
+  background: red !important;
+  background-color: red !important;
+}
+
+/* line 17, ../sass/egg_warnings.scss */
+.egg-face-danger-backgr-h:hover > * {
+  color: #FFF !important;
+}
+
+/* line 24, ../sass/egg_warnings.scss */
+.egg-face-confirm-backgr-h:hover {
+  background: #a4da54 !important;
+  background-color: #a4da54 !important;
+}
+
+/* line 28, ../sass/egg_warnings.scss */
+.egg-face-confirm-backgr {
+  background: #a4da54 !important;
+  background-color: #a4da54 !important;
+}
+
+/* line 33, ../sass/egg_warnings.scss */
+.egg-face-error-backgr {
+  background: red !important;
+  background-color: red !important;
+}
+
+/* line 38, ../sass/egg_warnings.scss */
+.egg-face-formError {
+  border: 2px solid red !important;
+}
+
+/* line 42, ../sass/egg_warnings.scss */
+.egg-face-inprogress {
+  background: #F1B73C !important;
+  background-color: #F1B73C !important;
+}
+
+/* line 47, ../sass/egg_warnings.scss */
+.egg-face-unsaved-data {
+  background: #464646 !important;
+  background-color: #464646 !important;
+}

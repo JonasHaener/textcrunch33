@@ -1,0 +1,230 @@
+/*@import "compass/reset";*/
+/* Browser reset */
+/* line 3, ../sass/egg_reset.scss */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
+}
+
+/*Color variables for Sass inclusion */
+/* ll = super light, l = light, m = light medium ... */
+/*** Greys ***************************/
+/*** Black **************************/
+/*Basic font-sizes */
+/* line 13, ../sass/egg_font_size.scss */
+h1 {
+  font-size: 3em;
+}
+
+/* line 17, ../sass/egg_font_size.scss */
+h2, .h2 {
+  font-size: 2em;
+}
+
+/********* TABLES ********/
+/* GRADIENTS*/
+/* dependent on colors*/
+/*warnings*/
+/* line 4, ../sass/egg_warnings.scss */
+.egg-face-danger-txt-h:hover {
+  color: red;
+}
+
+/* line 7, ../sass/egg_warnings.scss */
+.egg-face-danger-backgr-h:hover {
+  background: red !important;
+  background-color: red !important;
+}
+
+/* line 11, ../sass/egg_warnings.scss */
+.egg-face-danger-backgr-h:hover > * {
+  color: #FFF !important;
+}
+
+/* line 18, ../sass/egg_warnings.scss */
+.egg-face-confirm-backgr-h:hover {
+  background: #35d126 !important;
+  background-color: #35d126 !important;
+}
+
+/* dependent on colors*/
+/* line 11, ../sass/screen - Copy.scss */
+* {
+  background-origin: border-box;
+}
+
+/*
+.egg-m-navbar {
+	@include grad-grey-l; 
+	
+	font-size: $type_size_navi;
+	overflow: hidden;
+
+	a {
+		color: $col_black;
+	}
+}
+
+
+.egg-m-navbar__brand {
+	font-size: $type_size_navi;
+}
+
+.egg-m-navbar__navi {
+	li {
+		padding: 0 1em;
+		border-right: 1px solid $col_grey_m;
+	}
+	li a:hover {
+		text-decoration: none;
+	}
+}
+
+.egg-m-navbar__navi--h:hover {
+		@include grad-grey-m-inv;
+		cursor: pointer;
+
+		a:hover {
+			text-decoration: none;
+			color: $col_black;
+		}
+}
+
+*/
+/* line 59, ../sass/screen - Copy.scss */
+.egg-m-search-settings {
+  /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
+}
+/* line 11, ../sass/egg_tables.scss */
+.egg-m-search-settings table {
+  width: 100%;
+}
+/* line 14, ../sass/egg_tables.scss */
+.egg-m-search-settings tr {
+  background-image: linear-gradient(to bottom, #e6e6e6 0%, #d9d9d9 100%);
+  border: solid 1px #c5c5c5;
+  border-collapse: true;
+}
+/* line 19, ../sass/egg_tables.scss */
+.egg-m-search-settings tr:nth-of-type(2n) {
+  background: #f3f3f3;
+}
+/* line 22, ../sass/egg_tables.scss */
+.egg-m-search-settings td {
+  padding: .5em 0.3em;
+  border-left: solid 1px #c5c5c5;
+}
+
+/*
+
+.egg-m-inputform {
+
+
+}
+
+.egg-m-inputform__tagging {
+	label {
+		background-color: red;
+	}
+
+}
+
+
+
+.egg-m-inputform__header {
+	display: inline-block;
+	background-color: blue;
+}
+*/
+/* line 88, ../sass/screen - Copy.scss */
+.egg-m-inputform__languages label {
+  background-color: blue;
+}
+
+/* line 112, ../sass/screen - Copy.scss */
+.egg-m-user-projects {
+  /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
+}
+/* line 11, ../sass/egg_tables.scss */
+.egg-m-user-projects table {
+  width: 100%;
+}
+/* line 14, ../sass/egg_tables.scss */
+.egg-m-user-projects tr {
+  background-image: linear-gradient(to bottom, #e6e6e6 0%, #d9d9d9 100%);
+  border: solid 1px #c5c5c5;
+  border-collapse: true;
+}
+/* line 19, ../sass/egg_tables.scss */
+.egg-m-user-projects tr:nth-of-type(2n) {
+  background: #f3f3f3;
+}
+/* line 22, ../sass/egg_tables.scss */
+.egg-m-user-projects td {
+  padding: .5em 0.3em;
+  border-left: solid 1px #c5c5c5;
+}
+
+/* line 117, ../sass/screen - Copy.scss */
+.egg-m-user-projects__navi {
+  background-image: linear-gradient(to bottom, #e6e6e6 0%, #d9d9d9 100%);
+}
+/* line 122, ../sass/screen - Copy.scss */
+.egg-m-user-projects__navi tr, .egg-m-user-projects__navi td {
+  padding-top: 0;
+  padding-bottom: 0.1em;
+}
+/* line 126, ../sass/screen - Copy.scss */
+.egg-m-user-projects__navi td {
+  cursor: pointer;
+  text-align: center;
+}
+/* line 131, ../sass/screen - Copy.scss */
+.egg-m-user-projects__navi td:hover {
+  background-image: linear-gradient(to bottom, #d9d9d9 100%, #c5c5c5 0%);
+}
+/* line 134, ../sass/screen - Copy.scss */
+.egg-m-user-projects__navi td:last-of-type {
+  border-right: none;
+  text-indent: 0;
+}
+/* line 138, ../sass/screen - Copy.scss */
+.egg-m-user-projects__navi a {
+  color: black;
+  cursor: pointer;
+  padding: 0.35em 0.5em;
+  text-indent: -0.6em;
+  text-decoration: none;
+}
+
+/* line 147, ../sass/screen - Copy.scss */
+.egg-m-user-projects__result {
+  /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
+  font-weight: bold;
+}
+
+/* line 156, ../sass/screen - Copy.scss */
+.egg-m-search-stats {
+  /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
+}
+/* line 11, ../sass/egg_tables.scss */
+.egg-m-search-stats table {
+  width: 100%;
+}
+/* line 14, ../sass/egg_tables.scss */
+.egg-m-search-stats tr {
+  background-image: linear-gradient(to bottom, #e6e6e6 0%, #d9d9d9 100%);
+  border: solid 1px #c5c5c5;
+  border-collapse: true;
+}
+/* line 19, ../sass/egg_tables.scss */
+.egg-m-search-stats tr:nth-of-type(2n) {
+  background: #f3f3f3;
+}
+/* line 22, ../sass/egg_tables.scss */
+.egg-m-search-stats td {
+  padding: .5em 0.3em;
+  border-left: solid 1px #c5c5c5;
+}

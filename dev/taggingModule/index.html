@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="shortcut icon" href="favicon.png">-->
+    <title>Tagging Module</title>
+<style type="text/css">
+    label {
+        display: block;
+        width: 10em;   
+    }
+    .search {
+        width: 15em;
+        min-height: 1em;
+        border: solid 1px #999;
+    }
+    .egg-face-tag {
+        display: inline-block;
+        background-color: red;
+        margin: .2em;
+        min-width: 3em;
+        text-align: center;
+
+
+    }
+    .egg-face-category {
+        display: inline-block;
+        background-color: blue;
+        margin: .2em;
+        min-width: 3em;
+        text-align: center;        
+    }
+
+
+
+</style>
+
+
+</head>
+<body>
+    <form class="js_tagger" action="">
+        <div>Search:</div>
+        <div class="js_search search" type="text"></div>
+        <label>Category: <input class="js_cats" type="text" data-kind="category"></label>
+        <label>Tags: <input class="js_tags" type="text" data-kind="tag"></label>
+    </form>
+    <button class="js_submit">Fetch query</button>
+	<div class="js_result_cont"></div>
+    <!-- SCRIPTS -->
+    <script src="jquery.js"></script>
+    <script src="tagging.js"></script>
+    <script src="fetchSearch.js"></script>
+    <script>
+    
+		$(function()
+		{
+			APP.TAGGING.init();
+			APP.FETCH.init();
+		});
+    </script>
+    
+</body>
+</html>

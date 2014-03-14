@@ -1,0 +1,37 @@
+/* GRADIENTS*/
+
+@mixin grad-grey-lll {
+	background-image: linear-gradient(
+			to bottom,
+			$col_grey_lll 0%,
+			$col_grey_ll 100%
+		);	
+}
+
+@mixin grad-grey-ll {
+	background-image: linear-gradient(
+			to bottom,
+			$col_grey_ll 0%,
+			$col_grey_l 100%
+		);	
+}
+
+@mixin grad-grey-l {
+	background-image: linear-gradient(
+			to bottom,
+			$col_grey_ll 0%,
+			$col_grey_l 100%
+		);	
+
+}
+
+
+@mixin grad-grey-m-inv {
+	background-image: linear-gradient(
+			to bottom,
+			$col_grey_ll 100%,
+			$col_grey_l 0%
+		);	
+
+}
+

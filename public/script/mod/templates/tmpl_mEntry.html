@@ -1,0 +1,95 @@
+   <!--TEXT BLOCKS-->                            
+                <div class="js_clean egg-m-textblock">
+                    <ul class="egg-m-textblock__header egg-face-cat-safety">
+                        <li class="egg-face-marker"><%- model.category %></li>
+                        
+                        <li><%- model.block_id %></li>
+                        
+                        <li class="js_bookmark_entry egg-navi glyphicon glyphicon-star-empty" title="bookmark this
+                        "></li>
+
+                        <li class="egg-block-id"></li>
+                        
+                        <li class="js_remove_include_to_project egg-navi glyphicon glyphicon-user " title="Include to my project"></li>
+
+                        <li class="js_hide_entry egg-navi glyphicon glyphicon-fire egg-face-danger-backgr-h" title="hide entry and remove from my project"></li>
+
+                        <li class="js_open_close_entry egg-navi glyphicon glyphicon-arrow-up" title="open/close entry"></li>
+                        
+                        <% if(domain < 3) { %>
+                          <li class="js_edit_entry egg-navi glyphicon glyphicon-pencil" title="edit entry"></li>                              
+                          <li class="js_save_entry js_notify egg-navi glyphicon glyphicon-floppy-disk" title="save entry"></li>
+                        <% } %>
+                        <% if(domain < 2) { %>
+                          <li class="js_delete_entry egg-navi glyphicon glyphicon-trash" title="delete entry"></li>
+                        <% } %>
+                    </ul>
+                    <div class="js_block_content egg-m-textblock__content egg-is-visible-anim">
+                        <div class="js_tagging egg-m-textblock__tagging egg-is-hidden-anim">
+                          <div class="js_category_entry egg-tag-holder form-control">
+                              <span class="js_tag egg-face-category" data-tagtype="category">
+                                  <%- "@"+ model.category %>
+                              </span>
+                          </div>
+                          <div id="entry-tags" class="js_tags_entry egg-tag-holder form-control">
+                              <% _.each(model.tags, function(tag) { %>
+                                <span class="js_tag egg-face-tag" data-tagtype="tag"><%- "#" + tag %></span> <% }); %>
+                          </div>
+                          <select class="js_pick_category form-control">
+                              <option val="0" disabled="disabled" selected>Pick category</option>
+                          </select>
+                          <input id="id_<%- model.block_id %>textblock-pick-tags" class="js_pick_tag form-control" type="text" list="id_<%- model.block_id %>entry-pick-tags-list" placeholder="Pick tags" title="double-click to choose and enter to transfer">
+                          <datalist id="id_<%- model.block_id %>entry-pick-tags-list" class="js_tag_selection">
+                          </datalist>                               
+                        </div>
+                        <div class="js_tags_overview egg-m-textblock__languages__tagsview"><span><%- "@"+ model.category %></span>
+                          <% _.each(model.tags, function(tag) { %>
+                            <span> / <%- "#" + tag %></span> <% }); %>
+                        </div>
+                        <div class="js_languages egg-m-textblock__languages">
+
+                            <% if(model.searchGerman || model.searchAllLang) { %> 
+                            <div data-language="german">
+                                  <label for="entry-german">German:</label>
+                                  <textarea disabled class="js_lang form-control egg-f" id="entry-german" placeholder="Enter German here">[ <%- model.category %>-<%- model.block_id %> ]&nbsp;<%- model.german %>&nbsp;[ end ]</textarea>
+                            </div>
+                            <% } %>
+                            
+                            <% if(model.searchEnglish || model.searchAllLang) { %> 
+                            <div data-language="english">
+                                  <label for="entry-english">English:</label>
+                                  <textarea disabled  class="js_lang form-control" id="entry-english" placeholder="Enter English here">[ <%- model.category %>-<%- model.block_id %> ]&nbsp;<%- model.english %>&nbsp;[ end ]</textarea>
+                            </div>
+                            <% } %>
+                            
+                            <% if(model.searchAllLang) { %>
+                            <div data-language="french" class="egg-is-hidden-anim">
+                                  <label for="entry-french">French:</label>
+                                  <textarea disabled  class="js_lang form-control" class="" id="entry-french" placeholder="Enter French here">[ <%- model.category %>-<%- model.block_id %> ]&nbsp;<%- model.french %>&nbsp;[ end ]</textarea>
+                            </div>
+
+                            <div data-language="dutch" class="egg-is-hidden-anim">
+                                  <label for="entry-dutch">Dutch:</label>
+                                  <textarea disabled  class="js_lang form-control" id="entry-dutch" placeholder="Enter Dutch here">[ <%- model.category %>-<%- model.block_id %> ]&nbsp;<%- model.dutch %>&nbsp;[ end ]</textarea>
+                            </div>
+
+                            <div data-language="italian" class="egg-is-hidden-anim">
+                                  <label for="entry-italian">Italian:</label>
+                                  <textarea disabled  class="js_lang form-control" id="entry-italian" placeholder="Enter Italian here">[ <%- model.category %>-<%- model.block_id %> ]&nbsp;<%- model.italian %>&nbsp;[ end ]</textarea>
+                            </div>
+                            <div data-language="polish" class="egg-is-hidden-anim">
+                                  <label for="entry-polish">Polish:</label>
+                                  <textarea disabled  class="js_lang form-control" id="entry-polish" placeholder="Enter Polish here">[ <%- model.category %>-<%- model.block_id %> ]&nbsp;<%- model.polish %>&nbsp;[ end ]</textarea>
+                            </div>
+                            <div data-language="spanish" class="egg-is-hidden-anim">
+                                  <label for="entry-spanish">Spanish:</label>
+                                  <textarea disabled  class="js_lang form-control" id="entry-spanish" placeholder="Enter Spanish here">[ <%- model.category %>-<%- model.block_id %> ]&nbsp;<%- model.spanish %>&nbsp;[ end ]</textarea>
+                            </div>
+                            <div data-language="japanese" class="egg-is-hidden-anim">
+                                  <label for="entry-japanese">Japanese:</label>
+                                  <textarea disabled  class="js_lang form-control" id="entry-japanese" placeholder="Enter Japanese here">[ <%- model.category %>-<%- model.block_id %> ]&nbsp;<%- model.japanese %>&nbsp;[ end ]</textarea>
+                          	</div>
+                          <% } %>
+                        </div>
+                    </div>
+                </div>

@@ -1,0 +1,49 @@
+<!--USER PROJECTS-->
+<div class="egg-m-user-projects js_egg_user_projects">
+    <div class="list-group">
+        <div class="list-group-item egg-header">My projects</div>
+            <table>
+                <tr class="js_new_project egg-is-hidden-anim">
+                    <td>New Identifier:</td>
+                    <td colspan="4" class="egg-m-user-projects__result">
+                        <input type="text" class="js_new_project_id form-control" placeholder="--">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Projects:</td>
+                    <td colspan="4" class="egg-m-user-projects__result">
+                        <select class="js_project_selection form-control">
+                            <option class="js_placeholder" value="0" disabled selected>My projects</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Blocks:</td>
+                    <td colspan="4">
+                       <input type="text" class="js_block_ids form-control" placeholder="--" disabled="disabled">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Last created:</td>
+                    <td colspan="4" class="js_new_user_created_entries egg-m-user-projects__last-created"></td>
+                </tr>
+                <tr class="egg-m-user-projects__navi">
+                    <td class="js_create_new_project">
+                        <a class="glyphicon glyphicon-book" title="Create new project"></a>
+                    </td>
+                    <td class="js_fetch_project_blocks">
+                        <a class="glyphicon glyphicon-refresh" title="Fetch current textblocks"></a>
+                    </td>
+                    <td class="js_extend_project_blocks">
+                        <a class="glyphicon glyphicon-circle-arrow-right" title="Extend selection"></a>
+                    </td>                                    
+                    <td class="js_save_project">
+                        <a class="glyphicon glyphicon-floppy-disk" title="Save project"></a>
+                    </td>
+                    <td class="js_delete_project egg-face-danger-backgr-h">
+                        <a class="glyphicon glyphicon-trash" title="Delete project"></a>
+                    </td>
+                </tr>    
+        </table>
+    </div>
+</div>

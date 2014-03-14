@@ -73,7 +73,7 @@ footer {
 @media (max-width: 800px) {
 	
 	.container {
-		min-width: 650px;
+		min-width: 600px;
 	}
 
 
@@ -224,7 +224,10 @@ datalist {
 	border-bottom: 1px solid $col_grey_m;
 
 	.egg-m-item-count {
+		width: 3.5em;
 		font-weight: bold;
+		padding-left: 1.3em;
+		display: inline-block;
 		text-align: center;
 	}
 
@@ -405,18 +408,13 @@ datalist {
 		}
 	}
 
-	[data-category] {
-		/*@include dropshadow-ll;*/
-	}
-
-	[data-category = intro] .egg-m-textblock__header {
-		
-		background-color: $col_blue_m;
-		border: 1px solid $col_blue_m !important;
-
+	[data-category] .egg-m-textblock__header {
+		background: $col_blue_m;
+		border: 1px solid $col_blue_l; 
 	}
 
 	/*
+
 	[data-category = intro] .egg-m-textblock__header {
 		
 		background: rgb(51, 134, 167);
@@ -452,6 +450,7 @@ datalist {
 		background: rgb(90, 9, 97);
 		border: 1px solid rgb(90, 9, 97) !important;
 	}
+
 	*/
 
 	.egg-face-badge {
@@ -519,6 +518,10 @@ datalist {
 	}
 	.egg-navi:hover {
 		opacity: 0.8;
+	}
+
+	.egg-face-included {
+		background-color: $col_blue_l !important;
 	}
 }
 

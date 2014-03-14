@@ -33,7 +33,7 @@ define(function(require) {
 			unsavedContent		: "egg-face-unsaved-data",
 			bookmark 			: "glyphicon-star",
 			unbookmark			: "glyphicon-star-empty",
-			includeInProject 	: "egg-face-confirm-backgr",
+			includeInProject 	: "egg-face-included",
 			formError 			: "egg-face-formError"
 		},
 

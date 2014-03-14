@@ -1,19 +1,21 @@
 // Loads scripts
+// (c)#version
 
 "use strict";
 
 require.config({
 
 	// script root directory
-	baseUrl: "script",
+	baseUrl: "script/blocks",
 	// paths for libs
 	paths: {
-		"underscore"	: "shared/libs/underscore",
-		"backbone" 		: "shared/libs/backbone",
-		"jquery" 		: "shared/libs/jquery",
-		"localStorage"	: "shared/libs/backbone_localStorage",
-		"text"			: "shared/require/text",
-		"bootstrap"     : "shared/libs/bootstrap.min",
+		"underscore"	: "libs/underscore",
+		"backbone" 		: "libs/backbone",
+		"jquery" 		: "libs/jquery",
+		"localStorage"	: "libs/backbone_localStorage",
+		"text"			: "libs/text",
+		"bootstrap"     : "libs/bootstrap.min",
+		"v_mApp" 		: "views/v_mApp"
 
 	},
 	// shims for non-AMD supported libs
@@ -38,7 +40,7 @@ require.config({
 });	
 
 
-require(["jquery", "backbone", "blocks/views/v_mApp"], function($, Backbone, View_app ) {
+require(["jquery", "backbone", "v_mApp"], function($, Backbone, View_app ) {
 
 	// Custom Backbone settings
 	Backbone.View.prototype.close = function(){

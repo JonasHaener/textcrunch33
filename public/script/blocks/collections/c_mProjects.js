@@ -4,7 +4,7 @@ define(function(require) {
 
 	var Backbone = require("backbone"),
 		// /LocalStorage = require("localStorage"),
-		Model = require("blocks/models/m_mProjects"),
+		Model = require("models/m_mProjects"),
 
 	Collection = Backbone.Collection.extend({
 		

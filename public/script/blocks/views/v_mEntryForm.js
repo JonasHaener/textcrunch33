@@ -6,13 +6,13 @@ define(function(require){
 	var _ 				= require("underscore"),
 		$ 				= require("jquery"),
 		Backbone 		= require("backbone"),
-		templ 			= require("text!blocks/templates/tmpl_mEntryForm.html"),
-		templ_tagList	= require("text!blocks/templates/tmpl_option_tag.html"),
-		templ_catList	= require("text!blocks/templates/tmpl_option_cat.html"),
-		Model 			= require("blocks/models/m_mEntry"),
-		Collection_entry= require("blocks/collections/c_mEntry"),
-		helper_tags  	= require("blocks/helpers/helper_tags"),
-		MESSAGES 		= require("blocks/messages/messages"),
+		templ 			= require("text!templates/tmpl_mEntryForm.html"),
+		templ_tagList	= require("text!templates/tmpl_option_tag.html"),
+		templ_catList	= require("text!templates/tmpl_option_cat.html"),
+		Model 			= require("models/m_mEntry"),
+		Collection_entry= require("collections/c_mEntry"),
+		helper_tags  	= require("helpers/helper_tags"),
+		MESSAGES 		= require("messages/messages"),
 
 	View_EntryForm = Backbone.View.extend({
 

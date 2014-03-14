@@ -6,13 +6,13 @@ define(function(require){
 	var _ 					= require("underscore"),
 		$ 					= require("jquery"),
 		Backbone 			= require("backbone"),
-		helpers				= require("blocks/helpers/helper_util"),
-		templNavi			= require("text!blocks/templates/tmpl_mProjects_navi.html"),
-		templProjects   	= require("text!blocks/templates/tmpl_mProjects_projects.html"),
-		templNewCreatEntries= require("text!blocks/templates/tmpl_mProjects_newCreatedUserEntries.html"),
-		Model_Project 		= require("blocks/models/m_mProjects"), 
-		Collection_Projects = require("blocks/collections/c_mProjects"),
-		MESSAGES			= require("blocks/messages/messages"),
+		helpers				= require("helpers/helper_util"),
+		templNavi			= require("text!templates/tmpl_mProjects_navi.html"),
+		templProjects   	= require("text!templates/tmpl_mProjects_projects.html"),
+		templNewCreatEntries= require("text!templates/tmpl_mProjects_newCreatedUserEntries.html"),
+		Model_Project 		= require("models/m_mProjects"), 
+		Collection_Projects = require("collections/c_mProjects"),
+		MESSAGES			= require("messages/messages"),
 
 
 	View_Projects = Backbone.View.extend({

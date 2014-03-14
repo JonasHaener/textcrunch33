@@ -4,7 +4,7 @@ define(function(require) {
 	
 	var _ 		 	= require("underscore"),
 		$		 	= require("jquery"),
-		templTag	= require("text!blocks/templates/tmpl_tag.html"),
+		templTag	= require("text!templates/tmpl_tag.html"),
  	
 	tagging =
 	{

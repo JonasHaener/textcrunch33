@@ -5,7 +5,7 @@ define(function(require) {
 	var _ 		 = require("underscore"),
 		$		 = require("jquery"),
 		Backbone = require("backbone"),
-		templ	 = require("text!blocks/templates/templ_model.html"),
+		templ	 = require("text!templates/templ_model.html"),
  	
 	View_model = Backbone.View.extend({
 		

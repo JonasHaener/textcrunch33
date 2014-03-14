@@ -6,7 +6,7 @@ define(function(require){
 	var _ 				= require("underscore"),
 		$ 				= require("jquery"),
 		Backbone 		= require("backbone"),
-		templ 			= require("text!blocks/templates/tmpl_mFooter.html"),
+		templ 			= require("text!templates/tmpl_mFooter.html"),
 
 	View_Footer = Backbone.View.extend({
 		tagName: "div",

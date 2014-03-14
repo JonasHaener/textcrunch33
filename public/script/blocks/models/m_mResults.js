@@ -5,8 +5,8 @@ define(function(require) {
 	var _ 		 	= require("underscore"),
 		$		 	= require("jquery"),
 		Backbone 	= require("backbone"),
-		templ 	 	= require("text!blocks/templates/tmpl_mEntry.html"),
-		View_Entry 	= require("blocks/views/v_mEntry"),
+		templ 	 	= require("text!templates/tmpl_mEntry.html"),
+		View_Entry 	= require("views/v_mEntry"),
  	
 	View_Result = Backbone.View.extend({
 		

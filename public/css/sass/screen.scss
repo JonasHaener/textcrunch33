@@ -411,6 +411,14 @@ datalist {
 
 	[data-category = intro] .egg-m-textblock__header {
 		
+		background-color: $col_blue_m;
+		border: 1px solid $col_blue_m !important;
+
+	}
+
+	/*
+	[data-category = intro] .egg-m-textblock__header {
+		
 		background: rgb(51, 134, 167);
 		border: 1px solid rgb(51, 134, 167) !important;
 	}
@@ -444,6 +452,7 @@ datalist {
 		background: rgb(90, 9, 97);
 		border: 1px solid rgb(90, 9, 97) !important;
 	}
+	*/
 
 	.egg-face-badge {
 		background-color: $col_grey_ll;
@@ -490,7 +499,7 @@ datalist {
 
 	li {
 		display: inline-block;
-		border-right: solid 1px $col_grey_l;
+		border-right: solid 1px $col_blue_l;
 		float: left;
 		padding: .5em 1em 0.5em 1em; 
 		height: 100%;
@@ -552,8 +561,8 @@ datalist {
 		border: none;
 		/*border: 1px solid $col_grey_l;*/
 		border-radius: 0.2em ;
-		height: 5em;
-		max-height: 10em;
+		height: 8em;
+		max-height: 15em;
 		width: 100%;
 		max-width: 100%;
 		margin-bottom: .3em;

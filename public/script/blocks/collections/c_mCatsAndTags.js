@@ -4,7 +4,7 @@ define(function(require) {
 
 	var Backbone = require("backbone"),
 		// /LocalStorage = require("localStorage"),
-		Model = require("blocks/models/m_mCatsAndTags"),
+		Model = require("models/m_mCatsAndTags"),
 
 	Collection_CatsAndTags = Backbone.Collection.extend({
 		// customize this collection to accept

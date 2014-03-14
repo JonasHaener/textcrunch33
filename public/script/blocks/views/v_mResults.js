@@ -6,10 +6,10 @@ define(function(require){
 	var _ 				= require("underscore"),
 		$ 				= require("jquery"),
 		Backbone 		= require("backbone"),
-		templ_block		= require("text!blocks/templates/tmpl_mResults.html"),
-		templ_tagList	= require("text!blocks/templates/tmpl_option_tag.html"),
-		templ_catList	= require("text!blocks/templates/tmpl_option_cat.html"),
-		View_Entry		= require("blocks/views/v_mEntry"),
+		templ_block		= require("text!templates/tmpl_mResults.html"),
+		templ_tagList	= require("text!templates/tmpl_option_tag.html"),
+		templ_catList	= require("text!templates/tmpl_option_cat.html"),
+		View_Entry		= require("views/v_mEntry"),
 		bootstrap 		= require("bootstrap"),
 
 	View_Results = Backbone.View.extend({

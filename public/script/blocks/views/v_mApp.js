@@ -6,21 +6,21 @@ define(function(require) {
 	var	_ 					= require("underscore"),
 		$ 					= require("jquery"),	
 		Backbone 			= require("backbone"),
-		View_AppNavi 		= require("blocks/views/v_mAppNavi"),
-		View_Results 		= require("blocks/views/v_mResults"),
-		View_Projects 		= require("blocks/views/v_mProjects"),
-		View_SearchStats 	= require("blocks/views/v_mSearchStats"),
-		View_SearchSettings = require("blocks/views/v_mSearchSetting"),
-		View_Footer			= require("blocks/views/v_mFooter"),
-		View_EntryForm		= require("blocks/views/v_mEntryForm"),
+		View_AppNavi 		= require("views/v_mAppNavi"),
+		View_Results 		= require("views/v_mResults"),
+		View_Projects 		= require("views/v_mProjects"),
+		View_SearchStats 	= require("views/v_mSearchStats"),
+		View_SearchSettings = require("views/v_mSearchSetting"),
+		View_Footer			= require("views/v_mFooter"),
+		View_EntryForm		= require("views/v_mEntryForm"),
 		// Collection_Entries used as 
 		// a global collection
-		Collection_Entries		= require("blocks/collections/c_mSearchSetting"),
-		Collection_CatsAndTags 	= require("blocks/collections/c_mCatsAndTags"),
-		Collection_NewEntries   = require("blocks/collections/c_mEntry"),
-		Collection_PrefetchEntries = require("blocks/collections/c_mPreEntry"),
+		Collection_Entries		= require("collections/c_mSearchSetting"),
+		Collection_CatsAndTags 	= require("collections/c_mCatsAndTags"),
+		Collection_NewEntries   = require("collections/c_mEntry"),
+		Collection_PrefetchEntries = require("collections/c_mPreEntry"),
 		// uses to route messages
-		Message_Router			= require("blocks/routers/r_router"),
+		Message_Router			= require("routers/r_router"),
 
 
 	// App view

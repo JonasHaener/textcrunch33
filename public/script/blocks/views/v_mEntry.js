@@ -5,9 +5,9 @@ define(function(require) {
 	var _ 		 	= require("underscore"),
 		$		 	= require("jquery"),
 		Backbone 	= require("backbone"),
-		templ	 	= require("text!blocks/templates/tmpl_mEntry.html"),
-		MESSAGES 	= require("blocks/messages/messages"),
-		helper_tags = require("blocks/helpers/helper_tags"),
+		templ	 	= require("text!templates/tmpl_mEntry.html"),
+		MESSAGES 	= require("messages/messages"),
+		helper_tags = require("helpers/helper_tags"),
  	
 	
 	View_Entry = Backbone.View.extend({

@@ -3,7 +3,7 @@
 define(function(require) {
 	
 	var Backbone = require("backbone"),
-		messages = require("blocks/messages/messages"),
+		messages = require("messages/messages"),
 		
 
 	Model_Projects = Backbone.Model.extend({

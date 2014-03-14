@@ -6,12 +6,12 @@ define(function(require){
 	var _ 				= require("underscore"),
 	$ 					= require("jquery"),
 	Backbone 			= require("backbone"),
-	templView 			= require("text!blocks/templates/tmpl_mSearchSettings.html"),
-	templTags			= require("text!blocks/templates/tmpl_tag.html"),
-	templCatsAndTags 	= require("text!blocks/templates/tmpl_option_cats_and_tags.html"),
-	helper_tags 		= require("blocks/helpers/helper_tags"),
-	helper_util 		= require("blocks/helpers/helper_util"),
-	MESSAGES 			= require("blocks/messages/messages"), 
+	templView 			= require("text!templates/tmpl_mSearchSettings.html"),
+	templTags			= require("text!templates/tmpl_tag.html"),
+	templCatsAndTags 	= require("text!templates/tmpl_option_cats_and_tags.html"),
+	helper_tags 		= require("helpers/helper_tags"),
+	helper_util 		= require("helpers/helper_util"),
+	MESSAGES 			= require("messages/messages"), 
 
 	View_SearchSettings = Backbone.View.extend({
 

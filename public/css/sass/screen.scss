@@ -22,6 +22,10 @@ a {
 	cursor: default !important;
 }
 
+h1 {
+	font-size: 1.5em;
+}
+
 textarea, input, select, .egg-tag-holder {
 	border: 1px solid $col_grey_l !important;
 	border-radius: 0.2em;
@@ -42,6 +46,13 @@ textarea, input, select, .egg-tag-holder {
 		color: #FFF;
 		background: $col_blue_m;
 		border: 1px solid $col_blue_m;
+		font-weight: bold;
+	}
+}
+
+@mixin egg_table_headers_left {
+	tr > td:first-of-type {
+		background-color: $col_grey_ll;
 		font-weight: bold;
 	}
 }
@@ -651,3 +662,54 @@ datalist {
 	@include grad-grey-lll;
 }
 
+
+
+
+.egg-m-stats {
+	@include eggModuleHeader;
+
+	margin-bottom: 2em; 
+
+	h1 {
+		margin-bottom: 1em;
+	}
+
+	/*
+	.col-md-4 {
+		padding-left: 0;
+		padding-right: 1em;
+	}
+	*/
+	
+	thead {
+		font-weight: bold;
+		margin-top: 0.5em;
+		background-color: $col_grey_ll;
+	}
+
+	.egg-m-stats-blocks {
+		@include egg_table_headers_left;
+	}
+
+	.egg-m-stats-tags {
+		@include egg_table_headers_left;
+
+		textarea {
+			padding: 0;
+			max-width: 25em;
+			min-width: 20em;
+			max-height: 5.5em;			
+		}
+	}
+
+	.egg-m-stats-import-data {
+		.form-control {
+			background-color: $col_grey_ll;
+			padding: .5em 0.5em 0.5 2em;
+		}	
+	}
+	
+
+
+
+}

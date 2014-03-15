@@ -25,32 +25,33 @@
 .egg-face-confirm-backgr-h:hover {
   background: #a4da54 !important;
   background-color: #a4da54 !important;
+  color: #FFF;
 }
 
-/* line 28, ../sass/egg_warnings.scss */
+/* line 29, ../sass/egg_warnings.scss */
 .egg-face-confirm-backgr {
   background: #a4da54 !important;
   background-color: #a4da54 !important;
 }
 
-/* line 33, ../sass/egg_warnings.scss */
+/* line 34, ../sass/egg_warnings.scss */
 .egg-face-error-backgr {
   background: red !important;
   background-color: red !important;
 }
 
-/* line 38, ../sass/egg_warnings.scss */
+/* line 39, ../sass/egg_warnings.scss */
 .egg-face-formError {
   border: 2px solid red !important;
 }
 
-/* line 42, ../sass/egg_warnings.scss */
+/* line 43, ../sass/egg_warnings.scss */
 .egg-face-inprogress {
   background: #F1B73C !important;
   background-color: #F1B73C !important;
 }
 
-/* line 47, ../sass/egg_warnings.scss */
+/* line 48, ../sass/egg_warnings.scss */
 .egg-face-unsaved-data {
   background: #464646 !important;
   background-color: #464646 !important;

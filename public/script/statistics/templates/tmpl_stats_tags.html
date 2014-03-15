@@ -1,0 +1,25 @@
+<!-- TAGS -->
+<div class="row">
+   <!--tags-->
+    <div class="egg-m-stats egg-m-stats-tags js_stats_tags col-md-6">
+        <div class="list-group">
+            <div class="list-group-item egg-header">Tags</div>
+            <table class="table table-bordered table-responsive">
+                <tr>
+                    <td>Total</td>
+                    <td class="egg-face-center"><%- total %></td> <!-- Total available tags -->
+                </tr>
+                <tr>
+                    <td>Unused</td>
+                    <td class="egg-face-center"><%- total_unused %></td> <!-- Total not assigned to any block -->
+                </tr>
+                <tr>
+                    <td>Unused tags</td>
+                    <td  class="egg-face-center">
+                        <textarea class="js_unused_tags"><%- unused_listed %></textarea> <!-- Tag names not assigned to any block listed here -->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+2014-03-05:
+- Templates created
+- collections views models files created
+- require config set up
+
+@continue with allocating views
+
+** Users shall receive their own modules (collection)
+** Rest of stats collected as a whole

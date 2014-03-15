@@ -1,9 +1,9 @@
 /*
 Syntax error: Undefined variable: "$col_green_lemon".
-        on line 47 of C:/Apache24/htdocs/textcrunch33/public/css/sass/egg_faces.scss
+        on line 51 of C:/Apache24/htdocs/textcrunch33/public/css/sass/egg_faces.scss
 
 Backtrace:
-C:/Apache24/htdocs/textcrunch33/public/css/sass/egg_faces.scss:47
+C:/Apache24/htdocs/textcrunch33/public/css/sass/egg_faces.scss:51
 C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/script/variable.rb:49:in `_perform'
 C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/script/node.rb:40:in `perform'
 C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.12/lib/sass/script/list.rb:71:in `block in _perform'
@@ -78,4 +78,4 @@ C:/Ruby193/bin/compass:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$col_green_lemon\".\A         on line 47 of C:/Apache24/htdocs/textcrunch33/public/css/sass/egg_faces.scss"; }
+  content: "Syntax error: Undefined variable: \"$col_green_lemon\".\A         on line 51 of C:/Apache24/htdocs/textcrunch33/public/css/sass/egg_faces.scss"; }

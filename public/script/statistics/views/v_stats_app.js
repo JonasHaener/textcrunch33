@@ -6,43 +6,39 @@ define(function(require) {
 	var	_ 					= require("underscore"),
 		$ 					= require("jquery"),	
 		Backbone 			= require("backbone"),
-		View_AppNavi 		= require("views/v_mAppNavi"),
-		View_Results 		= require("views/v_mResults"),
-		View_Projects 		= require("views/v_mProjects"),
-		View_SearchStats 	= require("views/v_mSearchStats"),
-		View_SearchSettings = require("views/v_mSearchSetting"),
+		View_MainNavi		= require("views/v_stats_main_navi"),
+		View_Category		= require("views/v_stats_categories"),
+		View_Users			= require("views/v_stats_users"),
+		View_Tags			= require("views/v_stats_tags"),
+		View_Blocks			= require("views/v_stats_blocks"),
+		View_Import			= require("views/v_stats_import"),
 		View_Footer			= require("views/v_mFooter"),
-		View_EntryForm		= require("views/v_mEntryForm"),
-		// Collection_Entries used as 
-		// a global collection
-		Collection_Entries		= require("collections/c_mSearchSetting"),
-		Collection_CatsAndTags 	= require("collections/c_mCatsAndTags"),
-		Collection_NewEntries   = require("collections/c_mEntry"),
-		Collection_PrefetchEntries = require("collections/c_mPreEntry"),
+
+		Collection_Other	= require("collections/c_stats_other"),
+		Collection_Users 	= require("collections/c_stats_users"),
 		// uses to route messages
-		Message_Router			= require("routers/r_router"),
+		Message_Router		= require("routers/r_stats_router"),
 
 
 	// App view
 	View_app = Backbone.View.extend({
 
 		el: "#js_mApp",
-
+		
 		mainNaviContainer 	: $("#js_mAppNavi"),
 		contentContainer	: $("#js_mContent"),
-		rightColContainer 	: $("#js_col_right"),
-		leftColContainer 	: $("#js_col_left"),
+		statistics 			: $("#js_mStatistics"),
 		footer 				: $("#js_mFooter"),
 
 		tempViews: {
 			mainNavi : {},
-			rightCol : {},
-			leftCol: {},
+			statistics : {},
 			footer: {}
 		},
 
+		// keep reference fro cleaning up
 		views: {},
-		
+
 		cleanUp: function()
 		{
 			console.log("cleanup called");
@@ -75,10 +71,7 @@ define(function(require) {
 
 		CUSTEVENTS:
 		{
-			tagsAndCatsLoaded	: "tagsAndCatsLoaded",
-			updateComplete		: "updateComplete",
-			updateError  		: "updateError",
-			refreshTags 	    : "refreshTags"
+
 		},
 		
 		CSS: {
@@ -87,81 +80,75 @@ define(function(require) {
 		},
 		
 		initialize: function() {
-			// blockEntries holds collections
-			// for sharing
-			this.collections.blockEntries = new Collection_Entries();
-			// sharing
-			this.collections.catsAndTags = new Collection_CatsAndTags();
-			// message routing
-			this.collections.newEntries  = new Collection_NewEntries();
-			// prefetch entries
-			this.collections.preFetchEntries = new Collection_PrefetchEntries();
+			// users
+			this.collections.users = new Collection_Users();
+			// All Other statistics
+			this.collections.other = new Collection_Other();
 			// message router 
 			this.router = new Message_Router();
 			// prepare all childviews
 			this.prepChildViews();
-			// refresh tags and cats
-			this.listenTo(this.collections.catsAndTags, this.CUSTEVENTS.refreshTags, this.fetchCategoriesAndTags)
+		},
+
+		assignHooks: function()
+		{
+
 		},
 
 		prepChildViews: function() {
-			// ##App Navi
-			var appNavi = this.views.appNavi = new View_AppNavi();
+			// main navi
+			var appNavi = this.views.appNavi = new View_MainNavi();
 			this.tempViews.mainNavi[ appNavi.cid ] = appNavi;
-			appNavi.setForeignCollection({ 
-				blockEntries  : this.collections.blockEntries
-			});
 			appNavi.router = this.router;
 		
-			// ##EntryForm
-			var entryForm = this.views.entryForm = new View_EntryForm();
-			this.tempViews.leftCol[ entryForm.cid ] = entryForm;
-			entryForm.setForeignCollection({ 
-				catsAndTags  : this.collections.catsAndTags,
-				newEntries   : this.collections.newEntries
-
+			// users 
+			var users = this.views.users = new View_Users();
+			this.tempViews.statistics[ users.cid ] = users;
+			users.setForeignCollection({ 
+				users  : this.collections.users,
 			});
-			entryForm.router = this.router;
+			users.router = this.router;
 		
-			// ##Results 
-			var results = this.views.results = new View_Results();
-			results.setForeignCollection({ 
-				blockEntries : this.collections.blockEntries,
-				catsAndTags  : this.collections.catsAndTags 
+			// tags 
+			var tags = this.views.tags = new View_Tags();
+			this.tempViews.statistics[ tags.cid ] = tags;
+			tags.setForeignCollection({ 
+				other  : this.collections.other 
 			});
-			results.router = this.router;
-			this.tempViews.leftCol[ results.cid ] = results;
-
-		
-			// ##SearchSettings
-			var searchSett = this.views.searchSett = new View_SearchSettings();
-			// pass in block entry collection
-			searchSett.setForeignCollection({ 
-				blockEntries : this.collections.blockEntries,
-				catsAndTags  : this.collections.catsAndTags,
-				prefetchEntries : this.collections.preFetchEntries
-			});
-			searchSett.router = this.router;
-			// assign temp view
-			this.tempViews.rightCol[ searchSett.cid ] = searchSett;
+			tags.router = this.router;
 			
-
-			// ##Projects 
-			var projects = this.views.projects = new View_Projects(); 
-			this.tempViews.rightCol[ projects.cid ] = projects;
-			projects.setForeignCollection({ 
-				blockEntries: this.collections.blockEntries,
-				newEntries 	: this.collections.newEntries
+			// blocks
+			var blocks = this.views.blocks = new View_Blocks();
+			this.tempViews.statistics[ blocks.cid ] = blocks;
+			blocks.setForeignCollection({ 
+				other  : this.collections.other
 			});
-			projects.router = this.router;
+			blocks.router = this.router;
+						
+			// categories 
+			var categories = this.views.categories = new View_Category(); 
+			this.tempViews.statistics[ categories.cid ] = categories;
+			categories.setForeignCollection({ 
+				other 	: this.collections.other
+			});
+			categories.router = this.router;
 
-			// ##SearchStats 
-			//var searchStats = this.views.searchStats = new View_SearchStats(); 
-			//this.tempViews.rightCol[ searchStats.cid ] = searchStats;
-			
-			// ##Footer
+			// data import 
+			var dataImport = this.views.dataImport = new View_Import(); 
+			this.tempViews.statistics[ dataImport.cid ] = dataImport;
+			dataImport.setForeignCollection({ 
+				other 	: this.collections.other
+			});
+			dataImport.router = this.router;
+
+			// footer
 			var footer = this.views.footer = new View_Footer();
 			this.tempViews.footer[ footer.cid ] = footer;
+
+			//append fake views to DOM
+			this.mainNaviContainer.append( this.fakeChildViews(this.tempViews.mainNavi) );
+			this.statistics.append( this.fakeChildViews(this.tempViews.statistics) );
+			this.footer.append( this.fakeChildViews(this.tempViews.footer) );
 		},
 
 		fakeChildViews: function(childViews) {
@@ -177,6 +164,7 @@ define(function(require) {
 		},
 
 		renderChildViews: function() {
+			console.log("render child view runs");
 			// assign views according to their cid placeholders
 			var n, 
 				c = 0,
@@ -202,37 +190,8 @@ define(function(require) {
 	
 		},
 		
-		fetchCategoriesAndTags: function()
-		{
-			var _this = this;
-
-			this.collections.catsAndTags.fetch(
-			{	
-				success: function(collection, response, options)
-				{
-					// trigger loaded event
-					_this.collections.catsAndTags.trigger(_this.CUSTEVENTS.tagsAndCatsLoaded);
-					_this.router.tagsLoaded(true);	
-				},
-		
-				error: function(collection, response, options)
-				{
-					_this.router.tagsLoaded(false);	
-				}
-			});
-		},
-		
 		render: function() {
-			//append child views to DOM
-			this.mainNaviContainer.append( this.fakeChildViews(this.tempViews.mainNavi) );
-			this.rightColContainer.append( this.fakeChildViews(this.tempViews.rightCol) );
-			this.leftColContainer.append( this.fakeChildViews(this.tempViews.leftCol) );
-			this.footer.append( this.fakeChildViews(this.tempViews.footer) );
 			this.renderChildViews();
-			// set the notication DOM element
-			//this.router.setNotifierElement();			
-			// fetch categories and tags from DB
-			this.fetchCategoriesAndTags();
 			// set App date
 			this.setAppData();
 		}

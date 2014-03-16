@@ -2,77 +2,52 @@
 
 define(function(require) {
 	
-	var _ 		 = require("underscore"),
-		$		 = require("jquery"),
-		Backbone = require("backbone"),
-		templ	 = require("text!templates/templ_model.html"),
- 	
-	View_model = Backbone.View.extend({
+	var Backbone = require("backbone"),
+		messages = require("messages/messages"),
 		
-		// for deletion update
-		//url: "server/server.php",
-		/*
-		url: function() { 
-			return '/remove/' + encodeURIComponent(this.id);
-		},
-		*/
+
+	Model = Backbone.Model.extend({
 		
-		tagName: "div",
-	    className: 'item',
-	 	template: _.template( templ ),
+		idAttribute : "user_id",
+		
+		defaults: {
+	        tags		: null,
+	        blocks		: null,
+	        categories	: null
 
-		initialize: function() {
-			this.listenTo(this.model, "change", this.render);
+	        /* JSON format needed
+	        tags: {
+	        	total: 0,
+	        	total_unused: 0,
+	        	unused_listed: ""
+	        },
+	        blocks: {
+				total: 0,
+				average_tags: 0
+	        },
+	        categories: {
+				name: "",
+				blocks: 0
+	        }
+	        */
+
 		},
 
-		events: {
-			"click .js_delete_item"		: "delete",
-			"dblclick .js_item_input" 	: "edit",
-			"blur .js_item_input" 		: "close"
+		initialize: function()
+		{
+			this.on("invalid", function(model, error)
+			{
+
+			});
+
 		},
 
-		render: function() {
-			this.$el.html( this.template(this.model.toJSON()) );
-			if(!this.$input) {
-				this.$input = this.$('.js_item_input');
-			}
-			return this;	
-		},
+		validate: function(attrs)
+		{
 
-		edit: function() {
-			console.log('editor runs');
-			//this.$input.prop('disabled', false);
-		},
-
-		validateInp: function(inp) {
-			return inp !== "";
-		},
-
-		close: function() {
-			var inpFirstName 	= $('.js-md-firstname').val().trim(),
-				inpLastName 	= $('.js-md-lastname').val().trim(),
-				inpLikes 		= $('.js-md-likes').val().trim();
-
-
-			if( this.validateInp() === true) {
-				this.model.save({ 
-						firstname: inpFirstName,
-						lastname: inpLastName,
-						likes: inpLikes
-				});
-			}
-			this.$input.prop('disabled', "disabled");
-		},
-
-		'delete': function() {
-			//destroy model
-			this.model.destroy();
-			// remove view from DOM
-			this.$el.remove();
-		}
-
+		}		
 	});
 
-	return View_model;
+	return Model;
 
 });	

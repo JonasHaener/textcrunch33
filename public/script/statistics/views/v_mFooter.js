@@ -6,9 +6,9 @@ define(function(require){
 	var _ 				= require("underscore"),
 		$ 				= require("jquery"),
 		Backbone 		= require("backbone"),
-		templ 			= require("text!templates/tmpl_mSearchStats.html"),
+		templ 			= require("text!templates/tmpl_mFooter.html"),
 
-	View_SearchStats = Backbone.View.extend({
+	View_Footer = Backbone.View.extend({
 		tagName: "div",
 		className: "",
 
@@ -23,7 +23,7 @@ define(function(require){
 		},
 			
 		render: function() {
-			this.$el.html( this.template() );
+			this.$el.html( this.template({ year: window.APP.year }) );
 			return this;
 		},
 
@@ -31,10 +31,10 @@ define(function(require){
 		onClose: function()
 		{
 			console.log("cleanup runs in view onClose");
-		},
+		}
 
 	});
 
-	return View_SearchStats;
+	return View_Footer;
 
 });

@@ -24,7 +24,8 @@ require_once "../application/includes/session.inc.php";
         <div id="js_mAppNavi"></div>
         <!--CONTAINER-->
         <div id="js_mContents" class="container egg-m-stats egg-l-contents-container">
-            <h1>Statistics</h1>    
+            <h1>Statistics</h1>
+            <div id="js_mStatistics"></div>       
             <div class="row">
                 <div id="js_mFooter"></div>    
             </div>
@@ -32,14 +33,11 @@ require_once "../application/includes/session.inc.php";
     </div>  <!--App container END-->    
 <!-- SCRIPTS -->
     
-<!--
 
-    <script data-main="script/statistics/app" src="script/blocks/libs/require.js"></script>    
+    <script data-main="script/statistics/app" src="script/statistics/libs/require.js"></script>    
     <script id="appdata">
         window.APP = { user: '<?php echo $user; ?>', year: '<?php echo $year; ?>', domain: '<?php echo $domain; ?>' };
     </script>
-
--->
 
 
 </body>

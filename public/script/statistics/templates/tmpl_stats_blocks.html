@@ -6,16 +6,21 @@
           <table class="table table-bordered table-responsive">
              <tr>
                  <td>Total</td>
-                 <td class="egg-face-center"><%- total %></td> <!-- Total blocks -->
+                 <td class="egg-face-center">
+                     <% if(blocks.total) { print(blocks.total); } else { print("0"); } %>
+                   </td> <!-- Total blocks -->
              </tr>
              <tr>
                  <td>Average tags</td>
-                 <td class="egg-face-center"><%- average_tags %></td> <!-- Average tags per block -->
+                 <td class="egg-face-center">
+                   <% if(blocks.average_tags) { print(blocks.average_tags); } else { print("0"); } %>
+                 </td> <!-- Average tags per block -->
              </tr>                         
           </table>
       <div>
   </div>
+</div>  
 <!--********************Bug fix ********--> 
-  </div></div></div>
+  <!--</div></div></div>-->
 <!--********************Bug fix ********--> 
-</div>   
+ <!--closes view opened im tags view-->   

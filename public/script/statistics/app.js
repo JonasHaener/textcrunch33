@@ -42,6 +42,8 @@ require.config({
 
 require(["jquery", "backbone", "v_stats_app"], function($, Backbone, View_app ) {
 
+	console.log("init runs");
+	
 	// Custom Backbone settings
 	Backbone.View.prototype.close = function(){
   		console.log("Backbone prototype close runs");

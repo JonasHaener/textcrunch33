@@ -8,32 +8,32 @@ define(function(require) {
 
 	Model = Backbone.Model.extend({
 		
-		idAttribute : "cat_id",
+		idAttribute : "user_id",
 		
 		defaults: {
-	        id: 0,
-	        categories: [],
-	        tags: []
+	        username		: "",
+	        rights_name		: "",
+	        projects		: 0,
+	        blocks_created	: 0,
+	        blocks_deleted	: 0,
+	        last_login		: ""
+
+
 		},
 
 		initialize: function()
 		{
 			this.on("invalid", function(model, error)
 			{
-				alert( error );
+
 			});
 
 		},
 
 		validate: function(attrs)
 		{
-			
-			if(attrs.category.length <= 0)
-			{
-				return messages.model_categ_missing;
-			}
 
-		}
+		}		
 	});
 
 	return Model;

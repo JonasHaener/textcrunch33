@@ -7,19 +7,26 @@
             <table class="table table-bordered table-responsive">
                 <tr>
                     <td>Total</td>
-                    <td class="egg-face-center"><%- total %></td> <!-- Total available tags -->
+                    <td class="egg-face-center">
+                        <% if(tags.total) { print(tags.total); } %>
+                    </td> <!-- Total available tags -->
                 </tr>
                 <tr>
                     <td>Unused</td>
-                    <td class="egg-face-center"><%- total_unused %></td> <!-- Total not assigned to any block -->
+                    <td class="egg-face-center">
+                        <% if(tags.total_unused) { print(tags.total_unused); } %>
+                    </td> <!-- Total not assigned to any block -->
                 </tr>
                 <tr>
                     <td>Unused tags</td>
                     <td  class="egg-face-center">
-                        <textarea class="js_unused_tags"><%- unused_listed %></textarea> <!-- Tag names not assigned to any block listed here -->
+                        <textarea class="js_unused_tags">
+                            <% if(tags.unused_listed) { print(tags.unused_listed); } %>
+                        </textarea>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
-</div>
+</div>    
+<!--row is closed on blocks view-->

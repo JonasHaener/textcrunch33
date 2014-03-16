@@ -887,12 +887,6 @@ datalist {
 /* line 668, ../sass/screen.scss */
 .egg-m-stats {
   margin-bottom: 2em;
-  /*
-  .col-md-4 {
-  	padding-left: 0;
-  	padding-right: 1em;
-  }
-  */
 }
 /* line 45, ../sass/screen.scss */
 .egg-m-stats .egg-header {
@@ -905,7 +899,7 @@ datalist {
 .egg-m-stats h1 {
   margin-bottom: 1em;
 }
-/* line 684, ../sass/screen.scss */
+/* line 677, ../sass/screen.scss */
 .egg-m-stats thead {
   font-weight: bold;
   margin-top: 0.5em;
@@ -921,14 +915,14 @@ datalist {
   background-color: #e6e6e6;
   font-weight: bold;
 }
-/* line 697, ../sass/screen.scss */
+/* line 690, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-tags textarea {
   padding: 0;
   max-width: 25em;
   min-width: 20em;
   max-height: 5.5em;
 }
-/* line 706, ../sass/screen.scss */
+/* line 699, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-import-data .form-control {
   background-color: #e6e6e6;
   padding: .5em 0.5em 0.5 2em;

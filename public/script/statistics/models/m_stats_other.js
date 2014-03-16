@@ -8,8 +8,7 @@ define(function(require) {
 
 	Model = Backbone.Model.extend({
 		
-		idAttribute : "user_id",
-		
+
 		defaults: {
 	        tags		: null,
 	        blocks		: null,

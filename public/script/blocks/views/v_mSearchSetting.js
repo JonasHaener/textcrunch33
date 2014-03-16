@@ -437,7 +437,6 @@ define(function(require){
 		{	
 			this.router.inprogress(true);
 			collection.fetch(configs);
-			this.router.inprogress(false);
 		},
 
 
@@ -480,12 +479,15 @@ define(function(require){
 					}  else {
 						_this.router.actionError();
 					}
+
+					_this.router.inprogress(false);
 				},
 				
 				error: function(collection, response, options)
 				{
 					// alert error
 					_this.router.actionError();
+					_this.router.inprogress(false);
 				} 
 			};
 			
@@ -528,20 +530,24 @@ define(function(require){
 				success: function(collection, response, options)
 				{
 					if(response.length > 0) {
+						
+						console.log(collection);
+
 						// if no records are found GET HTTP response is 204 -> no error
 						// alert user however of no records found
 						// collection lenght is lenght of entire collection not just added new ones
 						// compare length
 						_this.collections.blockEntries.trigger(_this.CUSTEVENTS.blocksLoaded);
-						//_this.router.trigger(_this.CUSTEVENTS.actionSuccess);
-						//_this.router.trigger("success");
 						_this.router.actionSuccess();
-					
+
 					} else {
 						// if fetch fails restore ids
 						//_this.restoreDataIds( blockIdsToFetch );
 						_this.router.actionError();
 					}
+
+					// remove progress bar
+					_this.router.inprogress(false);					
 					
 					// indicates if more data can be fetched
 					_this.notifyMoreDataToFetch();	

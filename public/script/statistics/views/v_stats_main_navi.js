@@ -43,12 +43,10 @@ define(function(require){
 			in_progress		: "egg-face-inprogress",
 		},
 
-		initialize: function() {
+		assignHooks: function()
+		{	
 			this.$notifier 		=  this.$(".js_notify_user");
 			this.$inprogress 	=  this.$(".js_processing");
-			this.$totalCount    =  this.$(".js_total_item_count");
-			this.$getMoreResults = this.$(".js_get_more_results");
-			
 		},
 
 		// cleanup Events view
@@ -76,11 +74,16 @@ define(function(require){
 			
 		render: function() {
 			this.$el.html( this.template() );
+			this.assignHooks();
 			this.addListeners();
 			return this;
 		},
 
 		inprogress: function(flag) {
+			
+console.log("success received");
+
+			
 			if(flag.flag !== true && flag.flag !==  false) {
 				throw "Expect boolean argument";
 				return;

@@ -90,6 +90,19 @@ define(function(require) {
 			// trigger stats retrieval for other stats
 			// users stats are fetched from users view
 			this.listenTo(this.router, this.CUSTEVENTS.getStats, this.getStatistics);
+
+/*
+			this.listenTo(this.collections.users, "all", function() { 
+			console.log("Main view: collection ALL events");
+			});
+			this.listenTo(this.collections.users, "reset", function() { 
+			console.log("MMain view: collection RESET event");
+			});
+			this.listenTo(this.collections.users, "add", function() { 
+			console.log("MMain view: collection ADD event");
+			});
+*/
+
 		},
 
 		assignHooks: function()
@@ -205,9 +218,9 @@ define(function(require) {
 				
 				data: { other_stats : true },
 
-				remove: false,
+				//remove: false,
 
-				reset: true,
+				//reset: true,
 				
 				success: function(collection, response, options)
 				{

@@ -73,8 +73,8 @@ class Stats extends Database {
 
  		## deleted blocks
  		$configs = array( 
-		 "query"    => "SELECT user_id, count(created) AS deleted_blocks FROM blocks_deleted GROUP BY user_id",
-		 "expected" => array("user_id", "deleted_blocks")
+		 "query"    => "SELECT user_id, count(created) AS blocks_deleted FROM blocks_deleted GROUP BY user_id",
+		 "expected" => array("user_id", "blocks_deleted")
 		); 
 		$dbm = new Database_manager($configs, $this->conn);
 		$dbm->exec_select_query_multi(false, false);
@@ -84,9 +84,9 @@ class Stats extends Database {
 			$usr_id = $usr["user_id"];
 			foreach($deleted_blocks as $n => $del) {
 				if($del["user_id"] === $usr_id) {
-					$users[$i]["deleted_blocks"] = $del["deleted_blocks"];
+					$users[$i]["blocks_deleted"] = $del["blocks_deleted"];
 				} else {
-					$users[$i]["deleted_blocks"] = 0;
+					$users[$i]["blocks_deleted"] = "0";
 				}	
 			}
 		}
@@ -96,12 +96,23 @@ class Stats extends Database {
 			return; 
 		}
 
-		// convert string integer values to integer
-		foreach($users as $m => $user) {
-			foreach($user as $c => $item) {
-				if($c === "user_id") {
-					$users[$m][$c] = intval($item);
-				}
+	 	## projects
+ 		$configs = array( 
+		 "query"    => "SELECT user_id, count(*) AS projects FROM projects GROUP BY user_id",
+		 "expected" => array("user_id", "projects")
+		); 
+		$dbm = new Database_manager($configs, $this->conn);
+		$dbm->exec_select_query_multi(false, false);
+		$projects = $dbm->get_result();	
+		
+		foreach($users as $i => $usr) {
+			$usr_id = $usr["user_id"];
+			foreach($projects as $n => $pr) {
+				if($pr["user_id"] === $usr_id) {
+					$users[$i]["projects"] = $pr["projects"];
+				} else {
+					$users[$i]["projects"] = "0";
+				}	
 			}
 		}
 

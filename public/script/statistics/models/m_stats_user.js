@@ -13,10 +13,11 @@ define(function(require) {
 		defaults: {
 	        username		: "",
 	        rights_name		: "",
-	        projects		: 0,
-	        blocks_created	: 0,
-	        blocks_deleted	: 0,
+	        projects		: "",
+	        blocks_created	: "",
+	        blocks_deleted	: "",
 	        last_login		: ""
+		
 		}
 
 	});

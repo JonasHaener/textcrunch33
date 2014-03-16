@@ -45,6 +45,7 @@ if($request_method === "GET")
 			// result size
 			http_response_code(200);
 			echo json_encode($stats->get_result(), true);
+			//echo json_encode(array(array("user_id" => 1)), true);
 		
 		// if no result
 		} else {

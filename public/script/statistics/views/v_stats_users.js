@@ -13,8 +13,6 @@ define(function(require){
 		
 		tagName: "div",
 		
-		className: "",
-
 		templates: {
 			users: _.template( templ )
 		},
@@ -61,20 +59,19 @@ define(function(require){
 		addListeners: function()
 		{
 			this.listenTo(this.collections.users, "add", this.addOneUser);
+			this.listenTo(this.collections.users, "reset", function(e, options) { 
+				this.cleanUp(e, options);
+			});
 			this.listenTo(this.router, this.CUSTEVENTS.getStats, this.getUserStats);
 		},
 
 		addOneUser: function(user)
 		{
-			
-			console.log("add user received");
-
-			var person = new View_user(user);
-			this.$el.append(person.render().el);
+			var person = new View_user({ model : user });
+			this.$(".js_stats_users").append(person.render().el);
 		},
 			
 		render: function() {
-			console.log("USERS rendered");
 			this.$el.html(this.templates.users());
 			//this.assignHooks();
 			this.addListeners();
@@ -86,25 +83,32 @@ define(function(require){
 
 		},
 
+		cleanUp: function(e, options)
+		{
+			if(!options.previousModels) { return; };
+			options.previousModels.forEach(function(model, index){
+				model.trigger("cleanup");
+			});
+
+		},
+
 		fetchEntries: function(collection, configs)
 		{
 			this.router.inprogress(true);
 			collection.fetch(configs);
-			this.router.inprogress(false);
 		},
 
 		getUserStats: function()
 		{
+			
+			this.collections.users.reset();
+
 			var _this = this,
 
 				configs = {
 				
 				data: { users_stats : true },
 
-				remove: false,
-
-				reset: true,
-				
 				success: function(collection, response, options)
 				{
 					if(response.length > 0) {
@@ -114,7 +118,10 @@ define(function(require){
 					} else {
 						_this.router.actionError();
 					}
-					console.log(response);
+					
+					// remove progress bar
+					_this.router.inprogress(false);
+
 				},
 				
 				error: function(collection, response, options)
@@ -124,6 +131,7 @@ define(function(require){
 					// remove progress bar
 					_this.router.inprogress(false);
 				}
+				
 			};
 			
 			// fetch blocks

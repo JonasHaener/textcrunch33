@@ -10,24 +10,20 @@ define(function(require){
 
 	View_AppNavi = Backbone.View.extend({
 		
-		tagName: "div",
+		tagName: "tr",
 		
-		className: "",
-
 		templates: {
 			user:  _.template( templ )
 		},
-
+		
+		/*
 		events: {
 		
 		},
 
-		collections: {
-
-		},
-
 		router: null,
 
+		
 		CUSTEVENTS:
 		{
 
@@ -36,9 +32,11 @@ define(function(require){
 		CSS: {
 
 		},
+		*/
 
 		initialize: function() {
-			
+			// remove views when models are destroyed
+			this.listenTo(this.model, "cleanup", this.close);
 		},
 
 		// cleanup Events view
@@ -48,26 +46,25 @@ define(function(require){
 			this.collections = this.router = null;
 		},
 
-		setForeignCollection: function(collection)
-		{
-			var i;
-			for(i in collection)
-			{
-				this.collections[i] = collection[i];
-			}
-		},
-
 		render: function() {
+			
 			this.$el.html(this.templates.user(this.model.toJSON()));
 			//this.assignHooks();
-			this.addListeners();
+			//this.addListeners();
 			return this;
 		},
 
+		/*
 		assignHooks: function()
 		{	
 
+		},
+
+		addListeners: function()
+		{
+			
 		}
+		*/
 
 	});
 

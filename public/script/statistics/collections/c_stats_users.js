@@ -12,9 +12,6 @@ define(function(require) {
 		url: "/textcrunch33/application/stats.php",
 		model: Model,
 
-		initialize: function() {
-			this.listenTo(this, "add", function() { console.log("Collection has received"); });	
-		}
 	});
 
 	return Collection_Users;

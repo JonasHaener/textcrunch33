@@ -69,8 +69,16 @@ class Database {
 		$qarr = explode('&', $query_string); 
 		$conv = array();
 		foreach($qarr as $key => $val) { 
-  		 	$val = explode('=', $val); 
-   			$conv[ htmlspecialchars( urldecode( $val[0] )) ] = htmlspecialchars( urldecode( $val[1] )); 
+  		 	$val = explode('=', $val);
+  			// convert boolean string values to boolean		 	
+  		 	if(strtolower($val[1]) === "true") {
+  		 		$val[1] = true;
+  		 	
+  		 	} elseif(strtolower($val[1]) === "false") {
+  		 		$val[1] = false;
+  		 	}
+   			// if boolean do not apply urldecode
+   			$conv[ urldecode($val[0]) ] = ( is_bool($val[1]) ) ? $val[1] : urldecode( $val[1] ); 
 		}
 		return $conv; 
 	}

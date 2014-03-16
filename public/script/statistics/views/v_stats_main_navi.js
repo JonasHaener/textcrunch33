@@ -17,7 +17,7 @@ define(function(require){
 		template: _.template( templ ),
 
 		events: {
-			//"click .js_clean_view" 		 	: "cleanView",
+			"click .js_get_stats" 		 	: "getStats",
 			//"click .js_get_more_results" 	: "getMoreResults",
 			//"click .js_show_hide_languages" : "showHideLanguages"
 		},
@@ -34,6 +34,7 @@ define(function(require){
 			actionSuccess 	: "actionSuccess",
 			actionError   	: "actionError",
 			inprogress    	: "inprogress",
+			getStats 		: "getStats"
 		},
 
 		CSS: {
@@ -115,7 +116,12 @@ define(function(require){
 			{
 				hook.removeClass(_this.CSS.errorMessage);
 			}, 1000);
+		},
+
+		getStats: function() {
+			this.router.trigger(this.CUSTEVENTS.getStats);
 		}
+
 	});
 
 	return View_AppNavi;

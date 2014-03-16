@@ -65,18 +65,17 @@ define(function(require) {
 		router: null,
 
 		collections: {
-			// blockEntries (set in initialize)
-			// catsAndTags (set in initialize)
+			// user stats (set in initialize)
+			// other stats (set in initialize)
 		},
 
 		CUSTEVENTS:
 		{
-
+			getStats: "getStats"
 		},
 		
 		CSS: {
-			confirmMessage	: "egg-face-confirm-backgr",
-			errorMessage  	: "egg-face-error-backgr"
+
 		},
 		
 		initialize: function() {
@@ -88,6 +87,9 @@ define(function(require) {
 			this.router = new Message_Router();
 			// prepare all childviews
 			this.prepChildViews();
+			// trigger stats retrieval for other stats
+			// users stats are fetched from users view
+			this.listenTo(this.router, this.CUSTEVENTS.getStats, this.getStatistics);
 		},
 
 		assignHooks: function()
@@ -184,17 +186,52 @@ define(function(require) {
 			}	
 		},
 
-		setAppData: function()
-		{
-			this.$("#user").text(window.APP.user);
-	
-		},
-		
 		render: function() {
 			this.renderChildViews();
-			// set App date
-			this.setAppData();
+		},
+
+		fetchEntries: function(collection, configs)
+		{
+			this.router.inprogress(true);
+			collection.fetch(configs);
+			this.router.inprogress(false);
+		},
+
+		getStatistics: function()
+		{
+			var _this = this,
+
+				configs = {
+				
+				data: { other_stats : true },
+
+				remove: false,
+
+				reset: true,
+				
+				success: function(collection, response, options)
+				{
+					if(response.length > 0) {
+						// if no records are found GET HTTP response is 204 -> no error
+						_this.router.actionSuccess();
+					
+					} else {
+						_this.router.actionError();
+					}
+				},
+				
+				error: function(collection, response, options)
+				{
+					// alert error
+					_this.router.actionError();
+					// remove progress bar
+					_this.router.inprogress(false);
+				}
+			};
+			
+//########	//this.fetchEntries(this.collections.other, configs);
 		}
+
 	});
 
 	return View_app;

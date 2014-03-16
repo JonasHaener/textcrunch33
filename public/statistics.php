@@ -36,7 +36,7 @@ require_once "../application/includes/session.inc.php";
 
     <script data-main="script/statistics/app" src="script/statistics/libs/require.js"></script>    
     <script id="appdata">
-        window.APP = { user: '<?php echo $user; ?>', year: '<?php echo $year; ?>', domain: '<?php echo $domain; ?>' };
+        window.APP = { year: '<?php echo $year; ?>', domain: '<?php echo $domain; ?>' };
     </script>
 
 

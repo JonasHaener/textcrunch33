@@ -3,3 +3,7 @@ Continue:
 	Allocate PHP files:
 		stats_users
 		stats_other
+
+Bug!
+Users are fetched in correct format
+User collection does not react on retrieval		

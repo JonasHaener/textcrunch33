@@ -17,23 +17,8 @@ define(function(require) {
 	        blocks_created	: 0,
 	        blocks_deleted	: 0,
 	        last_login		: ""
+		}
 
-
-		},
-
-		initialize: function()
-		{
-			this.on("invalid", function(model, error)
-			{
-
-			});
-
-		},
-
-		validate: function(attrs)
-		{
-
-		}		
 	});
 
 	return Model;

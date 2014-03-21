@@ -66,7 +66,7 @@ define(function(require){
 			
 		render: function() {
 			this.$el.html( this.templates.categories() );
-			//this.assignHooks();
+			this.assignHooks();
 			this.addListeners();
 			return this;
 		},
@@ -78,9 +78,11 @@ define(function(require){
 
 		addStats: function(stats)
 		{
-			var cats = (stats) ? stats.cats.toJSON() : {};
+			//var cats = (stats) ? stats.cats.toJSON() : {};
+			if(!stats) { return; }
+			// var cats = (stats) ? stats.cats : {};
 			// receives the full statistics data
-			this.$el.append(this.templates.oneCat({ cats: cats }));
+			this.$el.append(this.templates.oneCat({ cats: stats.cats }));
 		}
 
 	});

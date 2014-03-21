@@ -32,6 +32,7 @@ if($request_method === "GET")
 	} elseif (!$conn_err) {
 		// route request to appropriate handler
 		$stats->route_request();
+		print("exit called");
 		header('Content-type: application/json');
 		
 		// if search error
@@ -44,7 +45,7 @@ if($request_method === "GET")
 		} elseif ( !empty($stats->get_result()) ) {
 			// result size
 			http_response_code(200);
-			echo json_encode($stats->get_result(), true);
+			echo json_encode(array($stats->get_result()), true);
 			//echo json_encode(array(array("user_id" => 1)), true);
 		
 		// if no result

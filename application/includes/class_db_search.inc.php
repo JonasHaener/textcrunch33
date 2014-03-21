@@ -26,8 +26,6 @@ class Search extends Database {
 	);
 	// actual ids to return to frontend
 	private $ids_to_return = array();
-	private $error = false;
-
 
 	### constructor
 	public function __construct() {
@@ -134,24 +132,11 @@ class Search extends Database {
 		## get_blocks with search ids;
 		$this->prepare_block_ids();
 		
-		if($this->error) { 
-			$this->closeConnection();
-			return; 
-		}
-		
 		## get_blocks with search categories
 		$this->get_cat_matching_block_ids();
-		if($this->error) { 
-			$this->closeConnection();
-			return;
-		}
 
 		## get_blocks with search tags
 		$this->get_tag_matching_block_ids();
-		if($this->error) { 
-			$this->closeConnection();
-			return;
-		}
 
 		## sort out duplicates of found block ids
 		$this->determine_block_ids();
@@ -190,17 +175,13 @@ class Search extends Database {
 
 		## get_blocks with search ids;
 		$this->prepare_block_ids();
-		if($this->error) { 
-			$this->closeConnection();
-			return; 
-		}
 	
 		## sort out duplicates of found block ids
 		$this->determine_block_ids();
-
+	
 		## find matches of found block ids
 		$this->retrieve_return_block_ids();
-
+	
 		## commit transaction
  		$this->commit_transaction();		
 		// close connection
@@ -230,6 +211,11 @@ class Search extends Database {
 		
 		$dbm = new Database_manager($configs, $this->conn);
 		$dbm->id_exists();
+		if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
+		}
+	
 		$res = $dbm->get_result();
 		$this->ids_to_fetch["block_ids"] = $res["block_id"];
 	
@@ -256,6 +242,10 @@ class Search extends Database {
 			$dbm = new Database_manager($configs, $this->conn);
 			$dbm->prepare_stmt();
 			$dbm->exec_select_stmt();
+			if($this->process_error()) { 
+				$this->register_error_and_close();
+				return; 
+			}
 			$res = $dbm->get_result();
 			// add cat_ids to ids_to_select
 			// do not assign when no value is returned
@@ -263,6 +253,8 @@ class Search extends Database {
 				$cat_id_match[] = $res["category_id"];
 			}
 		}
+
+		if($this->process_error()) { return; }
 
 		## get block_ids matching ##
 		foreach ($cat_id_match as $key => $cat_id) {
@@ -273,6 +265,10 @@ class Search extends Database {
 			//prepare statement)
 			$dbm = new Database_manager($configs, $this->conn);
 			$dbm->exec_select_query(true, true);
+			if($this->process_error()) { 
+				$this->register_error_and_close();
+				return; 
+			}
 			$res = $dbm->get_result();
 			// add cat_ids to ids_to_select
 			// do not assign when no value is returned
@@ -310,6 +306,10 @@ class Search extends Database {
 			$dbm = new Database_manager($configs, $this->conn);
 			$dbm->prepare_stmt();
 			$dbm->exec_select_stmt();
+			if($this->process_error()) { 
+				$this->register_error_and_close();
+				return; 
+			}
 			$res = $dbm->get_result();
 			if( $res["tag_id"] !== null ) {
 				$tag_id_match[] = $res["tag_id"];
@@ -330,6 +330,10 @@ class Search extends Database {
 			//prepare statement)
 			$dbm = new Database_manager($configs, $this->conn);
 			$dbm->exec_select_query(true, true);
+			if($this->process_error()) { 
+				$this->register_error_and_close();
+				return; 
+			}
 			$res = $dbm->get_result();
 			// add cat_ids to ids_to_select
 			// do not assign when no value is returned
@@ -426,6 +430,10 @@ class Search extends Database {
 			);
 			$dbm = new Database_manager($configs, $this->conn);
 			$dbm->exec_select_query(true, true);
+			if($this->process_error()) { 
+				$this->register_error_and_close();
+				return; 
+			}
 			$res = $dbm->get_result();
 			
 			if(!empty($res["name"])) {
@@ -448,6 +456,10 @@ class Search extends Database {
 			);
 			$dbm = new Database_manager($configs_tags, $this->conn);
 			$dbm->exec_select_query_multi_subquery(true, true);
+			if($this->process_error()) { 
+				$this->register_error_and_close();
+				return; 
+			}
 			$res = $dbm->get_result();
 
 			// if tag names
@@ -466,6 +478,10 @@ class Search extends Database {
 				);
 				$dbm = new Database_manager($configs, $this->conn);
 				$dbm->exec_select_query_multi(false, true);
+				if($this->process_error()) { 
+					$this->register_error_and_close();
+					return; 
+				}
 				$res = $dbm->get_result();
 				//print_r($res);
 				if(!empty($res)) {

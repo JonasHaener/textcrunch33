@@ -163,8 +163,6 @@ class Database_manager {
 		}
 	}
 
-
-
 	public function exec_select_query_multi($remove_null, $convert_to_int)
 	{
 		$configs 	= $this->configs;

@@ -62,7 +62,8 @@ define(function(require){
 			this.listenTo(this.collections.users, "reset", function(e, options) { 
 				this.cleanUp(e, options);
 			});
-			this.listenTo(this.router, this.CUSTEVENTS.getStats, this.getUserStats);
+			
+// test disabled			this.listenTo(this.router, this.CUSTEVENTS.getStats, this.getUserStats);
 		},
 
 		addOneUser: function(user)

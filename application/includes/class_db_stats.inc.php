@@ -8,13 +8,10 @@ require_once "class_db_dbm.inc.php";
 class Stats extends Database {
 	
 	private $result = array();
-	private $error = false;
-
 
 	### constructor
 	public function __construct() {
 	}
-
 
 	public function search_error()
 	{
@@ -27,10 +24,10 @@ class Stats extends Database {
 			case "GET":
 				$data = $this->fetch_data = $this->get_request_data();
 
-				if($data["users_stats"] === true) {
+				if(isset($data["users_stats"]) && $data["users_stats"] === true) {
 					$this->get_user_stats();
 
-				} else if(isset($data["other_stats"])) {
+				} else if(isset($data["other_stats"]) && $data["other_stats"] === true) {
 					$this->get_stats();
 				
 				} else {
@@ -65,9 +62,8 @@ class Stats extends Database {
 		$dbm = new Database_manager($configs, $this->conn);
 		$dbm->exec_select_query_multi(false, false);
 		$users = array_merge($dbm->get_result(), $users);
- 		
-		if($this->error) { 
-			$this->closeConnection();
+		if($this->process_error()) { 
+			$this->register_error_and_close();
 			return; 
 		}
 
@@ -78,6 +74,10 @@ class Stats extends Database {
 		); 
 		$dbm = new Database_manager($configs, $this->conn);
 		$dbm->exec_select_query_multi(false, false);
+ 		if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
+		}		
 		$deleted_blocks = $dbm->get_result();
 
 		foreach($users as $i => $usr) {
@@ -91,11 +91,6 @@ class Stats extends Database {
 			}
 		}
 
-		if($this->error) { 
-			$this->closeConnection();
-			return; 
-		}
-
 	 	## projects
  		$configs = array( 
 		 "query"    => "SELECT user_id, count(*) AS projects FROM projects GROUP BY user_id",
@@ -103,6 +98,10 @@ class Stats extends Database {
 		); 
 		$dbm = new Database_manager($configs, $this->conn);
 		$dbm->exec_select_query_multi(false, false);
+ 		if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
+		}		
 		$projects = $dbm->get_result();	
 		
 		foreach($users as $i => $usr) {
@@ -123,315 +122,171 @@ class Stats extends Database {
 		// close connection
 		$this->closeConnection();
 	}
-/*
+
 	private function get_stats()
 	{
-		
+		 /* JSON format needed
+	        tags: {
+	        	total: 0,
+	        	total_unused: 0,
+	        	unused_listed: ""
+	        },
+	        blocks: {
+				total: 0,
+				average_tags: 0
+	        },
+	        categories: {
+				name: "",
+				blocks: 0
+	        }
+	        */
+
 		## start transaction
  		$this->start_transaction();
 
-		## get_blocks with search ids;
-		$this->prepare_block_ids();
-		if($this->error) { 
-			$this->closeConnection();
-			return; 
-		}
-	
-		## sort out duplicates of found block ids
-		$this->determine_block_ids();
+ 		## get tags stats
+ 		$this->get_tag_stats();
 
-		## find matches of found block ids
-		$this->retrieve_return_block_ids();
+ 		## get block stats
+		$this->get_block_stats();
+		
+ 		## get category stats
+		$this->get_cats_stats();
 
 		## commit transaction
  		$this->commit_transaction();		
 		// close connection
 		$this->closeConnection();
+
 	}
 
-
-	// !! ids are never matched against tags and categories
-	// fetched separately
-	// check they exist during prefetch
-	private function prepare_block_ids()
+	private function get_tag_stats()
 	{
-		// convert string to integers
-		$ids = array();
-		foreach($this->fetch_data["id"] as $key => $value) {
-			if( ($value !== "") && (intval($value)) ) {
-				$ids[] = intval($value);
-			}
-		}
-
-		// check if they exits
+		## get total number of tags
 		$configs = array( 
-			"table"			=> array("blocks"),
-			"data"			=> $ids,
-			"expected"		=> array("block_id")
-		);
-		
+		 "query"    => "SELECT count(*) AS total FROM tags",
+		 "expected" => array("total")
+		); 
 		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->id_exists();
-		$res = $dbm->get_result();
-		$this->ids_to_fetch["block_ids"] = $res["block_id"];
-	
+		$dbm->exec_select_query(false, false);
+	 	if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
+		}	
+		$tags = $dbm->get_result();	
+		$this->result["tags"]["total"] = $tags["total"][0];
+
+
+		## get total of unused tags
+		$configs = array( 
+		 "query"    => "SELECT count(name) AS unused FROM tags WHERE tags.tag_id NOT IN (SELECT tag_id from tag_switch)",
+		 "expected" => array("unused")
+		); 
+		$dbm = new Database_manager($configs, $this->conn);
+		$dbm->exec_select_query(false, false);
+		if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
+		}
+		$tags = $dbm->get_result();	
+		$this->result["tags"]["total_unused"] = $tags["unused"][0];
+
+
+		## get names of unused tags
+		$configs = array( 
+		 "query"    => "SELECT name FROM tags WHERE tags.tag_id NOT IN (SELECT tag_id from tag_switch)",
+		 "expected" => array("name")
+		); 
+		$dbm = new Database_manager($configs, $this->conn);
+		$dbm->exec_select_query(false, false);
+		if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
+		}
+		$tags = $dbm->get_result();	
+		$this->result["tags"]["unused_listed"] = implode($tags["name"], ",");
 	}
 
-	private function get_cat_matching_block_ids()
+	private function get_block_stats()
 	{
-		$cat_names = $this->fetch_data["category"]; //array
-		$cat_id_match = array();
-		$block_ids = array();
-
-		// ## get cat ids matching catnames ##
-		foreach ($cat_names as $key => $cat_name) {
-			$configs = array( 
-					"query" 		=> "SELECT category_id FROM categories WHERE name = ?",
-					"stmt"			=> true,
-					"params" 		=> "s",
-					"data" 			=> array($cat_name),
-					// expected column names by db
-					// expected values are bound to result
-					"expected"		=> array("category_id") // , ... , ...
-				); 
-			//prepare statement)
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->prepare_stmt();
-			$dbm->exec_select_stmt();
-			$res = $dbm->get_result();
-			// add cat_ids to ids_to_select
-			// do not assign when no value is returned
-			if( $res["category_id"] !== null ) {
-				$cat_id_match[] = $res["category_id"];
-			}
+		## get total tags
+		$configs = array( 
+		 "query"    => "SELECT count(block_id) AS total FROM blocks",
+		 "expected" => array("total")
+		); 
+		$dbm = new Database_manager($configs, $this->conn);
+		$dbm->exec_select_query(false, false);
+		if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
 		}
-
-		## get block_ids matching ##
-		foreach ($cat_id_match as $key => $cat_id) {
-			$configs = array( 
-					"query" 		=> "SELECT block_id FROM blocks WHERE category_id = {$cat_id}",
-					"expected"		=> array("block_id") // , ... , ...
-				); 
-			//prepare statement)
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->exec_select_query(true, true);
-			$res = $dbm->get_result();
-			// add cat_ids to ids_to_select
-			// do not assign when no value is returned
-			if( !empty($res["block_id"]) ) {
-				// array is returned as result
-				$block_ids = array_merge($block_ids, $res["block_id"]);
-			}
-			
+		$blocks = $dbm->get_result();
+		$this->result["blocks"]["total"] = $blocks["total"][0];
+		
+		## get average tags per block
+		$configs = array( 
+		 "query"    => "SELECT AVG(a.rcount) AS average FROM 
+		 			    (SELECT count(*) as rcount FROM tag_switch tw 
+		 			   	GROUP BY tw.block_id) a",
+		 "expected" => array("average")
+		); 
+		$dbm = new Database_manager($configs, $this->conn);
+		$dbm->exec_select_query(false, false);
+		if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
 		}
-		$this->ids_to_fetch["block_cats"] = $block_ids;
+		$blocks = $dbm->get_result();
+		$this->result["blocks"]["average_tags"] = round($blocks["average"][0], 2, PHP_ROUND_HALF_DOWN);
 	}
 
-
-	private function get_tag_matching_block_ids()
+	private function get_cats_stats()
 	{
-		$names = $this->fetch_data["tag"]; //array
-		// holds tag ids
-		$tag_id_match = array();
-		$block_ids = array();
-		$tag_block_ids_intersect = array();
-		// loop all cat_names
-		// collect ids
+		/*	
+		categories: {
+				name: "",
+				blocks: 0
+	    }
+	    */
+	    $cat_result = array();
 
-		foreach ($names as $key => $name) {
-			$configs = array( 
-					"query" 		=> "SELECT tag_id FROM tags WHERE name = ?",
-					"stmt"			=> true,
-					"params" 		=> "s",
-					"data" 			=> array($name),
-					// expected column names by db
-					// expected values are bound to result
-					"expected"		=> array("tag_id") // , ... , ...
-				); 
-			//prepare statement)
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->prepare_stmt();
-			$dbm->exec_select_stmt();
-			$res = $dbm->get_result();
-			if( $res["tag_id"] !== null ) {
-				$tag_id_match[] = $res["tag_id"];
-			} 
-			// ##!! if one tag is not in DB no entry will match ##
-			else {
-				$tag_id_match = array();
-				return;
-			}
-		}
-		
-		## get block_ids matching ##
-		foreach ($tag_id_match as $key => $tag_id) {
-			$configs = array( 
-				"query" 	=> "SELECT block_id FROM tag_switch WHERE tag_id = {$tag_id}",
-				"expected"	=> array("block_id") // , ... , ...
-			); 
-			//prepare statement)
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->exec_select_query(true, true);
-			$res = $dbm->get_result();
-			// add cat_ids to ids_to_select
-			// do not assign when no value is returned
-			$block_ids[] = (!empty($res["block_id"])) ? $res["block_id"] : array();
-		}
-		
-		// all tags will be compared agauinst this
-		// root array
-		// if no result is found empty array will be used
-		if(!empty($block_ids))
-		{
-			$tag_block_ids_intersect = $block_ids[0];
-			foreach ($block_ids as $key => $tags) {
-				// root: 1,2,5
-				// second 1,2,5 -> 1,2, 5
-				// third 1,4
-				// empty array will cancel process --> not matches
-				// find intersection and merge with $tag_block_ids_intersect array
-				$tag_block_ids_intersect = array_intersect($tag_block_ids_intersect, $tags);
-			}
-			$this->ids_to_fetch["block_tags"] = array_unique($tag_block_ids_intersect);
-		}		
-	}
-
-	private function determine_block_ids()
-	{
-		$ids   	   = $this-> ids_to_fetch["block_ids"];
-		$tags_ids  = $this-> ids_to_fetch["block_tags"];
-		$cats_ids  = $this-> ids_to_fetch["block_cats"];
-		// these tags are looked for if existent or not
-		$looked_for_tags = $this->fetch_data["tag"];
-		$looked_for_cats = $this->fetch_data["category"];
-		
-		// holds retrieved values from all nested tag arrays
-		// initial assignment only
-		$ids_to_return = $this->ids_to_return;
-
-		## insert ids to $ids_to_return
-		// ids are always fetched separately
-		$ids_to_return = array_merge($ids_to_return, $ids);
-		
-		## return duplicates into array
-		// duplicates are matches of @category and #tags
-		// find intersection only when both $cats and $tags are not empty
-		if(!empty($cats_ids) && !empty($tags_ids)) {
-				// cat1: 1,2,3,4,6,7 (cats1)(cats2)
-				// tags   1,2,3 (ids matching all input tags)
-				// [1,2,3]
-			$ids_to_return = array_merge( $ids_to_return, array_intersect($tags_ids, $cats_ids) );
-		
-		// Match for cat BUT not for tag
-		} elseif(!empty($looked_for_tags) && !empty($cats_ids)) {
-			//  do nothing here
-
-		// Match for tag BUT not for cat
-		} elseif(!empty($looked_for_cats) && !empty($tags_ids)) {
-
-		// Need match cat only
-		} elseif(!empty($cats_ids)) {
-			$ids_to_return = array_merge($ids_to_return, $cats_ids);
-	
-		// Need match for tag only
-		} elseif(!empty($tags_ids)) {
-			$ids_to_return = array_merge($ids_to_return, $tags_ids);
+		## get categories names and ids
+		$configs = array( 
+		 "query"    => "SELECT name FROM categories",
+		 "expected" => array("name")
+		); 
+		$dbm = new Database_manager($configs, $this->conn);
+		$dbm->exec_select_query_multi(false, false);
+	 	if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
+		}	
+		$cats = $dbm->get_result();
+		foreach($cats as $key => $cat) {
+			// assign temp value
+			 $cat_result[$cat["name"]] = 0;
 		}
 
-		// remove duplicate values after merging with pure id tags
-		$ids_to_return = array_unique($ids_to_return);
-		// sort does not need variable assignment
-		sort($ids_to_return);
+
+		## loop ids 
+		$configs = array( 
+		 "query"    => "SELECT count(blocks.block_id) AS blocks, categories.name 
+		 				FROM categories INNER JOIN blocks USING(category_id)
+		 				GROUP BY category_id",
+		 "expected" => array("name", "blocks")
+		);
+		$dbm = new Database_manager($configs, $this->conn);
+		$dbm->exec_select_query_multi(false, false);
+	 	if($this->process_error()) { 
+			$this->register_error_and_close();
+			return; 
+		}	
+		$cats = $dbm->get_result();
+		// only categories are returned that have blocks assigned to them 
+		foreach($cats as $key => $cat) {
+			$cat_result[$cat["name"]] = $cat["blocks"];
+		}
 		// assign result
-		$this->ids_to_return = $ids_to_return;
+		$this->result["categories"] = $cat_result;
 	}
-
-
-	private function retrieve_return_block_ids()
-	{
-		$configs = $this->get_request_data();
-		$ids 	 = $this->ids_to_return;
-		$tables  = $this->lang_to_search;
-		$content = array();
-		// error is used to skip searches when no results are found
-		$error 	 = false;
-
-		// loop ids to search
-		foreach($ids as $index => $id) {
-			// loop each table
-			$sub_result = array();
-			
-			## get category name
-			$configs = array( 
-					"query" 		=> "SELECT name FROM categories WHERE category_id = (SELECT category_id FROM blocks WHERE block_id = {$id})",
-					"expected"		=> array("name") // , ... , ...
-			);
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->exec_select_query(true, true);
-			$res = $dbm->get_result();
-			
-			if(!empty($res["name"])) {
-				$sub_result["category"] = $res["name"][0];
-			
-			} else {
-				// if no result break and continue loop
-				// every result must have a category
-				continue;
-			}
-
-			## get tag names
-			$configs_tags = array( 
-					//"query" 		=> "SELECT name FROM tags WHERE tag_id = (SELECT tag_id FROM tag_switch WHERE block_id = {$id})",
-					"subquery" 			=> "SELECT tag_id FROM tag_switch WHERE block_id = {$id}",
-					"subquery_expected"	=> "tag_id",
-					// to be performed on each query
-					"query"				=> "SELECT name FROM tags WHERE tag_id =",
-					"expected"			=> array("name") // , ... , ...
-			);
-			$dbm = new Database_manager($configs_tags, $this->conn);
-			$dbm->exec_select_query_multi_subquery(true, true);
-			$res = $dbm->get_result();
-
-			// if tag names
-			if(!empty($res["name"])) {
-				$sub_result["tags"] = $res["name"];
-			
-			}
-
-			// fetch contents
-			foreach($tables as $index => $table) {
-				// add prefix of table name
-				$table = "lang_".$table;
-				$configs = array( 
-						"query" 		=> "SELECT content, block_id, lang FROM {$table} WHERE block_id = {$id}",
-						"expected"		=> array( "block_id",  "content", "lang") // , ... , ...
-				);
-				$dbm = new Database_manager($configs, $this->conn);
-				$dbm->exec_select_query_multi(false, true);
-				$res = $dbm->get_result();
-				//print_r($res);
-				if(!empty($res)) {
-					foreach ($res as $key => $entry) {
-						//$blocks[ $entry["block_id"] ][ $entry["lang"] ] = $entry["content"];
-						$sub_result["block_id"] 		= $entry["block_id"];
-						$sub_result[ $entry["lang"] ] 	= htmlspecialchars($entry["content"], ENT_QUOTES);
-					}
-				}
-			}
-			// check if empty to avoid returning empty array
-			// empty arrays cause errors in front end parsing
-			if(!empty($sub_result)) {
-				// assign language flags
-				$sub_result["searchGerman"] 	= $this->fetch_data["searchGerman"];
-				$sub_result["searchEnglish"] 	= $this->fetch_data["searchEnglish"];
-		 		$sub_result["searchAllLang"] 	= $this->fetch_data["searchAllLang"];
-		 		$sub_result["lang_to_update"] 	= $this->lang_to_search;
-				$content[] = $sub_result;
-			}
-		}
-
-		$this->result = $content;
-	}
-*/	
 }
-

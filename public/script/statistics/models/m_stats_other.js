@@ -12,7 +12,10 @@ define(function(require) {
 		defaults: {
 	        tags		: null,
 	        blocks		: null,
-	        categories	: null
+	        categories	: null,
+	        users_stats	: false,
+	        other_stats : false
+
 
 	        /* JSON format needed
 	        tags: {

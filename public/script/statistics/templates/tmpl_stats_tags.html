@@ -7,22 +7,16 @@
             <table class="table table-bordered table-responsive">
                 <tr>
                     <td>Total</td>
-                    <td class="egg-face-center">
-                        <% if(tags.total) { print(tags.total); } %>
-                    </td> <!-- Total available tags -->
+                    <td class="js_tag_stats_total egg-face-center">0</td> <!-- Total available tags -->
                 </tr>
                 <tr>
                     <td>Unused</td>
-                    <td class="egg-face-center">
-                        <% if(tags.total_unused) { print(tags.total_unused); } %>
-                    </td> <!-- Total not assigned to any block -->
+                    <td class="js_tag_stats_unused egg-face-center">0</td>
                 </tr>
                 <tr>
                     <td>Unused tags</td>
                     <td  class="egg-face-center">
-                        <textarea class="js_unused_tags">
-                            <% if(tags.unused_listed) { print(tags.unused_listed); } %>
-                        </textarea>
+                        <textarea class="js_tag_stats_unused_listed"></textarea>
                     </td>
                 </tr>
             </table>

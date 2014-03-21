@@ -210,6 +210,8 @@ define(function(require) {
 			this.router.inprogress(false);
 		},
 
+
+		// user stats controlled by user stats view
 		getStatistics: function()
 		{
 			var _this = this,
@@ -242,7 +244,7 @@ define(function(require) {
 				}
 			};
 			
-//########	//this.fetchEntries(this.collections.other, configs);
+			this.fetchEntries(this.collections.other, configs);
 		}
 
 	});

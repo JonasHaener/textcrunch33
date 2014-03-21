@@ -35,6 +35,8 @@ define(function(require){
 
 		},
 
+		hooks: {},
+
 		initialize: function() {
 			
 		},
@@ -63,29 +65,31 @@ define(function(require){
 		render: function(stats) {
 			// stats is available when data is fetched from DB
 			// on first render no stats
-			var blocks = (stats) ? stats.blocks.toJSON() : {};
-			if(stats) {
+			//var blocks = (stats) ? stats.blocks.toJSON() : {};
+			//if(stats) {
 				// remove listeners if any
-		  		this.unbind();
+		  	//	this.unbind();
 		  		// remove event handlers and listeners
-		  		this.stopListening();
-			}
-			this.$el.html( this.template( { blocks: blocks } ));
-			//this.assignHooks();
-			//this.addListeners();
+		  	//	this.stopListening();
+			//}
+			this.$el.html( this.template() );
+			this.assignHooks();
+			this.addListeners();
 			return this;
 		},
 
 		assignHooks: function()
 		{	
-
+			this.hooks.total		 = this.$("js_block_stats_total");
+			this.hooks.averageTags	 = this.$("js_block_stats_average_tags");
 		},
 
-		addStats: function()
+		addStats: function(data)
 		{
-
+			if(!data) { return; }
+			this.hooks.total.text(data.total);
+			this.hooks.averageTags.text(data.average_tags);
 		}
-
 	});
 
 	return View_AppNavi;

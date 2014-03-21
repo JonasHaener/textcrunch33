@@ -35,6 +35,8 @@ define(function(require){
 
 		},
 
+		hooks: {},
+
 		initialize: function() {
 			
 		},
@@ -63,29 +65,34 @@ define(function(require){
 		render: function(stats) {
 			// stats is available when data is fetched from DB
 			// on first render no stats
-			var tags = (stats) ? stats.tags.toJSON() : {};
-			if(stats) {
+			//var tags = (stats) ? stats.tags.toJSON() : {};
+			//if(stats) {
 				// remove listeners if any
-		  		this.unbind();
+		  		//this.unbind();
 		  		// remove event handlers and listeners
-		  		this.stopListening();
-		  		this.addListeners();
-			}
+		  		//this.stopListening();
+		  		//this.addListeners();
+			//}
 
-			this.$el.html( this.template({ tags: tags }) );
-			//this.assignHooks();
-			//this.addListeners();
+			this.$el.html( this.template() );
+			this.assignHooks();
+			this.addListeners();
 			return this;
 		},
 
 		assignHooks: function()
 		{	
-
+			this.hooks.total		 = this.$("js_tag_stats_total");
+			this.hooks.unused 		 = this.$("js_tag_stats_unused");
+			this.hooks.unused_listed = this.$("js_tag_stats_unused_listed");
 		},
 
-		addStats: function()
+		addStats: function(data)
 		{
-
+			if(!data) { return; }
+			this.hooks.total.text(data.total);
+			this.hooks.unused.text(data.total_unused);
+			this.hooks.unused_listed.text(data.unused_listed);
 		}
 
 	});

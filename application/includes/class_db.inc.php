@@ -9,6 +9,7 @@ class Database {
 	protected $requestType;
 	protected $url;
 	protected $err_conn = false;
+	protected $error = false;
 	// user_id, user_name ...
 	protected $user = array();	
 	
@@ -27,10 +28,16 @@ class Database {
 			return false;
 		}
 	}
+
+	protected function register_error_and_close()
+	{
+		$this->error = true;
+		$this->closeConnection();
+	}
 	
 	protected function process_error()
 	{
-		if($this->conn->errno > 0) {
+		if($this->conn->errno > 0 || $this->error === true) {
 			return true;
 		} else {
 			return false;

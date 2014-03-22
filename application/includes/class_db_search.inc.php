@@ -1,11 +1,11 @@
 <?php
+// error location 800
 // base class Database
-require_once "class_db.inc.php";
 require_once "class_db_dbm.inc.php";
 
 // inherites from class Database
 // tags and cats class
-class Search extends Database {
+class Search extends Database_manager {
 	
 	private $result = array();
 	private $fetch_data;
@@ -29,40 +29,27 @@ class Search extends Database {
 
 	### constructor
 	public function __construct() {
-	}
-
-
-	public function search_error()
-	{
-		return $this->error;
+		// error 801
 	}
 
 	public function result_size()
 	{
-		return count($this->result);
-	}
-
-	public function size_overwrite()
-	{
-		return $this->fetch_data["size_overwrite"];
+		// error 803
 	}
 
 	public function route_request() {
+		// error 805
 		// route request to appropriate handler
 		switch( $this->requestType ) {
 			case "GET":
-				
 				$data = $this->fetch_data = $this->prepare_search_data( $this->get_request_data() );
-				
 				// if prefetch is set, prefetch ids
 				if(isset($data["prefetch"]) && $data["prefetch"] === true) {
 					$this->prefetch_entries();
-								
 				// fetch all data
 				} else {
 					$this->get_entries();
 				}
-			
 			break;
 			// if request type is not defined
 			default:
@@ -72,12 +59,15 @@ class Search extends Database {
 
 
 	public function get_result() {
-		return $this->result;
+		// error 806
+		http_response_code(200);		
+		echo json_encode($this->result, true);
 	}
 
 
 	private function prepare_search_data($data)
 	{
+		// error 807
 		$conv = $data;
 		foreach($data as $key => $value) {
 			// convert strings true/false into boolean values
@@ -103,6 +93,7 @@ class Search extends Database {
 
 	private function assign_lang_to_search($configs)
 	{
+		// error 808
 		if($configs['searchAllLang'] === true) {
 			$this->lang_to_search = $this->lang_all;
 			return true;
@@ -126,6 +117,7 @@ class Search extends Database {
 
 	private function prefetch_entries()
 	{
+		// error 809
 		## start transaction
  		$this->start_transaction();
 
@@ -146,12 +138,17 @@ class Search extends Database {
 
 		## commit transaction
  		$this->commit_transaction();		
-		// close connection
+		
+		## close connection
 		$this->closeConnection();
+		
+		## write result
+		$this->get_result();
 	}
 
 	private function prep_prefetched_ids($ids)
 	{
+		// error 810
 		$res = array();
 		foreach($ids as $id) {
 			$res[] = array("block_id" => $id);
@@ -163,7 +160,7 @@ class Search extends Database {
 
 	private function get_entries()
 	{
-		
+		// error 811
 		## assign lang to search and if lang are needed at all 
 		// stop transaction
 		if($this->assign_lang_to_search($this->fetch_data) === false) {
@@ -184,8 +181,12 @@ class Search extends Database {
 	
 		## commit transaction
  		$this->commit_transaction();		
-		// close connection
+		
+		## close connection
 		$this->closeConnection();
+
+		## write result
+		$this->get_result();
 	}
 
 
@@ -194,6 +195,7 @@ class Search extends Database {
 	// check they exist during prefetch
 	private function prepare_block_ids()
 	{
+		// error 812
 		// convert string to integers
 		$ids = array();
 		foreach($this->fetch_data["id"] as $key => $value) {
@@ -209,20 +211,16 @@ class Search extends Database {
 			"expected"		=> array("block_id")
 		);
 		
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->id_exists();
-		if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}
-	
-		$res = $dbm->get_result();
+
+		$this->dbm_config($configs);
+		$this->dbm_id_exists();
+		$res = $this->dbm_get_result();
 		$this->ids_to_fetch["block_ids"] = $res["block_id"];
-	
 	}
 
 	private function get_cat_matching_block_ids()
 	{
+		// error 813
 		$cat_names = $this->fetch_data["category"]; //array
 		$cat_id_match = array();
 		$block_ids = array();
@@ -239,14 +237,10 @@ class Search extends Database {
 					"expected"		=> array("category_id") // , ... , ...
 				); 
 			//prepare statement)
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->prepare_stmt();
-			$dbm->exec_select_stmt();
-			if($this->process_error()) { 
-				$this->register_error_and_close();
-				return; 
-			}
-			$res = $dbm->get_result();
+			$this->dbm_config($configs);
+			$this->dbm_prepare_stmt();
+			$this->dbm_exec_select_stmt();
+			$res = $this->dbm_get_result();
 			// add cat_ids to ids_to_select
 			// do not assign when no value is returned
 			if( $res["category_id"] !== null ) {
@@ -254,8 +248,7 @@ class Search extends Database {
 			}
 		}
 
-		if($this->process_error()) { return; }
-
+		
 		## get block_ids matching ##
 		foreach ($cat_id_match as $key => $cat_id) {
 			$configs = array( 
@@ -263,13 +256,9 @@ class Search extends Database {
 					"expected"		=> array("block_id") // , ... , ...
 				); 
 			//prepare statement)
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->exec_select_query(true, true);
-			if($this->process_error()) { 
-				$this->register_error_and_close();
-				return; 
-			}
-			$res = $dbm->get_result();
+			$this->dbm_config($configs);
+			$this->dbm_exec_select_query(true, true);
+			$res = $this->dbm_get_result();
 			// add cat_ids to ids_to_select
 			// do not assign when no value is returned
 			if( !empty($res["block_id"]) ) {
@@ -284,6 +273,7 @@ class Search extends Database {
 
 	private function get_tag_matching_block_ids()
 	{
+		// error 814
 		$names = $this->fetch_data["tag"]; //array
 		// holds tag ids
 		$tag_id_match = array();
@@ -303,14 +293,10 @@ class Search extends Database {
 					"expected"		=> array("tag_id") // , ... , ...
 				); 
 			//prepare statement)
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->prepare_stmt();
-			$dbm->exec_select_stmt();
-			if($this->process_error()) { 
-				$this->register_error_and_close();
-				return; 
-			}
-			$res = $dbm->get_result();
+			$this->dbm_config($configs);
+			$this->dbm_prepare_stmt();
+			$this->dbm_exec_select_stmt();
+			$res = $this->dbm_get_result();
 			if( $res["tag_id"] !== null ) {
 				$tag_id_match[] = $res["tag_id"];
 			} 
@@ -328,13 +314,9 @@ class Search extends Database {
 				"expected"	=> array("block_id") // , ... , ...
 			); 
 			//prepare statement)
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->exec_select_query(true, true);
-			if($this->process_error()) { 
-				$this->register_error_and_close();
-				return; 
-			}
-			$res = $dbm->get_result();
+			$this->dbm_config($configs);
+			$this->dbm_exec_select_query(true, true);
+			$res = $this->dbm_get_result();
 			// add cat_ids to ids_to_select
 			// do not assign when no value is returned
 			$block_ids[] = (!empty($res["block_id"])) ? $res["block_id"] : array();
@@ -360,6 +342,7 @@ class Search extends Database {
 
 	private function determine_block_ids()
 	{
+		// error 815
 		$ids   	   = $this-> ids_to_fetch["block_ids"];
 		$tags_ids  = $this-> ids_to_fetch["block_tags"];
 		$cats_ids  = $this-> ids_to_fetch["block_cats"];
@@ -411,6 +394,7 @@ class Search extends Database {
 
 	private function retrieve_return_block_ids()
 	{
+		// error 816
 		$configs = $this->get_request_data();
 		$ids 	 = $this->ids_to_return;
 		$tables  = $this->lang_to_search;
@@ -428,13 +412,9 @@ class Search extends Database {
 					"query" 		=> "SELECT name FROM categories WHERE category_id = (SELECT category_id FROM blocks WHERE block_id = {$id})",
 					"expected"		=> array("name") // , ... , ...
 			);
-			$dbm = new Database_manager($configs, $this->conn);
-			$dbm->exec_select_query(true, true);
-			if($this->process_error()) { 
-				$this->register_error_and_close();
-				return; 
-			}
-			$res = $dbm->get_result();
+			$this->dbm_config($configs);
+			$this->dbm_exec_select_query(true, true);
+			$res = $this->dbm_get_result();
 			
 			if(!empty($res["name"])) {
 				$sub_result["category"] = $res["name"][0];
@@ -454,13 +434,9 @@ class Search extends Database {
 					"query"				=> "SELECT name FROM tags WHERE tag_id =",
 					"expected"			=> array("name") // , ... , ...
 			);
-			$dbm = new Database_manager($configs_tags, $this->conn);
-			$dbm->exec_select_query_multi_subquery(true, true);
-			if($this->process_error()) { 
-				$this->register_error_and_close();
-				return; 
-			}
-			$res = $dbm->get_result();
+			$this->dbm_config($configs_tags);
+			$this->dbm_exec_select_query_multi_subquery(true, true);
+			$res = $this->dbm_get_result();
 
 			// if tag names
 			if(!empty($res["name"])) {
@@ -476,17 +452,12 @@ class Search extends Database {
 						"query" 		=> "SELECT content, block_id, lang FROM {$table} WHERE block_id = {$id}",
 						"expected"		=> array( "block_id",  "content", "lang") // , ... , ...
 				);
-				$dbm = new Database_manager($configs, $this->conn);
-				$dbm->exec_select_query_multi(false, true);
-				if($this->process_error()) { 
-					$this->register_error_and_close();
-					return; 
-				}
-				$res = $dbm->get_result();
+				$this->dbm_config($configs);
+				$this->dbm_exec_select_query_multi(false, true);
+				$res = $this->dbm_get_result();
 				//print_r($res);
 				if(!empty($res)) {
 					foreach ($res as $key => $entry) {
-						//$blocks[ $entry["block_id"] ][ $entry["lang"] ] = $entry["content"];
 						$sub_result["block_id"] 		= $entry["block_id"];
 						$sub_result[ $entry["lang"] ] 	= htmlspecialchars($entry["content"], ENT_QUOTES);
 					}

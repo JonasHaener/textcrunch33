@@ -18,23 +18,5 @@ $entry->set_user($user);
 $entry->set_request($request, $server, $data);
 // connect to database
 $conn_err = $entry->connect_db($config_host, $config_db_user, $config_db_pwd, $config_database );
-
-if(!$conn_err) {
-	// route request to appropriate handler
-	$entry->route_request();
-	header('Content-type: application/json');
-	if(!$entry->error) {
-		http_response_code(200);		
-		echo json_encode($entry->get_result(), true);
-	
-	} else {
-		http_response_code(422);
-		echo json_encode( array("error" => "error_create"), true);	
-	}
-
-} else {
-	header('Content-type: application/json');
-	http_response_code(422);
-	echo json_encode( array("error" => "error_connection"), true);	
-}
-
+// route request to appropriate handler
+$entry->route_request();

@@ -1,9 +1,2 @@
-2014-03-16:
-Continue:
-	Allocate PHP files:
-		stats_users
-		stats_other
-
-Bug!
-Users are fetched in correct format
-User collection does not react on retrieval		
+2014-03-22:
+* Add session to stats.php

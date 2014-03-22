@@ -21,23 +21,7 @@ if($request_method === "GET")
 	// sets GET, POST, UPDATE or DELETE
 	$tags->set_request($request, $server, $data);
 	// connect to database
-	$conn_err = $tags->connect_db( $config_host, $config_db_user, $config_db_pwd, $config_database );
-	
-	if($conn_err) {
-		http_response_code(422);
-	
-	} elseif (!$conn_err) {
-		// route request to appropriate handler
-		$tags->fetch();
-		header('Content-type: application/json');
-		if( !empty($tags->get_result()) ) {
-			http_response_code(200);
-			echo json_encode($tags->get_result(), true);
-		
-		} else {
-			// error is returned when no match is found
-			http_response_code(200);
-			echo json_encode( array(), true);
-		}	
-	}
+	$tags->connect_db( $config_host, $config_db_user, $config_db_pwd, $config_database );
+	// get tags and categories
+	$tags->fetch();
 }

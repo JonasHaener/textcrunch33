@@ -1,11 +1,11 @@
 <?php
+// error location 900
 // base class Database
-require_once "class_db.inc.php";
 require_once "class_db_dbm.inc.php";
 
 // inherites from class Database
 // tags and cats class
-class Stats extends Database {
+class Stats extends Database_manager {
 	
 	private $result = array();
 
@@ -13,12 +13,8 @@ class Stats extends Database {
 	public function __construct() {
 	}
 
-	public function search_error()
-	{
-		return $this->error;
-	}
-
 	public function route_request() {
+		// error 901
 		// route request to appropriate handler
 		switch( $this->requestType ) {
 			case "GET":
@@ -40,13 +36,17 @@ class Stats extends Database {
 		}
 	}
 
-	public function get_result() {
-		return $this->result;
+	public function get_result() 
+	{
+		// error 902
+		header('Content-type: application/json');
+		http_response_code(200);
+		echo json_encode(array($this->result), true);
 	}
 
 	private function get_user_stats()
 	{
-		
+		// error 903
 		$users = array();
 
 		## start transaction
@@ -59,26 +59,19 @@ class Stats extends Database {
 		 				GROUP BY user_id",
 		 "expected" => array("user_id", "username", "rights_name", "last_login", "blocks_created")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query_multi(false, false);
-		$users = array_merge($dbm->get_result(), $users);
-		if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query_multi(false, false);
+		$users = array_merge($this->dbm_get_result(), $users);
+
 
  		## deleted blocks
  		$configs = array( 
-		 "query"    => "SELECT user_id, count(created) AS blocks_deleted FROM blocks_deleted GROUP BY user_id",
-		 "expected" => array("user_id", "blocks_deleted")
+		 	"query"    => "SELECT user_id, count(created) AS blocks_deleted FROM blocks_deleted GROUP BY user_id",
+		 	"expected" => array("user_id", "blocks_deleted")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query_multi(false, false);
- 		if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}		
-		$deleted_blocks = $dbm->get_result();
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query_multi(false, false);
+		$deleted_blocks = $this->dbm_get_result();
 
 		foreach($users as $i => $usr) {
 			$usr_id = $usr["user_id"];
@@ -91,18 +84,15 @@ class Stats extends Database {
 			}
 		}
 
+
 	 	## projects
  		$configs = array( 
 		 "query"    => "SELECT user_id, count(*) AS projects FROM projects GROUP BY user_id",
 		 "expected" => array("user_id", "projects")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query_multi(false, false);
- 		if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}		
-		$projects = $dbm->get_result();	
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query_multi(false, false);
+		$projects = $this->dbm_get_result();	
 		
 		foreach($users as $i => $usr) {
 			$usr_id = $usr["user_id"];
@@ -125,22 +115,7 @@ class Stats extends Database {
 
 	private function get_stats()
 	{
-		 /* JSON format needed
-	        tags: {
-	        	total: 0,
-	        	total_unused: 0,
-	        	unused_listed: ""
-	        },
-	        blocks: {
-				total: 0,
-				average_tags: 0
-	        },
-	        categories: {
-				name: "",
-				blocks: 0
-	        }
-	        */
-
+		// error 904
 		## start transaction
  		$this->start_transaction();
 
@@ -155,25 +130,27 @@ class Stats extends Database {
 
 		## commit transaction
  		$this->commit_transaction();		
-		// close connection
+		
+		## close connection
 		$this->closeConnection();
+
+		## write results
+		$this->get_result(); 
 
 	}
 
 	private function get_tag_stats()
 	{
+		// error 905
+		
 		## get total number of tags
 		$configs = array( 
 		 "query"    => "SELECT count(*) AS total FROM tags",
 		 "expected" => array("total")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query(false, false);
-	 	if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}	
-		$tags = $dbm->get_result();	
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query(false, false);
+		$tags = $this->dbm_get_result();	
 		$this->result["tags"]["total"] = $tags["total"][0];
 
 
@@ -182,13 +159,9 @@ class Stats extends Database {
 		 "query"    => "SELECT count(name) AS unused FROM tags WHERE tags.tag_id NOT IN (SELECT tag_id from tag_switch)",
 		 "expected" => array("unused")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query(false, false);
-		if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}
-		$tags = $dbm->get_result();	
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query(false, false);
+		$tags = $this->dbm_get_result();	
 		$this->result["tags"]["total_unused"] = $tags["unused"][0];
 
 
@@ -197,30 +170,24 @@ class Stats extends Database {
 		 "query"    => "SELECT name FROM tags WHERE tags.tag_id NOT IN (SELECT tag_id from tag_switch)",
 		 "expected" => array("name")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query(false, false);
-		if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}
-		$tags = $dbm->get_result();	
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query(false, false);
+		$tags = $this->dbm_get_result();
 		$this->result["tags"]["unused_listed"] = implode($tags["name"], ",");
 	}
 
 	private function get_block_stats()
 	{
+		// error 906
 		## get total tags
 		$configs = array( 
 		 "query"    => "SELECT count(block_id) AS total FROM blocks",
 		 "expected" => array("total")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query(false, false);
-		if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}
-		$blocks = $dbm->get_result();
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query(false, false);
+		$tags = $this->dbm_get_result();
+		$blocks = $this->dbm_get_result();
 		$this->result["blocks"]["total"] = $blocks["total"][0];
 		
 		## get average tags per block
@@ -230,24 +197,17 @@ class Stats extends Database {
 		 			   	GROUP BY tw.block_id) a",
 		 "expected" => array("average")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query(false, false);
-		if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}
-		$blocks = $dbm->get_result();
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query(false, false);
+		$tags = $this->dbm_get_result();
+		$blocks = $this->dbm_get_result();
 		$this->result["blocks"]["average_tags"] = round($blocks["average"][0], 2, PHP_ROUND_HALF_DOWN);
 	}
 
 	private function get_cats_stats()
 	{
-		/*	
-		categories: {
-				name: "",
-				blocks: 0
-	    }
-	    */
+		// error 907
+
 	    $cat_result = array();
 
 		## get categories names and ids
@@ -255,33 +215,25 @@ class Stats extends Database {
 		 "query"    => "SELECT name FROM categories",
 		 "expected" => array("name")
 		); 
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query_multi(false, false);
-	 	if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}	
-		$cats = $dbm->get_result();
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query_multi(false, false);
+		$cats = $this->dbm_get_result();
 		foreach($cats as $key => $cat) {
 			// assign temp value
 			 $cat_result[$cat["name"]] = 0;
 		}
 
 
-		## loop ids 
+		## count blocks
 		$configs = array( 
 		 "query"    => "SELECT count(blocks.block_id) AS blocks, categories.name 
 		 				FROM categories INNER JOIN blocks USING(category_id)
 		 				GROUP BY category_id",
 		 "expected" => array("name", "blocks")
 		);
-		$dbm = new Database_manager($configs, $this->conn);
-		$dbm->exec_select_query_multi(false, false);
-	 	if($this->process_error()) { 
-			$this->register_error_and_close();
-			return; 
-		}	
-		$cats = $dbm->get_result();
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query_multi(false, false);
+		$cats = $this->dbm_get_result();
 		// only categories are returned that have blocks assigned to them 
 		foreach($cats as $key => $cat) {
 			$cat_result[$cat["name"]] = $cat["blocks"];

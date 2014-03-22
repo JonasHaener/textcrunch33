@@ -1,11 +1,11 @@
 <?php
 
-// base class Database
-require_once "class_db.inc.php";
+// base class Databasemanager
+require_once "class_db_dbm.inc.php";
 
 // inherites from class Database
 // tags and cats class
-class Tags_and_cats extends Database {
+class Tags_and_cats extends Database_manager {
 	
 	private	$result = array(
 		"categories" => array(),
@@ -30,21 +30,28 @@ class Tags_and_cats extends Database {
 		$query_tags = "SELECT name FROM tags";
 		$query_cats = "SELECT name FROM categories ORDER BY name";
 		// fetch tags
-		$res = $this -> conn -> query($query_tags);
+		if( !($res = $this->conn->query($query_tags))) {
+			$this->error_and_close();
+			return;
+		}
 		$this->prepResultArr($res, "tags");
-
-		$res -> free_result();
 		// fetch categories
-		$res = $this -> conn -> query($query_cats);
+		if( !($res = $this->conn->query($query_cats))) {
+			$this->error_and_close();
+			return;
+		}		
 		$this->prepResultArr($res, "categories");	
-		$res -> free_result();
 		// close connection	
 		$this->closeConnection();
+		// write result
+		$this->get_result();
 	}
 
 	public function get_result()
 	{
-		return $this->result;
+		header('Content-type: application/json');
+		http_response_code(200);
+		echo json_encode($this->result, true);
 	}
 }
 

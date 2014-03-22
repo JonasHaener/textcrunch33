@@ -1,20 +1,24 @@
 <?php
+// error location 500
 ## Database management class
-class Database_manager {
+require_once "class_db.inc.php";
+
+class Database_manager extends Database {
 	
-	private $queryConfigs = array();
-	private $queryTmpl = array();
+	//private $queryConfigs = array();
+	//private $queryTmpl = array();
 	private $result = array();
-	private $stmtData = array(); ## assigned by $this->prepQuery()
-	private $err = false;
-	public 	$stmt;
-	private $conn;
+	//private $stmtData = array(); ## assigned by $this->prepQuery()
+	private $stmt;
 	private $configs;
 
+	public function __construct() {
+		// error 501
+	}
 
-
-	public function __construct($configs, $conn) {
-		$this->conn = $conn;
+	protected function dbm_config($configs)
+	{
+		// error 502
 		// assign default values to expected
 		// result array
 		$expected_val = array();
@@ -28,17 +32,20 @@ class Database_manager {
 	}
 
 
-
 	// accepts multiple ids
-	public function id_exists()
+	public function dbm_id_exists()
 	{
+		// error 503
 		$configs = $this->configs;
 		$table = $configs['table'][0];
 		$ids = $configs['data'];
 		$found = array();
 
 		foreach($ids as $key => $value) {
-			$res = $this->conn->query( "SELECT EXISTS(SELECT 1 FROM {$table} WHERE block_id = {$value}) AS exist" );
+			if(!($res = $this->conn->query( "SELECT EXISTS(SELECT 1 FROM {$table} WHERE block_id = {$value}) AS exist" ))) {
+				$this->error_and_rollback(503);
+				return;
+			}
 			$result = $res->fetch_assoc();
 			if($result['exist'] > 0) {
 				$found[] = $value;
@@ -49,15 +56,19 @@ class Database_manager {
 
 
 
-	public function prepare_stmt()
+	public function dbm_prepare_stmt()
 	{
+		// error 504
 		## paramns must be by reference
 		## otherwise bind will THROW ERROR
 		## create statement data array
 		## with reference values
 		$configs 	= $this->configs;
 		$toBind 	= array();
-		$this->stmt = $this->conn->prepare($configs['query']);
+		if(!($this->stmt = $this->conn->prepare($configs['query']))) {
+			$this->error_and_rollback(504, "stmt incorrect");
+			return;
+		}
 		## $params is String type
 		//$params = $table['stmtParams'];
 		//$data = $table['data'];
@@ -76,8 +87,9 @@ class Database_manager {
 
 
 
-	public function exec_select_stmt()
+	public function dbm_exec_select_stmt()
 	{
+		// error 505
 		$binders = array();
 		// create a reference array
 		// for call_user_func_array
@@ -87,9 +99,12 @@ class Database_manager {
 		// bind results variables
 		call_user_func_array(array($this->stmt, 'bind_result'), $binders);
 		// execute stmt
-		$this->stmt->execute();
+		if(!$this->stmt->execute()) {
+			$this->error_and_rollback(505);
+			return;			
+		}
 		$this->stmt->store_result();
-		$this->stmt -> fetch();
+		$this->stmt->fetch();
 		// free results
 		$this->stmt->free_result();
 		// close connection
@@ -98,18 +113,27 @@ class Database_manager {
 
 
 
-	public function exec_insert_stmt()
+	public function dbm_exec_insert_stmt()
 	{
+		// error 506
 		// execute stmt
-		$this->stmt->execute();
+		if(!$this->stmt->execute()) {
+			$this->error_and_rollback(506, "stmt exec failed");
+			return;			
+		}
 		$this->stmt->store_result();
+
 		if($this->stmt->affected_rows > 0) {
 			// assign requested result to results
-			$this->result[ $this->configs['expected'][0] ] = $this->conn->insert_id;
+			$this->result = array(
+				"insert_id" => $this->stmt->insert_id,
+				"affected_rows" => $this->stmt->affected_rows);
+
 		} else {
-			$this->result[ $this->configs['expected'][0] ] = NULL;
+			$this->result = array(
+				"insert_id" => 0,
+				"affected_rows" => 0);
 		}
-		
 		// free results
 		$this->stmt->free_result();
 		// close connection
@@ -118,28 +142,41 @@ class Database_manager {
 
 
 
-	public function exec_insert_query()
+	public function dbm_exec_insert_query()
 	{
-		$res = $this->conn->query($this->configs["query"]);
-		if($this->conn->insert_id > 0) {
+		// error 507
+		$configs = $this->configs;
+		if( !($res = $this->conn->query($configs["query"]))) {
+			$this->error_and_rollback(503);
+			return;
+		}
+
+		if($this->conn->affected_rows > 0) {
 			// assign requested result to results
-			// array
-			$this->result[ $this->configs['expected'][0] ] = $this->conn->insert_id;
-		
+			$this->result = array(
+				"insert_id" => $this->conn->insert_id,
+				"affected_rows" => $this->conn->affected_rows);
+
 		} else {
-			$this->result[ $this->configs['expected'][0] ] = null;
+			$this->result = array(
+				"insert_id" => 0,
+				"affected_rows" => 0);
 		}
 	}
 
 
 
-	public function exec_select_query($remove_null, $convert_to_int)
+	public function dbm_exec_select_query($remove_null, $convert_to_int)
 	{
+		// error 508
 		$configs 	= $this->configs;
 		$position 	= $configs['expected'][0];
 		
 		$temp_results = array();
-		$res = $this->conn->query($this->configs["query"]);
+		if( !($res = $this->conn->query($this->configs["query"]))) {
+			$this->error_and_rollback(503);
+			return;
+		}
 
 		if($this->conn->affected_rows > 0) {
 			while( $row = $res->fetch_assoc() )
@@ -163,13 +200,17 @@ class Database_manager {
 		}
 	}
 
-	public function exec_select_query_multi($remove_null, $convert_to_int)
+	public function dbm_exec_select_query_multi($remove_null, $convert_to_int)
 	{
+		// error 509
 		$configs 	= $this->configs;
 		//$position 	= $configs['expected'][0];
 		$positions 	= $configs['expected'];
 		$temp_results = array();
-		$res = $this->conn->query($this->configs["query"]);
+		if( !($res = $this->conn->query($this->configs["query"]))) {
+			$this->error_and_rollback(503);
+			return;
+		}
 
 		if($this->conn->affected_rows > 0) {
 
@@ -205,15 +246,18 @@ class Database_manager {
 
 
 	// performs a looping query with subquery
-	public function exec_select_query_multi_subquery($remove_null, $convert_to_int) {
+	public function dbm_exec_select_query_multi_subquery($remove_null, $convert_to_int) {
+		// error 510
 		$configs 	= $this->configs;
 		$positions 	= $configs['expected'];
 		$subquery_res = array();
 		$query_res 	  = array();
 
-
 		// subquery fetch
-		$res = $this->conn->query($this->configs["subquery"]);
+		if( !($res = $this->conn->query($this->configs["subquery"]))) {
+			$this->error_and_rollback(503);
+			return;
+		}
 		// loop subquery results
 		if($this->conn->affected_rows > 0)
 		{
@@ -229,7 +273,11 @@ class Database_manager {
 		// fetch all query results by looping subquery results
 		foreach($subquery_res as $index => $result)
 		{
-			$res = $this->conn->query($this->configs["query"] . $result);
+			if( !($res = $this->conn->query($this->configs["query"] . $result))) {
+				$this->error_and_rollback(503);
+				return;
+			}
+
 			if($this->conn->affected_rows > 0) {
 				while( $row = $res->fetch_assoc() )
 				{
@@ -249,32 +297,37 @@ class Database_manager {
 
 
 
-	public function exec_update_query()
+	public function dbm_exec_update_query()
 	{
-		$res = $this->conn->query($this->configs["query"]);
-		// if error
-		if($this->conn->errno > 0) {
-			$this->result[] = 0;
-		// if no error
-		} else {
-			$this->result[] = 1;
+		// error 510
+		if( !($this->conn->query($this->configs["query"]))) {
+			$this->error_and_rollback(503);
+			return;
 		}
-
+		// if error
+		$this->result = array("affected_rows" => $this->conn->affected_rows);
 	} 
 
 
 
-	public function exec_update_stmt()
+	public function dbm_exec_update_stmt()
 	{
+		// error 511
 		// execute stmt
-		$this->stmt->execute();
+		if(!$this->stmt->execute()) {
+			$this->error_and_rollback(511, "stmt exec failed");
+			return;			
+		}
 		$this->stmt->store_result();
 		// if error
-		if($this->conn->errno > 0) {
-			$this->result[] = 0;
-		// if no error
+		if($this->conn->affected_rows > 0) {
+			// assign requested result to results
+			$this->result = array(
+				"affected_rows" => $this->conn->affected_rows);
+
 		} else {
-			$this->result[] = 1;
+			$this->result = array(
+				"affected_rows" => 0);
 		}
 		// free results
 		$this->stmt->free_result();
@@ -284,22 +337,30 @@ class Database_manager {
 
 
 
-	public function exec_delete_query()
+	public function dbm_exec_delete_query()
 	{
-		$res = $this->conn->query($this->configs["query"]);
+		// error 512
+		if( !($res = $this->conn->query($this->configs["query"]))) {
+			$this->error_and_rollback(503);
+			return;
+		}
 		// if error
-		if($this->conn->errno > 0) {
-			$this->result[] = 0;
-		// if no error
+		if($this->conn->affected_rows > 0) {
+			// assign requested result to results
+			$this->result = array(
+				"affected_rows" => $this->conn->affected_rows);
+
 		} else {
-			$this->result[] = 1;
+			$this->result = array(
+				"affected_rows" => 0);
 		}
 	}
 
 
 
-	public function get_result()
+	public function dbm_get_result()
 	{
+		// error 513
 		// return result
 		return $this->result;
 	}

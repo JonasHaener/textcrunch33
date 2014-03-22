@@ -1,4 +1,5 @@
 <?php
+require_once "error_handling.php";
 // Database parent class
 class Database {
 	// holds public DB connection
@@ -8,8 +9,6 @@ class Database {
 	protected $request_data;
 	protected $requestType;
 	protected $url;
-	protected $err_conn = false;
-	protected $error = false;
 	// user_id, user_name ...
 	protected $user = array();	
 	
@@ -20,30 +19,50 @@ class Database {
 		$conn = $this->conn = new mysqli($config_host, $config_db_user, $config_db_pwd, $config_database) or die ('Cannot open database');
 		// assign error in case
 		if ($conn->connect_errno > 0) {
-			$this->err_conn = true;
-			// return true for cancellation
-			return true;
-			
-		} else  {
-			return false;
+			handle_error(50, "connection");
+			$this->closeConnection();
 		}
 	}
 
-	protected function register_error_and_close()
+	public function check_process_error($error_code, $message ="")
 	{
-		$this->error = true;
-		$this->closeConnection();
-	}
-	
-	protected function process_error()
-	{
-		if($this->conn->errno > 0 || $this->error === true) {
+		if($this->conn->error) {
+			$this->closeConnection();
+			handle_error($error_code, $message);
 			return true;
+
 		} else {
 			return false;
 		}
 	}
 
+	private function prep_trace_stack($stack)
+	{
+		$mess = "";
+		foreach($stack as $i => $value) {
+			$mess.= basename($value["file"])." :: ".$value["line"]."--end--";
+		}
+		return $mess;
+	}
+		
+	public function error_and_close($error_code, $message ="") 
+	{
+		$trace = debug_backtrace();
+		$message = ($message === "") ? $this::prep_trace_stack($trace) : $message;
+		$this->closeConnection();
+		handle_error($error_code, $message);
+	}
+
+
+	public function error_and_rollback($error_code, $message ="", $rollback = true) 
+	{
+		$trace = debug_backtrace();
+		$message = ($message === "") ? $this::prep_trace_stack($trace) : $message;
+		$this->rollback_transaction();
+		$this->closeConnection();
+		handle_error($error_code, $message);
+	}
+	
 
 	protected function get_user_rights()
 	{

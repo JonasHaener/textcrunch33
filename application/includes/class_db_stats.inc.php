@@ -39,9 +39,10 @@ class Stats extends Database_manager {
 	public function get_result() 
 	{
 		// error 902
+		// wrap into array if first position is not an array
 		header('Content-type: application/json');
 		http_response_code(200);
-		echo json_encode(array($this->result), true);
+		echo json_encode($this->result, true);
 	}
 
 	private function get_user_stats()
@@ -52,17 +53,35 @@ class Stats extends Database_manager {
 		## start transaction
  		$this->start_transaction();
 
- 		## username, projects, rights_name, last_login, blocks created
  		$configs = array( 
-		 "query"    => "SELECT user_id, username, rights_name, last_login, count(blocks.created) AS blocks_created 
+		 "query"    => "SELECT user_id, username, rights_name, last_login FROM users",
+		 "expected" => array("user_id", "username", "rights_name", "last_login")
+		); 
+ 		$this->dbm_config($configs);
+		$this->dbm_exec_select_query_multi(false, false);
+		$users = $this->dbm_get_result();
+
+ 		## blocks created
+ 		$configs = array( 
+		 "query"    => "SELECT user_id, count(blocks.created) AS blocks_created 
 		 				FROM users INNER JOIN blocks USING(user_id)
 		 				GROUP BY user_id",
-		 "expected" => array("user_id", "username", "rights_name", "last_login", "blocks_created")
+		 "expected" => array("user_id", "blocks_created")
 		); 
 		$this->dbm_config($configs);
 		$this->dbm_exec_select_query_multi(false, false);
-		$users = array_merge($this->dbm_get_result(), $users);
-
+		$blocks = $this->dbm_get_result();
+		// assign blocks created
+		// asssign 0 if no value is available for this user
+		foreach($users as $i => $user) {
+			$usr_id = $user["user_id"];
+			$users[$i]["blocks_created"] = 0;
+			foreach($blocks as $n => $block) {
+				if($block["user_id"] === $usr_id) {
+					$users[$i]["blocks_created"] = $block["blocks_created"];
+				}
+			}
+		}
 
  		## deleted blocks
  		$configs = array( 
@@ -75,15 +94,13 @@ class Stats extends Database_manager {
 
 		foreach($users as $i => $usr) {
 			$usr_id = $usr["user_id"];
+			$users[$i]["blocks_deleted"] = 0;
 			foreach($deleted_blocks as $n => $del) {
 				if($del["user_id"] === $usr_id) {
 					$users[$i]["blocks_deleted"] = $del["blocks_deleted"];
-				} else {
-					$users[$i]["blocks_deleted"] = "0";
 				}	
 			}
 		}
-
 
 	 	## projects
  		$configs = array( 
@@ -96,21 +113,22 @@ class Stats extends Database_manager {
 		
 		foreach($users as $i => $usr) {
 			$usr_id = $usr["user_id"];
+			$users[$i]["projects"] = 0;
 			foreach($projects as $n => $pr) {
 				if($pr["user_id"] === $usr_id) {
 					$users[$i]["projects"] = $pr["projects"];
-				} else {
-					$users[$i]["projects"] = "0";
 				}	
 			}
 		}
 
 		$this->result = $users;
-
 		## commit transaction
  		$this->commit_transaction();		
 		// close connection
 		$this->closeConnection();
+
+		## write results
+		$this->get_result(); 
 	}
 
 	private function get_stats()
@@ -133,6 +151,9 @@ class Stats extends Database_manager {
 		
 		## close connection
 		$this->closeConnection();
+
+		## wrap result into indexed array for 
+		$this->result = array($this->result);
 
 		## write results
 		$this->get_result(); 

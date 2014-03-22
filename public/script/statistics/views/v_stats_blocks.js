@@ -80,13 +80,14 @@ define(function(require){
 
 		assignHooks: function()
 		{	
-			this.hooks.total		 = this.$("js_block_stats_total");
-			this.hooks.averageTags	 = this.$("js_block_stats_average_tags");
+			this.hooks.total		 = this.$(".js_block_stats_total");
+			this.hooks.averageTags	 = this.$(".js_block_stats_average_tags");
 		},
 
 		addStats: function(data)
 		{
 			if(!data) { return; }
+			data = data.toJSON().blocks;
 			this.hooks.total.text(data.total);
 			this.hooks.averageTags.text(data.average_tags);
 		}

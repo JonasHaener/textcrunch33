@@ -81,9 +81,6 @@ define(function(require){
 
 		inprogress: function(flag) {
 			
-console.log("success received");
-
-			
 			if(flag.flag !== true && flag.flag !==  false) {
 				throw "Expect boolean argument";
 				return;

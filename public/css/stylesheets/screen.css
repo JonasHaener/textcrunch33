@@ -917,7 +917,7 @@ datalist {
 }
 /* line 690, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-tags textarea {
-  padding: 0;
+  padding-left: 0.3em;
   max-width: 25em;
   min-width: 20em;
   max-height: 5.5em;

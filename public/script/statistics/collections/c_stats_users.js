@@ -10,7 +10,7 @@ define(function(require) {
 		// customize this collection to accept
 		// special settings to be submitted to server
 		url: "/textcrunch33/application/stats.php",
-		model: Model,
+		model: Model
 
 	});
 

@@ -82,14 +82,15 @@ define(function(require){
 
 		assignHooks: function()
 		{	
-			this.hooks.total		 = this.$("js_tag_stats_total");
-			this.hooks.unused 		 = this.$("js_tag_stats_unused");
-			this.hooks.unused_listed = this.$("js_tag_stats_unused_listed");
+			this.hooks.total		 = this.$(".js_tag_stats_total");
+			this.hooks.unused 		 = this.$(".js_tag_stats_unused");
+			this.hooks.unused_listed = this.$(".js_tag_stats_unused_listed");
 		},
 
 		addStats: function(data)
 		{
 			if(!data) { return; }
+			data = data.toJSON().tags;
 			this.hooks.total.text(data.total);
 			this.hooks.unused.text(data.total_unused);
 			this.hooks.unused_listed.text(data.unused_listed);

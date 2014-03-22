@@ -63,7 +63,7 @@ define(function(require){
 				this.cleanUp(e, options);
 			});
 			
-// test disabled			this.listenTo(this.router, this.CUSTEVENTS.getStats, this.getUserStats);
+			this.listenTo(this.router, this.CUSTEVENTS.getStats, this.getUserStats);
 		},
 
 		addOneUser: function(user)

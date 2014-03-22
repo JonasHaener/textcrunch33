@@ -17,8 +17,10 @@ define(function(require){
 
 		templates:  {
 			categories: _.template( templ ),
-			oneCat	  : _.template( templ_cats ),
+			cats	  : _.template( templ_cats ),
 		},
+
+		hooks:{},
 
 		events: {
 		
@@ -73,16 +75,21 @@ define(function(require){
 
 		assignHooks: function()
 		{	
-
+			this.hooks.cats = this.$(".js_categories")
 		},
 
-		addStats: function(stats)
+		addStats: function(model)
 		{
 			//var cats = (stats) ? stats.cats.toJSON() : {};
-			if(!stats) { return; }
-			// var cats = (stats) ? stats.cats : {};
-			// receives the full statistics data
-			this.$el.append(this.templates.oneCat({ cats: stats.cats }));
+			if(!model) { return; }
+			var categories = {};
+			model = model.toJSON().categories;
+			_.each(model, function(blocks, index, list) {
+				categories[index] = {};
+				categories[index].name = index;
+				categories[index].blocks = blocks;
+			});
+			this.hooks.cats.html(this.templates.cats({ cats: categories }));
 		}
 
 	});

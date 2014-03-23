@@ -193,7 +193,9 @@ define(function(require){
 					// remove progress bar
 					_this.router.inprogress(false);
 					// reset default text
-					_this.hooks.dropHere.text(placeholder);
+					setTimeout(function() {
+							_this.hooks.dropHere.text(placeholder);					
+					},1000);
 				},
 				// fail
 				function(xhr, status, error) {
@@ -203,7 +205,9 @@ define(function(require){
 					// load failed
 					_this.updatePerc(0, true);
 					// reset default text
-					_this.hooks.dropHere.text(placeholder);					
+					setTimeout(function() {
+							_this.hooks.dropHere.text(placeholder);					
+					},1000);
 				}
 			);	
 			

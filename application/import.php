@@ -26,8 +26,8 @@ if($request_method !== "POST") {
 }
 
 http_response_code(200);	
-echo "complete";
-//var_dump($_FILES["import"]);
+
+var_dump($_FILES["import"]["size"]);
 
 
 

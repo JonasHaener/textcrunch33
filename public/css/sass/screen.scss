@@ -132,6 +132,10 @@ footer {
 
 }
 
+.egg-is-hidden {
+	display: none;
+}
+
 /*--------------------------------
 	Global settings
 --------------------------------*/
@@ -699,6 +703,26 @@ datalist {
 		.form-control {
 			background-color: $col_grey_ll;
 			padding: .5em 0.5em 0.5 2em;
+		}	
+	}
+
+	.egg-m-stats-dropbox {
+		background-color:  $col_grey_ll;
+		padding: 3em;
+
+
+		div {
+			color: $col_grey_m;
+			font-size: 2em;
+			font-weight: bold;
+			text-align: center;
+			margin: auto;
+			padding: 2em 0;
+			border: dashed 2px $col_grey_m;
+		}
+		
+		.egg-is-drop-over {
+			background-color:  $col_grey_l;
 		}	
 	}
 	

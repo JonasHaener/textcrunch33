@@ -17,10 +17,14 @@ define(function(require){
 		template: _.template( templ ),
 
 		events: {
-			//"dragenter .js_dropbox" : "addDropBoxMarking",
 			"drop .js_dropbox"         : "uploadFile",
 			"dragover .js_drop_here"   : "addDropBoxMarking",
-			"dragleave .js_drop_here"  : "addDropBoxMarking"
+			"dragleave .js_drop_here"  : "addDropBoxMarking",
+			//"click .js_submit"		   : "uploadFile",
+			//"submit form"				: function(e) {
+			//	e.preventDefault();
+			//	this.uploadFile(e);
+			//}
 		},
 
 		collections: {
@@ -140,13 +144,94 @@ define(function(require){
 		{
 			e.preventDefault();
 			e.stopPropagation();
+            
+            var file = e.originalEvent.dataTransfer.files[0];
+			var fileName = file.name;
+			var _this = this,
+			placeholder = this.hooks.dropHere.text();
+
+			this.updateFileSize(file);
+
+
+			this.router.inprogress(true);
+
+            var uri = "/textcrunch33/application/import.php";
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            
+            xhr.open("POST", uri, true);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    
+                    // OK
+                    if(xhr.status === 200 || xhr.status === 204) {
+                    	// Handle response.
+	                    //console.log(xhr.responseText); // handle response.
+	                	// notify user of saved 
+	                	_this.router.actionSuccess();
+						// remove progress bar
+						// reset default text
+						setTimeout(function() {
+							_this.hooks.dropHere.text(placeholder);					
+						}, 1000);	
+                    
+                    // ERROR
+                    } else {
+						_this.router.actionError();
+						// load failed
+						_this.updatePerc(0, true);
+						// reset default text
+						setTimeout(function() {
+							_this.hooks.dropHere.text(placeholder);					
+						}, 1000);
+                	}
+                }	
+            };
+
+            
+            xhr.upload.addEventListener("progress", function(e) {
+				if(e.lengthComputable) {
+					var percCompl = (e.loaded / e.total)*100;
+					_this.updatePerc(percCompl, false);
+				}	
+			}, false);
+
+
+			xhr.upload.addEventListener("load", function(e) {
+				// 100% loaded
+				_this.updatePerc(100, true);
+			}, false);
+
+
+            fd.append('import', file);
+            // Initiate a multipart/form-data upload
+            xhr.send(fd);
+        }
+			
+
+/*
+
+		uploadFile: function(e)
+		{
+			e.preventDefault();
+			e.stopPropagation();
+
+			console.log("Upload file worsk");
 
 			var _this = this,
-				fileOne = e.originalEvent.dataTransfer.files[0],
-				fileName = fileOne.name,
+				// browser object
+				reader = new FileReader(),
+				formData = new FormData(),
+				//fileOne = e.originalEvent.dataTransfer.files[0],
+				//fileName = fileOne.name,
 				placeholder = this.hooks.dropHere.text();
 
-			this.updateFileSize(fileOne);
+				//formData.append("import", fileOne);
+
+
+
+			//this.updateFileSize(fileOne);
 
 			// remove drag over class as not removed when upload starts		
 			this.hooks.dropHere.removeClass(this.CSS.dragOver);
@@ -160,11 +245,16 @@ define(function(require){
 
 				type: "POST",
 				
-				data: { file: fileOne },
+				data: this.$("form"),
+				//data: { file: fileName },
 
 				// do not stringify data before
 				// sending
 				processData: false,
+
+				// /contentType: 'multipart/form-data',
+
+				mimeType: 'multipart/form-data',
 
 				xhr: function() {
 					var xhr = new window.XMLHttpRequest();
@@ -213,7 +303,7 @@ define(function(require){
 			
 			console.log("File received");
 		}
-
+*/
 	});
 
 	return View_AppNavi;

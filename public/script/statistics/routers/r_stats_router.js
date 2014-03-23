@@ -44,11 +44,13 @@ define(function(require) {
 		actionSuccess: function()
 		{
 			this.trigger(this.CUSTEVENTS.actionSuccess);
+			this.inprogress(false);
 		},
 
 		actionError: function()
 		{
 			this.trigger(this.CUSTEVENTS.actionError);
+			this.inprogress(false);
 		},
 
 		inprogress: function(flag)

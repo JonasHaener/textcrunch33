@@ -193,7 +193,6 @@ define(function(require) {
 		{
 			this.router.inprogress(true);
 			collection.fetch(configs);
-			this.router.inprogress(false);
 		},
 
 
@@ -225,8 +224,6 @@ define(function(require) {
 				{
 					// alert error
 					_this.router.actionError();
-					// remove progress bar
-					_this.router.inprogress(false);
 				}
 			};
 			

@@ -525,6 +525,7 @@ define(function(require) {
 			// warn of unsaved data
 			var _this = this,
 				mod = this.model;
+
 			if( this.notifyConfirm("delete") )
 			{
 				// add progress bar
@@ -532,7 +533,7 @@ define(function(require) {
 				// destro model
 				this.model.destroy({
 					success: function(model, response) {
-						mod.trigger(_this.CUSTEVENTS.removeFromProject, { model: mod });
+						_this.parent.collections.blockEntries.trigger(_this.CUSTEVENTS.removeFromProject, { model: mod });
 						// remove view from DOM
 						_this.parent.router.actionSuccess();
 						// remove progress bar

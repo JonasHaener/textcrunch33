@@ -348,6 +348,8 @@ define(function(require){
 		// if present
 		removeFromProject: function(model)
 		{	
+			console.log("REMOVAL removeal received");
+
 			var i,
 				len,
 				ids = this.getBlockIds(true),

@@ -1,6 +1,4 @@
-<?php require_once "../application/login_user.php"; 
-    echo password_hash("apple", PASSWORD_DEFAULT);
-?>
+<?php require_once "../application/login_user.php"; ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>

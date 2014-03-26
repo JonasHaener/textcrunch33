@@ -38,7 +38,7 @@ define(function(require){
 		},
 
 		CSS: {
-			confirmMessage	: "egg-face-confirm-backgr",
+			confirmMessage	: "egg-face-anim-notify-success",
 			errorMessage  	: "egg-face-error-backgr",
 			in_progress		: "egg-face-inprogress",
 		},

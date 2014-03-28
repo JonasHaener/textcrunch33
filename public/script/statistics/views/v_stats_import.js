@@ -145,19 +145,17 @@ define(function(require){
 			e.preventDefault();
 			e.stopPropagation();
             
-            var file = e.originalEvent.dataTransfer.files[0];
-			var fileName = file.name;
-			var _this = this,
-			placeholder = this.hooks.dropHere.text();
+            var _this = this,
+            	file = e.originalEvent.dataTransfer.files[0],
+            	fileName = file.name,
+            	placeholder = this.hooks.dropHere.text(),
+            	uri = "/textcrunch33/application/import.php",
+            	xhr = new XMLHttpRequest(),
+            	fd = new FormData();
 
 			this.updateFileSize(file);
 
-
 			this.router.inprogress(true);
-
-            var uri = "/textcrunch33/application/import.php";
-            var xhr = new XMLHttpRequest();
-            var fd = new FormData();
             
             xhr.open("POST", uri, true);
 

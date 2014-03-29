@@ -2,9 +2,8 @@
 session_start();
 // config file
 require_once "includes/config.inc.php";
-// get requests
-require_once "includes/class_db_user.inc.php";
 require_once "includes/messages_error.inc.php";
+require_once "includes/class_db_user.inc.php";
 
 ## configs
 $server			= 	$_SERVER;
@@ -29,7 +28,8 @@ if($request_method === "POST") {
 		$_SESSION['user_id'] 	  = $res["user_id"];
 		$_SESSION['user_rights']  = $res["user_rights"];
 		$_SESSION['user_name']    = $res["user_name"];
-		header("Location: ../public/index.php");
+		//header("Location: ../public/index.php");
+		header("Location: ".get_full_path()."index.php");
 
 	// if login not ok
 	} else {

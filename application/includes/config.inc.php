@@ -1,4 +1,6 @@
 <?php
+require_once "config_path.inc.php";
+require_once "config_user.inc.php";
 // Database
 $config_host 		= "localhost";
 $config_db_user 	= "textcrunch";

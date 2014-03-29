@@ -1,9 +1,9 @@
 <?php
 session_start();
+require_once "includes/config.inc.php";
 // create a new entry
 require_once "includes/class_db_entry.inc.php";
-require_once "includes/config.inc.php";
-require_once "includes/config_user.inc.php";
+
 
 ## configs
 $server		= 	$_SERVER;

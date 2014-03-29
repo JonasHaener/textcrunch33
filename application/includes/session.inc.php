@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once "config_path.inc.php";
+
 if( isset($_SESSION['user_rights']) ) {
     $user   = $_SESSION['user_name'];
     $domain = $_SESSION['user_rights']; // user right
@@ -8,5 +10,5 @@ if( isset($_SESSION['user_rights']) ) {
 
 } else {
 	// destroy session
-	Header("Location: logout.php");
-}  
+	Header("Location: ".get_full_path()."logout.php");
+}

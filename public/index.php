@@ -1,6 +1,5 @@
 <?php
-require_once "../application/includes/session.inc.php";
-?>
+require_once "../application/includes/session.inc.php"; ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>

@@ -201,32 +201,37 @@ h2, .h2 {
 /*--------------------------------
 	RESETS
 --------------------------------*/
-/* line 19, ../sass/screen.scss */
+/* line 18, ../sass/screen.scss */
 * {
   background-origin: border-box;
 }
 
-/* line 23, ../sass/screen.scss */
+/* line 22, ../sass/screen.scss */
 a {
   cursor: default !important;
 }
 
-/* line 27, ../sass/screen.scss */
+/* line 26, ../sass/screen.scss */
 h1 {
   font-size: 1.5em;
 }
 
-/* line 31, ../sass/screen.scss */
+/* line 30, ../sass/screen.scss */
 textarea, input, select, .egg-tag-holder {
-  border: 1px solid #d9d9d9 !important;
+  border: 1px solid #d9d9d9;
   border-radius: 0.2em;
 }
 
-/* line 35, ../sass/screen.scss */
+/* line 34, ../sass/screen.scss */
 .form-control, .input-group-addon {
   border: 1px solid #d9d9d9;
   border-radius: 0.2em;
   box-shadow: 0 0 1px #c5c5c5;
+}
+
+/* line 40, ../sass/screen.scss */
+datalist {
+  height: 3em !important;
 }
 
 /*--------------------------------
@@ -235,60 +240,60 @@ textarea, input, select, .egg-tag-holder {
 /*--------------------------------
 	B O D Y
 --------------------------------*/
-/* line 67, ../sass/screen.scss */
+/* line 70, ../sass/screen.scss */
 body {
   background-color: #F5F5F5;
 }
 
-/* line 71, ../sass/screen.scss */
+/* line 74, ../sass/screen.scss */
 footer {
   color: #c5c5c5;
 }
 
-/* line 76, ../sass/screen.scss */
+/* line 79, ../sass/screen.scss */
 .egg-l-contents-container {
   padding-top: 5em;
 }
 
-/* line 80, ../sass/screen.scss */
+/* line 83, ../sass/screen.scss */
 .egg-l-right-col-fixed {
   position: fixed;
   top: 70px;
 }
 
 @media (max-width: 800px) {
-  /* line 88, ../sass/screen.scss */
+  /* line 91, ../sass/screen.scss */
   .container {
-    min-width: 600px;
+    min-width: 650px;
   }
 
-  /* line 93, ../sass/screen.scss */
+  /* line 96, ../sass/screen.scss */
   .navbar-header {
     float: left;
   }
 
-  /* line 97, ../sass/screen.scss */
+  /* line 100, ../sass/screen.scss */
   .nav {
     float: left;
   }
 
-  /* line 101, ../sass/screen.scss */
+  /* line 104, ../sass/screen.scss */
   .nav > li {
     float: left;
   }
 
-  /* line 105, ../sass/screen.scss */
+  /* line 108, ../sass/screen.scss */
   .navbar-nav {
     float: left;
     margin: 0;
   }
 
-  /* line 109, ../sass/screen.scss */
+  /* line 112, ../sass/screen.scss */
   .navbar-nav > li {
     float: left;
   }
 
-  /* line 113, ../sass/screen.scss */
+  /* line 116, ../sass/screen.scss */
   .navbar-nav > li > a {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -297,21 +302,21 @@ footer {
 /*--------------------------------
 	S T A T E S
 --------------------------------*/
-/* line 124, ../sass/screen.scss */
+/* line 127, ../sass/screen.scss */
 .egg-is-hidden-anim {
   transition: max-height 600ms;
   max-height: 0 !important;
   overflow: hidden;
 }
 
-/* line 130, ../sass/screen.scss */
+/* line 133, ../sass/screen.scss */
 .egg-is-visible-anim {
   height: auto !important;
   max-height: 100em !important;
   transition: max-height 300ms;
 }
 
-/* line 137, ../sass/screen.scss */
+/* line 140, ../sass/screen.scss */
 .egg-is-hidden {
   display: none;
 }
@@ -319,7 +324,7 @@ footer {
 /*--------------------------------
 	Global settings
 --------------------------------*/
-/* line 144, ../sass/screen.scss */
+/* line 147, ../sass/screen.scss */
 datalist {
   height: 5em !important;
 }
@@ -327,7 +332,7 @@ datalist {
 /*--------------------------------
 	Login
 --------------------------------*/
-/* line 153, ../sass/screen.scss */
+/* line 156, ../sass/screen.scss */
 .egg-m-login {
   position: relative;
   padding: 0;
@@ -335,13 +340,13 @@ datalist {
   width: 100%;
 }
 
-/* line 161, ../sass/screen.scss */
+/* line 164, ../sass/screen.scss */
 .egg-m-login__header {
   float: none !important;
   padding: 1.5em 0 1.5em 0;
 }
 
-/* line 167, ../sass/screen.scss */
+/* line 170, ../sass/screen.scss */
 .egg-m-login__logo {
   display: block;
   font-size: 8em;
@@ -353,45 +358,45 @@ datalist {
 }
 
 @media (max-width: 1200px) {
-  /* line 180, ../sass/screen.scss */
+  /* line 183, ../sass/screen.scss */
   .egg-m-login__form input {
     width: 30em;
   }
 }
 @media (min-width: 1200px) {
-  /* line 185, ../sass/screen.scss */
+  /* line 188, ../sass/screen.scss */
   .egg-m-login__form input {
     width: 25em;
   }
 }
-/* line 190, ../sass/screen.scss */
+/* line 193, ../sass/screen.scss */
 .egg-m-login__tagline {
   display: block;
   color: #111A4E;
   font-size: 2em;
 }
 
-/* line 197, ../sass/screen.scss */
+/* line 200, ../sass/screen.scss */
 .egg-m-login__form {
   padding: 7em 5em 7em 7em;
   background: #356ea0;
 }
-/* line 201, ../sass/screen.scss */
+/* line 204, ../sass/screen.scss */
 .egg-m-login__form input[type=text]:first-of-type {
   margin-top: 3em;
 }
-/* line 205, ../sass/screen.scss */
+/* line 208, ../sass/screen.scss */
 .egg-m-login__form button {
   margin-top: 1em;
 }
 
-/* line 210, ../sass/screen.scss */
+/* line 213, ../sass/screen.scss */
 .egg-m-login__form__error {
   height: 1em;
   color: #8a0707;
 }
 
-/* line 220, ../sass/screen.scss */
+/* line 223, ../sass/screen.scss */
 .egg-m-login__footer {
   padding: .5em 3em 0 7em;
   background-color: #f3f3f3;
@@ -400,7 +405,7 @@ datalist {
 /*--------------------------------
 	M-navbar
 --------------------------------*/
-/* line 230, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 .egg-m-navbar {
   background-image: linear-gradient(to bottom, #e6e6e6 0%, #d9d9d9 100%);
   box-shadow: 0px 1px 3px #c5c5c5;
@@ -408,11 +413,11 @@ datalist {
   overflow: hidden;
   border-bottom: 1px solid #c5c5c5;
 }
-/* line 237, ../sass/screen.scss */
+/* line 240, ../sass/screen.scss */
 .egg-m-navbar a {
   color: black;
 }
-/* line 243, ../sass/screen.scss */
+/* line 246, ../sass/screen.scss */
 .egg-m-navbar .egg-m-item-count {
   width: 3.5em;
   font-weight: bold;
@@ -421,34 +426,34 @@ datalist {
   text-align: center;
 }
 
-/* line 253, ../sass/screen.scss */
+/* line 256, ../sass/screen.scss */
 .egg-m-navbar__brand {
   font-size: 1em;
   font-weight: bold;
   margin-right: 2em;
 }
 
-/* line 260, ../sass/screen.scss */
+/* line 263, ../sass/screen.scss */
 .egg-m-navbar__navi li {
   padding: 0 1em 0 0;
   border-right: 1px solid #c5c5c5;
 }
-/* line 264, ../sass/screen.scss */
+/* line 267, ../sass/screen.scss */
 .egg-m-navbar__navi li:first-of-type {
   padding: 0 1em 0 0;
   border-left: 1px solid #c5c5c5;
 }
-/* line 268, ../sass/screen.scss */
+/* line 271, ../sass/screen.scss */
 .egg-m-navbar__navi li a:hover {
   text-decoration: none;
 }
 
-/* line 273, ../sass/screen.scss */
+/* line 276, ../sass/screen.scss */
 .egg-m-navbar__navi--h:hover {
   background-image: linear-gradient(to bottom, #d9d9d9 100%, #c5c5c5 0%);
   cursor: pointer;
 }
-/* line 277, ../sass/screen.scss */
+/* line 280, ../sass/screen.scss */
 .egg-m-navbar__navi--h:hover a:hover {
   text-decoration: none;
   color: black;
@@ -460,7 +465,7 @@ datalist {
 /*--------------------------------
 	M-search-settings
 --------------------------------*/
-/* line 295, ../sass/screen.scss */
+/* line 298, ../sass/screen.scss */
 .egg-m-search-settings {
   /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
   /*
@@ -490,27 +495,27 @@ datalist {
 .egg-m-search-settings input[type=text] {
   width: 100%;
 }
-/* line 47, ../sass/screen.scss */
+/* line 50, ../sass/screen.scss */
 .egg-m-search-settings .egg-header {
   color: #FFF;
   background: #356ea0;
   border: 1px solid #356ea0;
   font-weight: bold;
 }
-/* line 304, ../sass/screen.scss */
+/* line 307, ../sass/screen.scss */
 .egg-m-search-settings div.input-group {
   width: 100%;
 }
-/* line 307, ../sass/screen.scss */
+/* line 310, ../sass/screen.scss */
 .egg-m-search-settings span.input-group-addon {
   margin-top: -1px;
   line-height: 0;
 }
-/* line 311, ../sass/screen.scss */
+/* line 314, ../sass/screen.scss */
 .egg-m-search-settings submit:hover {
   color: #FFF;
 }
-/* line 315, ../sass/screen.scss */
+/* line 318, ../sass/screen.scss */
 .egg-m-search-settings .egg-main-search {
   min-height: 3em;
   height: 100%;
@@ -519,7 +524,7 @@ datalist {
 /*--------------------------------
 	M-inputform
 --------------------------------*/
-/* line 325, ../sass/screen.scss */
+/* line 328, ../sass/screen.scss */
 .egg-m-inputform {
   /*@include grad-grey-ll;*/
   box-shadow: 0px 1px 1px #d9d9d9;
@@ -530,14 +535,14 @@ datalist {
   width: 100%;
 }
 
-/* line 337, ../sass/screen.scss */
+/* line 340, ../sass/screen.scss */
 .egg-m-inputform__header {
   background-color: #356ea0;
   color: #f3f3f3;
   font-weight: bold;
   height: 2.5em;
 }
-/* line 344, ../sass/screen.scss */
+/* line 347, ../sass/screen.scss */
 .egg-m-inputform__header li {
   display: inline-block;
   border-right: solid 1px #51a3e9;
@@ -545,12 +550,12 @@ datalist {
   padding: .5em 1em 0.5em 1em;
   height: 100%;
 }
-/* line 352, ../sass/screen.scss */
+/* line 355, ../sass/screen.scss */
 .egg-m-inputform__header .egg-entry-id {
   background-color: #51a3e9;
   width: 15%;
 }
-/* line 357, ../sass/screen.scss */
+/* line 360, ../sass/screen.scss */
 .egg-m-inputform__header .egg-navi {
   cursor: pointer;
   position: relative;
@@ -559,32 +564,32 @@ datalist {
   padding-right: 2em;
   padding-top: .7em;
 }
-/* line 364, ../sass/screen.scss */
+/* line 367, ../sass/screen.scss */
 .egg-m-inputform__header .egg-navi:hover {
   background-color: #51A3E9;
 }
 
-/* line 370, ../sass/screen.scss */
+/* line 373, ../sass/screen.scss */
 .egg-m-inputform__tagging {
   border-bottom: 1px solid #c5c5c5;
   padding: 0.5em;
 }
-/* line 375, ../sass/screen.scss */
+/* line 378, ../sass/screen.scss */
 .egg-m-inputform__tagging .egg-tag-holder {
   min-height: 3em;
   height: 100%;
   margin: 0.5em 0;
 }
 
-/* line 383, ../sass/screen.scss */
+/* line 386, ../sass/screen.scss */
 .egg-m-inputform__languages {
   padding: 0.5em;
 }
-/* line 387, ../sass/screen.scss */
+/* line 390, ../sass/screen.scss */
 .egg-m-inputform__languages label {
   display: block;
 }
-/* line 390, ../sass/screen.scss */
+/* line 393, ../sass/screen.scss */
 .egg-m-inputform__languages textarea {
   height: 7em;
   max-height: 7em;
@@ -593,7 +598,7 @@ datalist {
   width: 100%;
 }
 
-/* line 402, ../sass/screen.scss */
+/* line 405, ../sass/screen.scss */
 #icon_large {
   position: absolute;
   z-index: -10;
@@ -610,7 +615,7 @@ datalist {
 /*--------------------------------
 	M-results
 --------------------------------*/
-/* line 418, ../sass/screen.scss */
+/* line 421, ../sass/screen.scss */
 .egg-m-results {
   	/*
   
@@ -653,27 +658,27 @@ datalist {
   	*/
 }
 @media (max-width: 800px) {
-  /* line 422, ../sass/screen.scss */
+  /* line 425, ../sass/screen.scss */
   .egg-m-results .egg-l-spacer {
     height: 5em;
     margin-bottom: 5em;
   }
 }
-/* line 428, ../sass/screen.scss */
+/* line 431, ../sass/screen.scss */
 .egg-m-results [data-category] .egg-m-textblock__header {
   background: #356ea0;
   border: 1px solid #51a3e9;
 }
-/* line 473, ../sass/screen.scss */
+/* line 476, ../sass/screen.scss */
 .egg-m-results .egg-face-badge {
   background-color: #e6e6e6;
   color: black;
 }
-/* line 478, ../sass/screen.scss */
+/* line 481, ../sass/screen.scss */
 .egg-m-results .egg-face-badge.has-count {
   background-color: #C1DAE6;
 }
-/* line 482, ../sass/screen.scss */
+/* line 485, ../sass/screen.scss */
 .egg-m-results .egg-m-results__tabs {
   box-shadow: 0px 1px 1px #d9d9d9;
   margin-bottom: 1em;
@@ -681,7 +686,7 @@ datalist {
   border: solid 1px #e6e6e6;
   margin-bottom: 1em;
 }
-/* line 487, ../sass/screen.scss */
+/* line 490, ../sass/screen.scss */
 .egg-m-results .egg-m-results__tabs a {
   color: black;
 }
@@ -689,7 +694,7 @@ datalist {
 /*--------------------------------
 	M-textblock
 --------------------------------*/
-/* line 497, ../sass/screen.scss */
+/* line 500, ../sass/screen.scss */
 .egg-m-textblock {
   /*@include grad-grey-lll;*/
   box-shadow: 0px 1px 3px #c5c5c5;
@@ -699,7 +704,7 @@ datalist {
   width: 100%;
 }
 
-/* line 508, ../sass/screen.scss */
+/* line 511, ../sass/screen.scss */
 .egg-m-textblock__header {
   background-color: #356ea0;
   /*border-bottom: 1px solid $col_grey_m;*/
@@ -707,7 +712,7 @@ datalist {
   font-weight: bold;
   height: 2.5em;
 }
-/* line 516, ../sass/screen.scss */
+/* line 519, ../sass/screen.scss */
 .egg-m-textblock__header li {
   display: inline-block;
   border-right: solid 1px #51a3e9;
@@ -716,11 +721,11 @@ datalist {
   height: 100%;
   min-width: 1em;
 }
-/* line 525, ../sass/screen.scss */
+/* line 528, ../sass/screen.scss */
 .egg-m-textblock__header .egg-block-id {
   min-width: 15%;
 }
-/* line 529, ../sass/screen.scss */
+/* line 532, ../sass/screen.scss */
 .egg-m-textblock__header .egg-navi {
   cursor: pointer;
   position: relative;
@@ -729,65 +734,65 @@ datalist {
   padding-right: 2em;
   padding-top: .7em;
 }
-/* line 536, ../sass/screen.scss */
+/* line 539, ../sass/screen.scss */
 .egg-m-textblock__header .egg-navi:hover {
   opacity: 0.8;
 }
-/* line 540, ../sass/screen.scss */
+/* line 543, ../sass/screen.scss */
 .egg-m-textblock__header .egg-face-included {
   background-color: #51a3e9 !important;
 }
 
-/* line 548, ../sass/screen.scss */
+/* line 551, ../sass/screen.scss */
 .egg-m-textblock__content {
   border: 1px solid #d9d9d9;
 }
 
-/* line 552, ../sass/screen.scss */
+/* line 555, ../sass/screen.scss */
 .egg-m-textblock__tagging {
   border-bottom: 1px solid #d9d9d9;
   padding: 0.5em;
 }
-/* line 556, ../sass/screen.scss */
+/* line 559, ../sass/screen.scss */
 .egg-m-textblock__tagging .egg-tag-holder {
   min-height: 3em;
   height: 100%;
   margin: 0.5em 0;
 }
-/* line 562, ../sass/screen.scss */
+/* line 565, ../sass/screen.scss */
 .egg-m-textblock__tagging input, .egg-m-textblock__tagging select {
   width: 45%;
   display: inline-block;
 }
-/* line 566, ../sass/screen.scss */
+/* line 569, ../sass/screen.scss */
 .egg-m-textblock__tagging input:first-of-type {
   margin-right: .5em;
 }
 
-/* line 571, ../sass/screen.scss */
+/* line 574, ../sass/screen.scss */
 .egg-m-textblock__languages {
   padding-top: 1em;
   padding: 0.5em;
 }
-/* line 575, ../sass/screen.scss */
+/* line 578, ../sass/screen.scss */
 .egg-m-textblock__languages label {
   display: block;
 }
-/* line 579, ../sass/screen.scss */
+/* line 582, ../sass/screen.scss */
 .egg-m-textblock__languages textarea {
-  overflow-x: hidden;
-  border: none;
-  /*border: 1px solid $col_grey_l;*/
+  box-shadow: 0 0 1px #d9d9d9;
+  border: solid 1px #d9d9d9;
+  background-color: #f3f3f3 !important;
   border-radius: 0.2em;
   height: 8em;
   max-height: 15em;
-  width: 100%;
   max-width: 100%;
   margin-bottom: .3em;
-  box-shadow: 0 0 1px #d9d9d9;
+  overflow-x: hidden;
+  width: 100%;
 }
 
-/* line 595, ../sass/screen.scss */
+/* line 597, ../sass/screen.scss */
 .egg-m-textblock__languages__tagsview {
   border-bottom: 1px solid #d9d9d9;
   margin: 0.3em 0 0.6em 0;
@@ -797,7 +802,7 @@ datalist {
 /*--------------------------------
 	M-user-projects
 --------------------------------*/
-/* line 607, ../sass/screen.scss */
+/* line 609, ../sass/screen.scss */
 .egg-m-user-projects {
   /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
   /*
@@ -826,7 +831,7 @@ datalist {
 .egg-m-user-projects input[type=text] {
   width: 100%;
 }
-/* line 47, ../sass/screen.scss */
+/* line 50, ../sass/screen.scss */
 .egg-m-user-projects .egg-header {
   color: #FFF;
   background: #356ea0;
@@ -834,39 +839,39 @@ datalist {
   font-weight: bold;
 }
 
-/* line 617, ../sass/screen.scss */
+/* line 619, ../sass/screen.scss */
 .egg-m-user-projects .egg-m-user-projects__last-created {
   padding-left: 0.8em;
 }
-/* line 620, ../sass/screen.scss */
+/* line 622, ../sass/screen.scss */
 .egg-m-user-projects .egg-m-user-projects__last-created a {
   cursor: pointer;
 }
 
-/* line 625, ../sass/screen.scss */
+/* line 627, ../sass/screen.scss */
 .egg-m-user-projects__navi {
   /*@include grad-grey-ll;*/
 }
-/* line 630, ../sass/screen.scss */
+/* line 632, ../sass/screen.scss */
 .egg-m-user-projects__navi tr, .egg-m-user-projects__navi td {
   padding-top: 0;
   padding-bottom: 0.1em;
 }
-/* line 634, ../sass/screen.scss */
+/* line 636, ../sass/screen.scss */
 .egg-m-user-projects__navi td {
   cursor: pointer;
   text-align: center;
 }
-/* line 639, ../sass/screen.scss */
+/* line 641, ../sass/screen.scss */
 .egg-m-user-projects__navi td:hover {
   opacity: 0.6;
 }
-/* line 643, ../sass/screen.scss */
+/* line 645, ../sass/screen.scss */
 .egg-m-user-projects__navi td:last-of-type {
   border-right: none;
   text-indent: 0;
 }
-/* line 647, ../sass/screen.scss */
+/* line 649, ../sass/screen.scss */
 .egg-m-user-projects__navi a {
   color: black;
   padding: 0.35em 0.5em;
@@ -874,7 +879,7 @@ datalist {
   text-decoration: none;
 }
 
-/* line 655, ../sass/screen.scss */
+/* line 657, ../sass/screen.scss */
 .egg-m-user-projects__result {
   /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
   font-weight: bold;
@@ -883,7 +888,7 @@ datalist {
 /*--------------------------------
 	Search stats
 --------------------------------*/
-/* line 663, ../sass/screen.scss */
+/* line 665, ../sass/screen.scss */
 .egg-m-search-stats {
   /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
   /*
@@ -912,7 +917,7 @@ datalist {
 .egg-m-search-stats input[type=text] {
   width: 100%;
 }
-/* line 47, ../sass/screen.scss */
+/* line 50, ../sass/screen.scss */
 .egg-m-search-stats .egg-header {
   color: #FFF;
   background: #356ea0;
@@ -920,55 +925,55 @@ datalist {
   font-weight: bold;
 }
 
-/* line 674, ../sass/screen.scss */
+/* line 676, ../sass/screen.scss */
 .egg-m-stats {
   margin-bottom: 2em;
 }
-/* line 47, ../sass/screen.scss */
+/* line 50, ../sass/screen.scss */
 .egg-m-stats .egg-header {
   color: #FFF;
   background: #356ea0;
   border: 1px solid #356ea0;
   font-weight: bold;
 }
-/* line 679, ../sass/screen.scss */
+/* line 681, ../sass/screen.scss */
 .egg-m-stats h1 {
   margin-bottom: 1em;
 }
-/* line 683, ../sass/screen.scss */
+/* line 685, ../sass/screen.scss */
 .egg-m-stats thead {
   font-weight: bold;
   margin-top: 0.5em;
   background-color: #e6e6e6;
 }
-/* line 56, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-blocks tr > td:first-of-type {
   background-color: #e6e6e6;
   font-weight: bold;
 }
-/* line 56, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-tags tr > td:first-of-type {
   background-color: #e6e6e6;
   font-weight: bold;
 }
-/* line 696, ../sass/screen.scss */
+/* line 698, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-tags textarea {
   padding-left: 0.3em;
   max-width: 25em;
   min-width: 20em;
   max-height: 5.5em;
 }
-/* line 705, ../sass/screen.scss */
+/* line 707, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-import-data .form-control {
   background-color: #e6e6e6;
   padding: .5em 0.5em 0.5 2em;
 }
-/* line 711, ../sass/screen.scss */
+/* line 713, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-dropbox {
   background-color: #e6e6e6;
   padding: 3em;
 }
-/* line 716, ../sass/screen.scss */
+/* line 718, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-dropbox div {
   color: #c5c5c5;
   font-size: 2em;
@@ -978,7 +983,7 @@ datalist {
   padding: 2em 0;
   border: dashed 2px #c5c5c5;
 }
-/* line 726, ../sass/screen.scss */
+/* line 728, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-dropbox .egg-is-drop-over {
   background-color: #d9d9d9;
 }

@@ -90,8 +90,10 @@ define(function(require){
 		{
 			var _this = this;
 			// create temp object
-			e.preventDefault();
-			e.stopPropagation();
+			if(e.preventDefault && e.stopPropagation) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
 
 			if(e.type === "dragover") {
 				// if timer runs exit
@@ -145,7 +147,7 @@ define(function(require){
 			e.preventDefault();
 			e.stopPropagation();
             
-            var _this = this,
+            var self = this,
             	file = e.originalEvent.dataTransfer.files[0],
             	fileName = file.name,
             	placeholder = this.hooks.dropHere.text(),
@@ -164,144 +166,62 @@ define(function(require){
                     
                     // OK
                     if(xhr.status === 200 || xhr.status === 204) {
-                    	// Handle response.
-	                    //console.log(xhr.responseText); // handle response.
-	                	// notify user of saved 
-	                	_this.router.actionSuccess();
+	                	// notify user of saved
+	                	var res = JSON.parse(xhr.response);
+	                	
+	                	if(res.created < 1) {
+	                		self.router.actionError();
+	                	
+	                	} else {
+							self.router.actionSuccess();
+	                	}
+
+	                	self.hooks.dropHere.text("Created " + res.created + " entries.");	
+	                	
 						// remove progress bar
 						// reset default text
 						setTimeout(function() {
-							_this.hooks.dropHere.text(placeholder);					
-						}, 1000);	
+							self.hooks.dropHere.text(placeholder);					
+						}, 2500);	
                     
                     // ERROR
                     } else {
-						_this.router.actionError();
+						self.router.actionError();
 						// load failed
-						_this.updatePerc(0, true);
+						self.updatePerc(0, true);
 						// reset default text
 						setTimeout(function() {
-							_this.hooks.dropHere.text(placeholder);					
+							self.hooks.dropHere.text(placeholder);					
 						}, 1000);
                 	}
-                }	
+                }
+
             };
 
             
             xhr.upload.addEventListener("progress", function(e) {
 				if(e.lengthComputable) {
 					var percCompl = (e.loaded / e.total)*100;
-					_this.updatePerc(percCompl, false);
+					self.updatePerc(percCompl, false);
 				}	
 			}, false);
 
 
 			xhr.upload.addEventListener("load", function(e) {
 				// 100% loaded
-				_this.updatePerc(100, true);
+				self.updatePerc(100, true);
 			}, false);
 
 
             fd.append('import', file);
             // Initiate a multipart/form-data upload
             xhr.send(fd);
+
+            // remove drop box marking
+            this.addDropBoxMarking({ type: "dragleave" });
+
         }
-			
 
-/*
-
-		uploadFile: function(e)
-		{
-			e.preventDefault();
-			e.stopPropagation();
-
-			console.log("Upload file worsk");
-
-			var _this = this,
-				// browser object
-				reader = new FileReader(),
-				formData = new FormData(),
-				//fileOne = e.originalEvent.dataTransfer.files[0],
-				//fileName = fileOne.name,
-				placeholder = this.hooks.dropHere.text();
-
-				//formData.append("import", fileOne);
-
-
-
-			//this.updateFileSize(fileOne);
-
-			// remove drag over class as not removed when upload starts		
-			this.hooks.dropHere.removeClass(this.CSS.dragOver);
-
-			// add progress bar	
-			this.router.inprogress(true);
-
-			$.when($.ajax({
-				
-				url: "/textcrunch33/application/import.php",
-
-				type: "POST",
-				
-				data: this.$("form"),
-				//data: { file: fileName },
-
-				// do not stringify data before
-				// sending
-				processData: false,
-
-				// /contentType: 'multipart/form-data',
-
-				mimeType: 'multipart/form-data',
-
-				xhr: function() {
-					var xhr = new window.XMLHttpRequest();
-
-					xhr.upload.addEventListener("progress", function(e) {
-						
-						if(e.lengthComputable) {
-							var percCompl = (e.loaded / e.total)*100;
-							_this.updatePerc(percCompl, false);
-						}
-					}, false);
-
-					xhr.upload.addEventListener("load", function(e) {
-						// 100% loaded
-						_this.updatePerc(100, true);
-					}, false);
-					
-					return xhr;
-				}
-				
-			})).then(
-				// success
-				function(data, status, xhr) {						
-					// notify user of saved 
-					_this.router.actionSuccess();
-					// remove progress bar
-					_this.router.inprogress(false);
-					// reset default text
-					setTimeout(function() {
-							_this.hooks.dropHere.text(placeholder);					
-					},1000);
-				},
-				// fail
-				function(xhr, status, error) {
-					_this.router.actionError();
-					// remove progress bar
-					_this.router.inprogress(false);
-					// load failed
-					_this.updatePerc(0, true);
-					// reset default text
-					setTimeout(function() {
-							_this.hooks.dropHere.text(placeholder);					
-					},1000);
-				}
-			);	
-			
-			console.log("File received");
-		}
-*/
 	});
 
 	return View_AppNavi;

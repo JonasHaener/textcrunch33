@@ -413,10 +413,14 @@ define(function(require){
 				// retrieve first one
 				model = tagsAndCats.at(tagsAndCats.length-1).toJSON(),
 				newCats = this.template_catList(model),
-				newTags = this.template_tagList(model);
+				newTags = this.template_tagList(model),
+				$catSelector = this.$(".js_pick_category").find(".js_placeholder");
 
 			this.$tagSelection.html(newTags);
-			this.$catSelection.html(newCats);
+			this.$catSelection
+				.empty()
+				.append($catSelector)
+				.append(newCats)
 		},
 
 		// fetch tags and cats anew

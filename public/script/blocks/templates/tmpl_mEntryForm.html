@@ -12,14 +12,16 @@
             <div class="egg-m-inputform__tagging">
                 <div>
                     <div id="" class="js_category_entry egg-tag-holder form-control" type="text"></div>
-                    <select class="js_pick_category form-control" placeholder="Pick a category">
-                        <option class="js_placeholder" value="0" disabled selected>-Pick category-</option>
+                    <select class="js_pick_category form-control">
+                        <option class="js_placeholder" selected>-Pick a category-</option>
                     </select>
                 </div>
                 <div>
                     <div id="entry-tags" class="js_tags_entry egg-tag-holder form-control" type="text"></div>
                     <input class="js_pick_tag form-control" type="text" list="textblock-tags-list" placeholder="-Pick tags-" title="double-click to choose and enter to transfer">
-                    <datalist id="textblock-tags-list" class="js_tag_selection"></datalist>                               
+                    <div class="egg-m-datalist-holder">
+                        <datalist id="textblock-tags-list" class="js_tag_selection"></datalist>
+                    </div>                                    
                 </div>
             </div>
             <div class="egg-m-inputform__languages">

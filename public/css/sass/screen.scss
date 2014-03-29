@@ -2,7 +2,6 @@
 @import "compass/css3";
 @import "egg_reset";
 @import "egg_colors";
-@import "egg_borders";
 @import "egg_font_size";
 @import "egg_tables";
 @import "egg_faces"; /* dependent on colors*/
@@ -29,13 +28,17 @@ h1 {
 }
 
 textarea, input, select, .egg-tag-holder {
-	border: 1px solid $col_grey_l !important;
+	border: 1px solid $col_grey_l;
 	border-radius: 0.2em;
 }
 .form-control, .input-group-addon {
 	border: 1px solid $col_grey_l;
 	border-radius: 0.2em;
 	box-shadow: 0 0 1px $col_grey_m;
+}
+
+datalist {
+	height: 3em !important;
 }
 
 /*--------------------------------
@@ -86,7 +89,7 @@ footer {
 @media (max-width: 800px) {
 	
 	.container {
-		min-width: 600px;
+		min-width: 650px;
 	}
 
 
@@ -577,17 +580,16 @@ datalist {
 	}
 
 	textarea {
-		overflow-x: hidden;
-		border: none;
-		/*border: 1px solid $col_grey_l;*/
+		box-shadow: 0 0 1px $col_grey_l;
+		border: solid 1px $col_grey_l;
+		background-color: $col_grey_lll !important;
 		border-radius: 0.2em ;
 		height: 8em;
 		max-height: 15em;
-		width: 100%;
 		max-width: 100%;
 		margin-bottom: .3em;
-		box-shadow: 0 0 1px $col_grey_l; 
-
+		overflow-x: hidden;
+		width: 100%;
 	}
 }
 

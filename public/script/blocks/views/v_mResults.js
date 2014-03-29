@@ -64,7 +64,6 @@ define(function(require){
 			});
 			this.listenTo(this.collections.blockEntries, this.CUSTEVENTS.hideLanguages, this.hideLanguages);
 			this.listenTo(this.collections.catsAndTags, this.CUSTEVENTS.tagsAndCatsLoaded, this.addTagsAndCats);
-			this.listenTo(this.collections.catsAndTags, this.CUSTEVENTS.tagsAndCatsLoaded, this.addTagsAndCats);
 			// clean results view items
 			this.listenTo(this.router, this.CUSTEVENTS.cleanView, this.cleanView);
 		},
@@ -210,6 +209,7 @@ define(function(require){
 			this.$(".js_pick_category").each(function(){
 				$(this).html(newCats);
 			});
+
 		},
 
 		activateTabbedContent: function(e)

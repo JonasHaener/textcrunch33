@@ -1,4 +1,5 @@
 <?php
+require "../application/includes/config_path.inc.php";
 session_start();
 // invalidate session name 
 if( isset($_COOKIE[session_name()]) ) {
@@ -6,4 +7,4 @@ if( isset($_COOKIE[session_name()]) ) {
 } 
 // destroy session
 session_destroy();
-header("Location: ./login.php");
+header("Location: ".get_full_path()."login.php");

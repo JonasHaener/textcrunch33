@@ -7,7 +7,7 @@ require_once "class_db_dbm.inc.php";
 class Entry extends Database_manager {
 	
 	private $result = array();
-	private $insert_data;
+	protected $insert_data;
 
 	// $last_insert_ids holds ids
 	// even if they already exist in db
@@ -21,9 +21,21 @@ class Entry extends Database_manager {
 		// error 601
 	}
 
+	// used when other classes access this class
+	// creating multiple entries
+	protected function ent_reset_class()
+	{
+		$this->result = array();
+		$this->insert_data = array();
+		$this->last_insert_ids = array();
+		$this->error = false;
+
+	}
+
 	public function route_request() {
 		// error 602
 		// route request to appropriate handler
+		$this->ent_reset_class();
 		// check user rights
 		$user_right = $this->get_user_rights();
 		switch( $this->requestType ) {
@@ -67,10 +79,10 @@ class Entry extends Database_manager {
 
 
 
-	private function create_entry() {
+	protected function create_entry() {
 		// error 604
 		$this->insert_data = $this->get_json_decoded_request_data();
-		
+
 		## start transaction
  		$this->start_transaction();
 		
@@ -134,9 +146,10 @@ class Entry extends Database_manager {
 
 
 
-	private function get_archive_entry( $id_to_delete )
+	protected function get_archive_entry( $id_to_delete )
 	{
 		// error 606
+
 		// user id fetch
 		$this->content_of_deleted = array();
 
@@ -178,7 +191,7 @@ class Entry extends Database_manager {
 
 
 
-	private function archive_entry()
+	protected function archive_entry()
 	{
 		// error 607
 		$entry = $this->content_of_deleted;
@@ -224,7 +237,7 @@ class Entry extends Database_manager {
 
 
 
-	private function delete_entry() {
+	protected function delete_entry() {
 		// error 608
 		$id_to_delete = $this->get_request_data();
 		
@@ -289,7 +302,7 @@ class Entry extends Database_manager {
 
 
 
-	private function get_cat_id()
+	protected function get_cat_id()
 	{
 		// error 609
 		$category_name 	= trim( $this->insert_data['category'] );
@@ -318,7 +331,7 @@ class Entry extends Database_manager {
 
 
 	
-	private function insert_block_handler($configs)
+	protected function insert_block_handler($configs)
 	{
 		// error 610
 		if(!is_array($configs)) {
@@ -357,7 +370,7 @@ class Entry extends Database_manager {
 
 
 
-	private function insert_block()
+	protected function insert_block()
 	{
 		// error 611
 		$user_id 	  = $this->user["user_id"];
@@ -450,7 +463,7 @@ class Entry extends Database_manager {
 
 
 
-	private function create_tag($tag_name)
+	protected function create_tag($tag_name)
 	{
 		// error 612
 		// create tag
@@ -476,9 +489,11 @@ class Entry extends Database_manager {
 	
 	
 	
-	private function get_tag_ids ()
+	protected function get_tag_ids ()
 	{
 		// error 613
+		
+
 		$tags = $this->insert_data['tags']; // array
 		// return if no tags to commit
 		if(count($tags) <= 0) {
@@ -518,7 +533,7 @@ class Entry extends Database_manager {
 
 
 
-	private function insert_tags_in_tag_switcher ()
+	protected function insert_tags_in_tag_switcher ()
 	{
 		// error 614
 		// Get tags ids
@@ -543,7 +558,7 @@ class Entry extends Database_manager {
 
 
 
-	private function update_block()
+	protected function update_block()
 	{
 		// error 615
 		$user_id 	  = $this->user["user_id"];
@@ -654,7 +669,7 @@ class Entry extends Database_manager {
 
 
 
-	private function remove_tags_in_tag_switcher()
+	protected function remove_tags_in_tag_switcher()
 	{
 		// error 616
 		$configs = array( 

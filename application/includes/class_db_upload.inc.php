@@ -6,11 +6,11 @@ require_once "class_db_entry.inc.php";
 // inherites Entry for file uploads
 class Upload extends Entry {
 	
-	private $result = array();
-
 	private $file; // temp file
 
 	private $upload_directory = '../file_upload/';
+
+	private $result = 0;
 
 	### constructor
 	public function __construct() {
@@ -22,7 +22,7 @@ class Upload extends Entry {
 		switch( $this->requestType ) {
 			case "POST":
 				$files = $this->get_request_data();
-				$this->handle_file($files);
+				$this->upload_csv_file($files);
 			break;
 			// if request type is not defined
 			default:
@@ -35,23 +35,26 @@ class Upload extends Entry {
 		// wrap into array if first position is not an array
 		header('Content-type: application/json');
 		http_response_code(200);
-		echo json_encode($this->result, true);
+		echo json_encode(array("created" => $this->result), true);
 	}
 
-	private function handle_file($files) {
+	private function upload_csv_file($files) {
 		
 		// check file validity
-		$this->check_file($files);
-		
-		// move file to uploaded directory
-		//$this->move_file();
+		// assign file to class now
+		$file = $this->file = $this->validate_csv_file($files);
 
 		// read csv file
-		$this->csv_to_array();
+		$this->create_entries();
+
+		// move file to uploaded directory
+		if(!move_uploaded_file ($file["tmp_name"], $this->upload_directory.$file["name"])) {
+			handle_error(0, "Could not move file");
+		}
 
 	}
 
-	private function check_file($files)
+	private function validate_csv_file($files)
 	{
 		$file;
 
@@ -68,11 +71,12 @@ class Upload extends Entry {
 		}
 
 		// check size
-		if($file["size"] > (1024000)) {
-			handle_error(0, "File size to large");
-			return;	
+		if($file["size"] > (2048000)) {
+			handle_error(0, "File size too large");
+			return;
 		}
 
+		return $file;
 		/*
 		// check MIME type
 	 	$finfo = new finfo(FILEINFO_MIME_TYPE);
@@ -89,24 +93,12 @@ class Upload extends Entry {
 	    }
 		*/
 
-		// assign file to class now
-		$this->file = $file;
+
 
 
 	}
 	// move file
 	
-
-	private function move_file()
-	{
-		$file_name = $this->file["name"];
-		// if error during moving
-		if(!move_uploaded_file ($this->file["tmp_name"], $this->upload_directory.$file_name)) {
-			handle_error(0, "Could not move file");
-		}
-
-	}
-
 	private function is_csv_file($file_name)
 	{
 		$str = explode(".", $file_name);
@@ -115,28 +107,20 @@ class Upload extends Entry {
 		return ( $ext === "csv") ? true : false;
 	}
 
-	private function csv_to_array()
+	private function csv_to_array($file)
 	{
 		
 		$csv_content = array();
 
-		if(!$this->is_csv_file($this->file["name"])) {
+		if(!$this->is_csv_file($file["name"])) {
 			handle_error(0, "Not a CSV file");
 			return;
 		}
 
-		if (($handle = fopen($this->file["tmp_name"], "r")) !== false) {
+		//read file
+		if (($handle = fopen($file["tmp_name"], "r")) !== false) {
 		    
 		    while (($row = fgetcsv($handle, 1000, ",")) !== false) {
-				
-				foreach($row as $i => $val) {
-					// look for #tag separators
-					// split into array
-					if(stripos($val, ";")) {
-						$row[$i] = explode(";", $val);
-					}
-				}
-
 		     	$csv_content[] = $row;
 		    }
 		    
@@ -146,14 +130,102 @@ class Upload extends Entry {
 			handle_error(0, "Read error on CSV file");
 		}
 
-		var_dump($csv_content);
+		return $csv_content;
 
 
 	}
 
-	private function create_entry()
+	private function create_entries()
 	{
-	
+		// read csv file
+		$upload_data = $this->csv_to_array($this->file);
+		// will hold data for upload
+		$blocks = array();
+
+		/* data received:
+			array(
+				array(
+					...
+					...
+				),
+				array(
+					...
+					...
+				)
+			)
+			// pos 0 category
+			// pos 1 tags ";"
+			// pos 2 german
+			// pos 3 english
+			// pos 4 french
+			// pos 5 dutch
+			// pos 6 italian
+			// pos 7 polish
+			// pos 8 japanese	
+		*/
+		
+		// loop outer umbrella array
+		foreach($upload_data as $index => $data) {
+
+			// skip table headers
+			if($index === 0) {
+				continue;
+			}
+
+			// array must be length of 9
+			if(count($data) !== 10) {
+				// do not block further reading of data
+				continue;
+			}
+
+			$blocks[] = array(
+				"category" 	=> $data[0],
+				"tags" 		=> explode(";", $data[1]),
+				"german" 	=> $data[2],
+				"english" 	=> $data[3],
+				"french" 	=> $data[4],
+				"dutch" 	=> $data[5],
+				"italian" 	=> $data[6],
+				"polish" 	=> $data[7],
+				"spanish" 	=> $data[8],
+				"japanese" 	=> $data[9]
+			);
+
+		}
+
+		foreach($blocks as $key => $block) {
+			$this->ent_reset_class();
+			// assign values to Class Entry
+			$this->insert_data = $block;
+			
+			## start transaction
+	 		$this->start_transaction();
+			
+			## get the category_id;
+			$this->get_cat_id();
+
+			## insert block
+			$this->insert_block();
+
+			## get tag ids
+			$this->get_tag_ids();
+
+			## insert into tag switch
+			$this->insert_tags_in_tag_switcher();
+
+			## start transaction
+	 		$this->commit_transaction();
+
+	 		## update result
+	 		$this->result += 1; 
+		
+		}
+
+		// close connection
+		$this->closeConnection();
+		
+		## return result to frontend
+	 	$this->get_result();	
 
 	}
 }

@@ -1,12 +1,15 @@
 <?php
-//session_start();
-
-// get requests
-require_once "includes/class_db_upload.inc.php";
+session_start();
 // config file
 require_once "includes/config.inc.php";
-require_once "includes/config_user.inc.php";
+// get requests
+require_once "includes/class_db_upload.inc.php";
 
+// check if user is allowed to load files at all
+if($user_rights === 0) {
+	header("Location: ../../public/");
+	exit();
+}
 
 //http_response_code(200);
 //echo "File received";

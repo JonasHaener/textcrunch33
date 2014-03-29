@@ -1,12 +1,12 @@
 <?php
 session_start();
+// config file
+require_once "includes/config.inc.php";
 // get requests
 require_once "includes/class_db_search.inc.php";
 // put and delete requests
 require_once "includes/class_db_entry.inc.php";
-// config file
-require_once "includes/config.inc.php";
-require_once "includes/config_user.inc.php";
+
 
 ## configs
 $server			= 	$_SERVER;

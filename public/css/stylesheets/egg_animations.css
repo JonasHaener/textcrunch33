@@ -9,15 +9,9 @@
   to {
     background-color: #9CD547;
   }
-
-  /*
-  from {opacity: 0 ;}
-  50% {opacity: 0.5 ;}
-  to {opacity: 1 ;}
-  */
 }
 
-/* line 17, ../sass/egg_animations.scss */
+/* line 12, ../sass/egg_animations.scss */
 .egg-face-anim-notify-success {
   background-color: #a4da54;
   -webkit-animation-name: "notify_success_error";
@@ -25,5 +19,26 @@
   -webkit-animation-timing-function: ease-in;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-direction: alternate;
-  /*background-color: 	$col_green_lemon !important;*/
+}
+
+@-webkit-keyframes "notify_progress" {
+  /* line 26, ../sass/egg_animations.scss */
+  from {
+    background-color: #F1B73C;
+  }
+
+  /* line 29, ../sass/egg_animations.scss */
+  to {
+    background-color: #DB9F20;
+  }
+}
+
+/* line 34, ../sass/egg_animations.scss */
+.egg-face-anim-notify-progress {
+  background-color: #F1B73C;
+  -webkit-animation-name: "notify_progress";
+  -webkit-animation-duration: 900ms;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
 }

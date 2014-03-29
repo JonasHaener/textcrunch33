@@ -2,7 +2,7 @@
 <% if(domain < 3) { %>
 <section class="egg-m-inputform">
         <ul class="egg-m-inputform__header">
-            <li>New Entry:&nbsp;</li>
+            <li>Create Entry:&nbsp;</li>
             <li class="js_show_form egg-navi glyphicon glyphicon-arrow-down" title="open form"></li>
             <li class="js_hide_form egg-navi glyphicon glyphicon-arrow-up" title="close form"></li>
             <li class="js_save_entry egg-navi glyphicon glyphicon-floppy-disk egg-face-confirm-backgr-h" title="save"></li>
@@ -19,9 +19,7 @@
                 <div>
                     <div id="entry-tags" class="js_tags_entry egg-tag-holder form-control" type="text"></div>
                     <input class="js_pick_tag form-control" type="text" list="textblock-tags-list" placeholder="-Pick tags-" title="double-click to choose and enter to transfer">
-                    <div class="egg-m-datalist-holder">
-                        <datalist id="textblock-tags-list" class="js_tag_selection"></datalist>
-                    </div>                                    
+                    <datalist style="height:3em" id="textblock-tags-list" class="js_tag_selection"></datalist>
                 </div>
             </div>
             <div class="egg-m-inputform__languages">

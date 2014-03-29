@@ -37,9 +37,17 @@ textarea, input, select, .egg-tag-holder {
 	box-shadow: 0 0 1px $col_grey_m;
 }
 
-datalist {
-	height: 3em !important;
+
+/*--------------------------------
+	Shadow DOM
+--------------------------------*/
+
+/* Remove arrows from datalist list tags*/
+input::-webkit-calendar-picker-indicator {
+  display: none;
 }
+
+
 
 /*--------------------------------
 	M I X I N S
@@ -141,12 +149,6 @@ footer {
 	display: none;
 }
 
-/*--------------------------------
-	Global settings
---------------------------------*/
-datalist {
-	height: 5em !important;
-}
 
 
 

@@ -531,8 +531,6 @@ define(function(require){
 				{
 					if(response.length > 0) {
 						
-						console.log(collection);
-
 						// if no records are found GET HTTP response is 204 -> no error
 						// alert user however of no records found
 						// collection lenght is lenght of entire collection not just added new ones

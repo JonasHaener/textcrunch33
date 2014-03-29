@@ -6,7 +6,7 @@ require_once "includes/config.inc.php";
 require_once "includes/class_db_upload.inc.php";
 
 // check if user is allowed to load files at all
-if($user_rights === 0) {
+if($user["user_rights"] !== 0) {
 	header("Location: ../../public/");
 	exit();
 }

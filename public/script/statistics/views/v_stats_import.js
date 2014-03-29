@@ -83,7 +83,8 @@ define(function(require){
 		{	
 			this.hooks.dropbox = this.$(".js_dropbox");
 			this.hooks.dropHere = this.$(".js_drop_here");
-			this.hooks.uploadProgress = this.$(".js_upload_progress");
+			this.hooks.uploadProgress = this.$(".js_drop_progress");
+			this.hooks.showFileSize = this.$(".js_drop_file_size");
 		},
 
 		addDropBoxMarking: function(e)
@@ -110,6 +111,7 @@ define(function(require){
 			}
 		},
 
+		/* function for displaying a percentage progress bar
 		updatePerc: function(value, remove) {
 			var perc = value + "%",
 				_this = this;
@@ -130,16 +132,31 @@ define(function(require){
 				}, 1000);
 			}
 		},
+		*/
 
-		updateFileSize: function(file) {
+		calcFilesize: function(bytes, unit)
+		{
 			// 1MB = bytes / pwr(1024, 2)
 			// 1KB = 1024 bytes
-			var conv_MB = Math.pow(1024, 2),
-				conv_KB = 1024,
-				MBytes = (file.size/conv_KB).toFixed(2);
+			var conv;
+			switch(unit) {
+				case "KB":
+					conv = 1024;
+					break;
+				case "MB":
+					conv = Math.pow(1024, 2);
+					break;
+				default:
+					conv = 0;		
+			}
 
-			this.hooks.dropHere.text(MBytes+"KB");
+			return (bytes/conv).toFixed(2);
+		},
 
+		updateStatus: function(status) 
+		{
+			// show file size
+			this.hooks.uploadProgress.text(status);
 		},
 
 		uploadFile: function(e)
@@ -155,12 +172,16 @@ define(function(require){
             	xhr = new XMLHttpRequest(),
             	fd = new FormData();
 
-			this.updateFileSize(file);
-
-			this.router.inprogress(true);
+            // indicate progress	
+			self.router.inprogress(true);
+			
+			// display the file size
+			self.hooks.showFileSize.text( self.calcFilesize(file.size, "KB") + "KB" );
             
+            // create XHR object
             xhr.open("POST", uri, true);
 
+            // receive response
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     
@@ -176,44 +197,49 @@ define(function(require){
 							self.router.actionSuccess();
 	                	}
 
-	                	self.hooks.dropHere.text("Created " + res.created + " entries.");	
+	                	self.updateStatus("Created " + res.created + " entries");	
 	                	
 						// remove progress bar
 						// reset default text
 						setTimeout(function() {
-							self.hooks.dropHere.text(placeholder);					
+							self.updateStatus(placeholder);
+							self.hooks.showFileSize.text("");					
 						}, 2500);	
                     
                     // ERROR
                     } else {
 						self.router.actionError();
 						// load failed
-						self.updatePerc(0, true);
+						//self.updatePerc(0, true);
 						// reset default text
 						setTimeout(function() {
-							self.hooks.dropHere.text(placeholder);					
+							self.updateStatus(placeholder);
+							this.hooks.showFileSize.text("");					
 						}, 1000);
                 	}
                 }
-
             };
 
             
             xhr.upload.addEventListener("progress", function(e) {
+
 				if(e.lengthComputable) {
 					var percCompl = (e.loaded / e.total)*100;
-					self.updatePerc(percCompl, false);
-				}	
+					// add file size info
+					self.updateStatus(percCompl+"%");
+				
+				}
 			}, false);
 
 
 			xhr.upload.addEventListener("load", function(e) {
 				// 100% loaded
-				self.updatePerc(100, true);
+				self.updateStatus("100%");
 			}, false);
 
 
             fd.append('import', file);
+
             // Initiate a multipart/form-data upload
             xhr.send(fd);
 

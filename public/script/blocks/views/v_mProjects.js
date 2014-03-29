@@ -259,7 +259,8 @@ define(function(require){
 				}
 			});
 			// update block ids field
-			this.displayUpdatedCollection(projectIds);
+			// remove dupliacates if for items added manually
+			this.displayUpdatedCollection( _.uniq(projectIds) );
 		},
 
 		// trims id form fields

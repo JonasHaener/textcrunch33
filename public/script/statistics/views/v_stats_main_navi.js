@@ -40,7 +40,7 @@ define(function(require){
 		CSS: {
 			confirmMessage	: "egg-face-anim-notify-success",
 			errorMessage  	: "egg-face-error-backgr",
-			in_progress		: "egg-face-inprogress",
+			in_progress		: "egg-face-anim-notify-progress",
 		},
 
 		assignHooks: function()

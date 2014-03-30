@@ -10,12 +10,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!--<link rel="shortcut icon" href="favicon.png">-->
-    <title>Textcrunch</title>
+    <title>Login|TeC+i</title>
     <!-- Core CSS -->
     <link href="css/libs/bootstrap.css" rel="stylesheet">
     <!-- Off canvas styles -->
     <!--<link href="css/stylesheets/bstrap-offcanvas.css" rel="stylesheet">-->
     <link href="css/stylesheets/screen.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
 </head>
 <body>
     <div class="container egg-m-login">

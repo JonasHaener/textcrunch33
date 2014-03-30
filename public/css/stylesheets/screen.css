@@ -997,3 +997,9 @@ footer {
 .egg-m-stats .egg-m-stats-dropbox .egg-is-drop-over {
   background-color: #d9d9d9;
 }
+
+/* line 738, ../sass/screen.scss */
+.egg-m-footer a {
+  color: #c5c5c5;
+  padding-left: 0.5em;
+}

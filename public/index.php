@@ -9,12 +9,13 @@ require_once "../application/includes/session.inc.php"; ?>
     <meta name="description" content="">
     <meta name="author" content="">
     <!--<link rel="shortcut icon" href="favicon.png">-->
-    <title>Textcrunch</title>
+    <title>TeC+i</title>
     <!-- Core CSS -->
     <link href="css/libs/bootstrap.css" rel="stylesheet">
     <!-- Off canvas styles -->
     <!--<link href="css/stylesheets/bstrap-offcanvas.css" rel="stylesheet">-->
     <link href="css/stylesheets/screen.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
 </head>
 <body>
 <!-- APP CONTAINER -->
@@ -35,7 +36,7 @@ require_once "../application/includes/session.inc.php"; ?>
         <div id="js_mFooter"></div>
     </div> <!--App container END-->
     <!-- SCRIPTS -->
-    <script data-main="script/blocks/app" src="script/blocks/libs/require.js"></script>    
+    <script data-main="script/blocks/_build/app_build" src="script/blocks/libs/require.js"></script>    
     <script id="appdata">
         window.APP = { user: '<?php echo $user; ?>', year: '<?php echo $year; ?>', domain: '<?php echo $domain; ?>' };
     </script>

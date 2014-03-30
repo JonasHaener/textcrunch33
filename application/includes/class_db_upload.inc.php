@@ -92,10 +92,6 @@ class Upload extends Entry {
 			return;	
 	    }
 		*/
-
-
-
-
 	}
 	// move file
 	
@@ -132,7 +128,21 @@ class Upload extends Entry {
 
 		return $csv_content;
 
+	}
 
+	private function prepare_tags($tag_string)
+	{
+		    $tags = explode(";", $tag_string);
+			$result = array_filter( $tags, function(&$value) {
+				// convert all to lowecase
+				$value = strtolower($value);
+				// replace spaces
+				$value = preg_replace('/\s+/', "", $value);
+				// remove emtpy strings
+				return ($value !== "");
+			});
+
+			return $result; 
 	}
 
 	private function create_entries()
@@ -179,8 +189,8 @@ class Upload extends Entry {
 			}
 
 			$blocks[] = array(
-				"category" 	=> $data[0],
-				"tags" 		=> explode(";", $data[1]),
+				"category" 	=> strtolower($data[0]),
+				"tags" 		=> $this->prepare_tags($data[1]),
 				"german" 	=> $data[2],
 				"english" 	=> $data[3],
 				"french" 	=> $data[4],

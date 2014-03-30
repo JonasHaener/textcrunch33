@@ -5,13 +5,13 @@
         underscore: "libs/underscore",
         backbone:   "libs/backbone",
         text:       "libs/text",
-        v_mApp:     "views/v_mApp"
+        v_stats_app:  "views/v_stats_app"
 
     },
 
-    out: "_build/app_build.js",
+    out: "_build/app_stats_build.js",
 
-    include: ["app","v_mApp"],
+    include: ["app","v_stats_app"],
     wrap: true,
     /*
     modules: [ {  //name: "v_mApp" "app" }],

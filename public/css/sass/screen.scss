@@ -731,8 +731,12 @@ footer {
 			background-color:  $col_grey_l;
 		}	
 	}
-	
+}
 
 
-
+.egg-m-footer {
+	a {
+		color: $col_grey_m;
+		padding-left: 0.5em;
+	}
 }

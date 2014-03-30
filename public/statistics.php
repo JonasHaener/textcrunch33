@@ -10,12 +10,13 @@ require_once "../application/includes/session.inc.php";
     <meta name="description" content="">
     <meta name="author" content="">
     <!--<link rel="shortcut icon" href="favicon.png">-->
-    <title>Textcrunch</title>
+    <title>Stats|TeC+i</title>
     <!-- Core CSS -->
     <link href="css/libs/bootstrap.css" rel="stylesheet">
     <!-- Off canvas styles -->
     <!--<link href="css/stylesheets/bstrap-offcanvas.css" rel="stylesheet">-->
     <link href="css/stylesheets/screen.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>    
 </head>
 <body>
 <!-- APP CONTAINER -->
@@ -32,13 +33,9 @@ require_once "../application/includes/session.inc.php";
         </div> <!--App container END-->
     </div>  <!--App container END-->    
 <!-- SCRIPTS -->
-    
-
-    <script data-main="script/statistics/app" src="script/statistics/libs/require.js"></script>    
+    <script data-main="script/statistics/_build/app_stats_build" src="script/statistics/libs/require.js"></script>    
     <script id="appdata">
         window.APP = { year: '<?php echo $year; ?>', domain: '<?php echo $domain; ?>' };
     </script>
-
-
 </body>
 </html>

@@ -62,7 +62,7 @@ require(["jquery", "backbone", "v_mApp"], function($, Backbone, View_app ) {
 		// render main navigation
 		appView.render();
 	});
-
+	
 	window.addEventListener("beforeunload", function() {
 		// cleanup event handlers;
 		console.log("Unloaded, see you!");

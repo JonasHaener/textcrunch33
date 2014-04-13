@@ -19,7 +19,7 @@ define(function(require){
 		events: {
 			"click .js_clean_view" 		 	: "cleanView",
 			"click .js_get_more_results" 	: "getMoreResults",
-			"click .js_show_hide_languages" : "showHideLanguages"
+			"click .js_show_hide_languages" : "showHideLanguages",
 		},
 
 		collections: {

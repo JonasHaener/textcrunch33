@@ -470,12 +470,9 @@ footer {
 }
 
 /*--------------------------------
-	ICON large
---------------------------------*/
-/*--------------------------------
 	M-search-settings
 --------------------------------*/
-/* line 300, ../sass/screen.scss */
+/* line 293, ../sass/screen.scss */
 .egg-m-search-settings {
   /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
   /*
@@ -512,20 +509,20 @@ footer {
   border: 1px solid #356ea0;
   font-weight: bold;
 }
-/* line 309, ../sass/screen.scss */
+/* line 302, ../sass/screen.scss */
 .egg-m-search-settings div.input-group {
   width: 100%;
 }
-/* line 312, ../sass/screen.scss */
+/* line 305, ../sass/screen.scss */
 .egg-m-search-settings span.input-group-addon {
   margin-top: -1px;
   line-height: 0;
 }
-/* line 316, ../sass/screen.scss */
+/* line 309, ../sass/screen.scss */
 .egg-m-search-settings submit:hover {
   color: #FFF;
 }
-/* line 320, ../sass/screen.scss */
+/* line 313, ../sass/screen.scss */
 .egg-m-search-settings .egg-main-search {
   min-height: 3em;
   height: 100%;
@@ -534,7 +531,7 @@ footer {
 /*--------------------------------
 	M-inputform
 --------------------------------*/
-/* line 330, ../sass/screen.scss */
+/* line 323, ../sass/screen.scss */
 .egg-m-inputform {
   /*@include grad-grey-ll;*/
   box-shadow: 0px 1px 1px #d9d9d9;
@@ -545,14 +542,14 @@ footer {
   width: 100%;
 }
 
-/* line 342, ../sass/screen.scss */
+/* line 335, ../sass/screen.scss */
 .egg-m-inputform__header {
   background-color: #356ea0;
   color: #f3f3f3;
   font-weight: bold;
   height: 2.5em;
 }
-/* line 349, ../sass/screen.scss */
+/* line 342, ../sass/screen.scss */
 .egg-m-inputform__header li {
   display: inline-block;
   border-right: solid 1px #51a3e9;
@@ -560,12 +557,12 @@ footer {
   padding: .5em 1em 0.5em 1em;
   height: 100%;
 }
-/* line 357, ../sass/screen.scss */
+/* line 350, ../sass/screen.scss */
 .egg-m-inputform__header .egg-entry-id {
   background-color: #51a3e9;
   width: 15%;
 }
-/* line 362, ../sass/screen.scss */
+/* line 355, ../sass/screen.scss */
 .egg-m-inputform__header .egg-navi {
   cursor: pointer;
   position: relative;
@@ -574,32 +571,32 @@ footer {
   padding-right: 2em;
   padding-top: .7em;
 }
-/* line 369, ../sass/screen.scss */
+/* line 362, ../sass/screen.scss */
 .egg-m-inputform__header .egg-navi:hover {
   background-color: #51A3E9;
 }
 
-/* line 375, ../sass/screen.scss */
+/* line 368, ../sass/screen.scss */
 .egg-m-inputform__tagging {
   border-bottom: 1px solid #c5c5c5;
   padding: 0.5em;
 }
-/* line 380, ../sass/screen.scss */
+/* line 373, ../sass/screen.scss */
 .egg-m-inputform__tagging .egg-tag-holder {
   min-height: 3em;
   height: 100%;
   margin: 0.5em 0;
 }
 
-/* line 388, ../sass/screen.scss */
+/* line 381, ../sass/screen.scss */
 .egg-m-inputform__languages {
   padding: 0.5em;
 }
-/* line 392, ../sass/screen.scss */
+/* line 385, ../sass/screen.scss */
 .egg-m-inputform__languages label {
   display: block;
 }
-/* line 395, ../sass/screen.scss */
+/* line 388, ../sass/screen.scss */
 .egg-m-inputform__languages textarea {
   height: 7em;
   max-height: 7em;
@@ -608,7 +605,7 @@ footer {
   width: 100%;
 }
 
-/* line 407, ../sass/screen.scss */
+/* line 400, ../sass/screen.scss */
 #icon_large {
   position: absolute;
   z-index: -10;
@@ -625,7 +622,7 @@ footer {
 /*--------------------------------
 	M-results
 --------------------------------*/
-/* line 423, ../sass/screen.scss */
+/* line 416, ../sass/screen.scss */
 .egg-m-results {
   	/*
   
@@ -668,27 +665,27 @@ footer {
   	*/
 }
 @media (max-width: 800px) {
-  /* line 427, ../sass/screen.scss */
+  /* line 420, ../sass/screen.scss */
   .egg-m-results .egg-l-spacer {
     height: 5em;
     margin-bottom: 5em;
   }
 }
-/* line 433, ../sass/screen.scss */
+/* line 426, ../sass/screen.scss */
 .egg-m-results [data-category] .egg-m-textblock__header {
   background: #356ea0;
   border: 1px solid #51a3e9;
 }
-/* line 478, ../sass/screen.scss */
+/* line 471, ../sass/screen.scss */
 .egg-m-results .egg-face-badge {
   background-color: #e6e6e6;
   color: black;
 }
-/* line 483, ../sass/screen.scss */
+/* line 476, ../sass/screen.scss */
 .egg-m-results .egg-face-badge.has-count {
   background-color: #C1DAE6;
 }
-/* line 487, ../sass/screen.scss */
+/* line 480, ../sass/screen.scss */
 .egg-m-results .egg-m-results__tabs {
   box-shadow: 0px 1px 1px #d9d9d9;
   margin-bottom: 1em;
@@ -696,7 +693,7 @@ footer {
   border: solid 1px #e6e6e6;
   margin-bottom: 1em;
 }
-/* line 492, ../sass/screen.scss */
+/* line 485, ../sass/screen.scss */
 .egg-m-results .egg-m-results__tabs a {
   color: black;
 }
@@ -704,7 +701,7 @@ footer {
 /*--------------------------------
 	M-textblock
 --------------------------------*/
-/* line 502, ../sass/screen.scss */
+/* line 495, ../sass/screen.scss */
 .egg-m-textblock {
   /*@include grad-grey-lll;*/
   box-shadow: 0px 1px 3px #c5c5c5;
@@ -714,7 +711,7 @@ footer {
   width: 100%;
 }
 
-/* line 513, ../sass/screen.scss */
+/* line 506, ../sass/screen.scss */
 .egg-m-textblock__header {
   background-color: #356ea0;
   /*border-bottom: 1px solid $col_grey_m;*/
@@ -722,7 +719,7 @@ footer {
   font-weight: bold;
   height: 2.5em;
 }
-/* line 521, ../sass/screen.scss */
+/* line 514, ../sass/screen.scss */
 .egg-m-textblock__header li {
   display: inline-block;
   border-right: solid 1px #51a3e9;
@@ -731,11 +728,11 @@ footer {
   height: 100%;
   min-width: 1em;
 }
-/* line 530, ../sass/screen.scss */
+/* line 523, ../sass/screen.scss */
 .egg-m-textblock__header .egg-block-id {
   min-width: 15%;
 }
-/* line 534, ../sass/screen.scss */
+/* line 527, ../sass/screen.scss */
 .egg-m-textblock__header .egg-navi {
   cursor: pointer;
   position: relative;
@@ -744,51 +741,51 @@ footer {
   padding-right: 2em;
   padding-top: .7em;
 }
-/* line 541, ../sass/screen.scss */
+/* line 534, ../sass/screen.scss */
 .egg-m-textblock__header .egg-navi:hover {
   opacity: 0.8;
 }
-/* line 545, ../sass/screen.scss */
+/* line 538, ../sass/screen.scss */
 .egg-m-textblock__header .egg-face-included {
   background-color: #51a3e9 !important;
 }
 
-/* line 553, ../sass/screen.scss */
+/* line 546, ../sass/screen.scss */
 .egg-m-textblock__content {
   border: 1px solid #d9d9d9;
 }
 
-/* line 557, ../sass/screen.scss */
+/* line 550, ../sass/screen.scss */
 .egg-m-textblock__tagging {
   border-bottom: 1px solid #d9d9d9;
   padding: 0.5em;
 }
-/* line 561, ../sass/screen.scss */
+/* line 554, ../sass/screen.scss */
 .egg-m-textblock__tagging .egg-tag-holder {
   min-height: 3em;
   height: 100%;
   margin: 0.5em 0;
 }
-/* line 567, ../sass/screen.scss */
+/* line 560, ../sass/screen.scss */
 .egg-m-textblock__tagging input, .egg-m-textblock__tagging select {
   width: 45%;
   display: inline-block;
 }
-/* line 571, ../sass/screen.scss */
+/* line 564, ../sass/screen.scss */
 .egg-m-textblock__tagging input:first-of-type {
   margin-right: .5em;
 }
 
-/* line 576, ../sass/screen.scss */
+/* line 569, ../sass/screen.scss */
 .egg-m-textblock__languages {
   padding-top: 1em;
   padding: 0.5em;
 }
-/* line 580, ../sass/screen.scss */
+/* line 573, ../sass/screen.scss */
 .egg-m-textblock__languages label {
   display: block;
 }
-/* line 584, ../sass/screen.scss */
+/* line 577, ../sass/screen.scss */
 .egg-m-textblock__languages textarea {
   box-shadow: 0 0 1px #d9d9d9;
   border: solid 1px #d9d9d9;
@@ -802,7 +799,7 @@ footer {
   width: 100%;
 }
 
-/* line 599, ../sass/screen.scss */
+/* line 592, ../sass/screen.scss */
 .egg-m-textblock__languages__tagsview {
   border-bottom: 1px solid #d9d9d9;
   margin: 0.3em 0 0.6em 0;
@@ -812,7 +809,7 @@ footer {
 /*--------------------------------
 	M-user-projects
 --------------------------------*/
-/* line 611, ../sass/screen.scss */
+/* line 604, ../sass/screen.scss */
 .egg-m-user-projects {
   /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
   /*
@@ -849,39 +846,39 @@ footer {
   font-weight: bold;
 }
 
-/* line 621, ../sass/screen.scss */
+/* line 614, ../sass/screen.scss */
 .egg-m-user-projects .egg-m-user-projects__last-created {
   padding-left: 0.8em;
 }
-/* line 624, ../sass/screen.scss */
+/* line 617, ../sass/screen.scss */
 .egg-m-user-projects .egg-m-user-projects__last-created a {
   cursor: pointer;
 }
 
-/* line 629, ../sass/screen.scss */
+/* line 622, ../sass/screen.scss */
 .egg-m-user-projects__navi {
   /*@include grad-grey-ll;*/
 }
-/* line 634, ../sass/screen.scss */
+/* line 627, ../sass/screen.scss */
 .egg-m-user-projects__navi tr, .egg-m-user-projects__navi td {
   padding-top: 0;
   padding-bottom: 0.1em;
 }
-/* line 638, ../sass/screen.scss */
+/* line 631, ../sass/screen.scss */
 .egg-m-user-projects__navi td {
   cursor: pointer;
   text-align: center;
 }
-/* line 643, ../sass/screen.scss */
+/* line 636, ../sass/screen.scss */
 .egg-m-user-projects__navi td:hover {
   opacity: 0.6;
 }
-/* line 647, ../sass/screen.scss */
+/* line 640, ../sass/screen.scss */
 .egg-m-user-projects__navi td:last-of-type {
   border-right: none;
   text-indent: 0;
 }
-/* line 651, ../sass/screen.scss */
+/* line 644, ../sass/screen.scss */
 .egg-m-user-projects__navi a {
   color: black;
   padding: 0.35em 0.5em;
@@ -889,7 +886,7 @@ footer {
   text-decoration: none;
 }
 
-/* line 659, ../sass/screen.scss */
+/* line 652, ../sass/screen.scss */
 .egg-m-user-projects__result {
   /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
   font-weight: bold;
@@ -898,7 +895,7 @@ footer {
 /*--------------------------------
 	Search stats
 --------------------------------*/
-/* line 667, ../sass/screen.scss */
+/* line 660, ../sass/screen.scss */
 .egg-m-search-stats {
   /*@include crossed_table( $col_grey_mm, $col_grey_l, #000, $col_grey_ll );*/
   /*
@@ -935,7 +932,7 @@ footer {
   font-weight: bold;
 }
 
-/* line 678, ../sass/screen.scss */
+/* line 671, ../sass/screen.scss */
 .egg-m-stats {
   margin-bottom: 2em;
 }
@@ -946,11 +943,11 @@ footer {
   border: 1px solid #356ea0;
   font-weight: bold;
 }
-/* line 683, ../sass/screen.scss */
+/* line 676, ../sass/screen.scss */
 .egg-m-stats h1 {
   margin-bottom: 1em;
 }
-/* line 687, ../sass/screen.scss */
+/* line 680, ../sass/screen.scss */
 .egg-m-stats thead {
   font-weight: bold;
   margin-top: 0.5em;
@@ -966,24 +963,24 @@ footer {
   background-color: #e6e6e6;
   font-weight: bold;
 }
-/* line 700, ../sass/screen.scss */
+/* line 693, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-tags textarea {
   padding-left: 0.3em;
   max-width: 25em;
   min-width: 20em;
   max-height: 5.5em;
 }
-/* line 709, ../sass/screen.scss */
+/* line 702, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-import-data .form-control {
   background-color: #e6e6e6;
   padding: .5em 0.5em 0.5 2em;
 }
-/* line 715, ../sass/screen.scss */
+/* line 708, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-dropbox {
   background-color: #e6e6e6;
   padding: 3em;
 }
-/* line 720, ../sass/screen.scss */
+/* line 713, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-dropbox div {
   color: #c5c5c5;
   font-size: 2em;
@@ -993,13 +990,41 @@ footer {
   padding: 2em 0;
   border: dashed 2px #c5c5c5;
 }
-/* line 730, ../sass/screen.scss */
+/* line 723, ../sass/screen.scss */
 .egg-m-stats .egg-m-stats-dropbox .egg-is-drop-over {
   background-color: #d9d9d9;
 }
 
-/* line 738, ../sass/screen.scss */
+/* line 731, ../sass/screen.scss */
 .egg-m-footer a {
   color: #c5c5c5;
-  padding-left: 0.5em;
+  margin-left: 0.5em;
+}
+/* line 736, ../sass/screen.scss */
+.egg-m-footer .egg-m-back-to-top {
+  box-shadow: 0px 1px 3px #c5c5c5;
+  position: fixed;
+  top: 9em;
+  z-index: 999;
+  border-radius: 5px;
+  background-color: #e6e6e6;
+  text-decoration: none !important;
+}
+/* line 748, ../sass/screen.scss */
+.egg-m-footer .egg-m-back-to-top > span, .egg-m-footer .egg-m-back-to-top > a {
+  color: #FFF;
+  margin: 0;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5em;
+}
+/* line 757, ../sass/screen.scss */
+.egg-m-footer .egg-m-back-to-top > span:hover, .egg-m-footer .egg-m-back-to-top > a:hover {
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}
+/* line 762, ../sass/screen.scss */
+.egg-m-footer [data-speed].speed-is-set {
+  color: #356ea0 !important;
 }

@@ -214,7 +214,7 @@ define(function(require){
 						// reset default text
 						setTimeout(function() {
 							self.updateStatus(placeholder);
-							this.hooks.showFileSize.text("");					
+							self.hooks.showFileSize.text("");					
 						}, 1000);
                 	}
                 }

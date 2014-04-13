@@ -288,13 +288,6 @@ footer {
 
 
 /*--------------------------------
-	ICON large
---------------------------------*/
-
-
-
-
-/*--------------------------------
 	M-search-settings
 --------------------------------*/
 .egg-m-search-settings {
@@ -737,6 +730,39 @@ footer {
 .egg-m-footer {
 	a {
 		color: $col_grey_m;
-		padding-left: 0.5em;
+		margin-left: 0.5em;
 	}
+
+	.egg-m-back-to-top {
+		@include dropshadow-ll;
+		position: fixed;
+		top: 9em;
+		z-index: 999;
+		border-radius: 5px;
+		background-color: $col_grey_ll;
+		text-decoration: none !important;
+
+
+	}
+
+	.egg-m-back-to-top > span, .egg-m-back-to-top > a {
+		color: #FFF;
+		margin: 0;
+		display: block;
+		text-align: center;
+		font-weight: bold;
+		padding: 0.5em;
+	}
+	
+	.egg-m-back-to-top > span:hover, .egg-m-back-to-top > a:hover {
+		background-color: $col_grey_l;
+		border-radius: 5px;
+	}
+
+	[data-speed].speed-is-set {
+		color: $col_blue_m !important;
+	}
+
 }
+
+

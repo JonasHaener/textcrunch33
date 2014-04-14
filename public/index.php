@@ -32,9 +32,6 @@ require_once "../application/includes/session.inc.php"; ?>
         <!--RIGHT COLUMN-->
                 <div id="js_col_right" class="col-md-4"></div>
             </div>
-            <a href="#" id="backtotop" class="egg-m-back-to-top">
-                <span class="glyphicon glyphicon-arrow-up"></span>
-            </a>
         <!-- MAIN NAVI -->
         <div id="js_mFooter"></div>
     </div> <!--App container END-->

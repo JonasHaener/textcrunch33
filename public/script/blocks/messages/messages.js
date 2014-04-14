@@ -14,6 +14,7 @@ define(function(require){
 		"model_tag_missing" 			: "Please provide at least one tag",
 		"project_name_exists"  			: "This project name is already in use",
 		"delete_project"				: "Are you sure you want to delete this project?",
+		"make_project_public"			: "Did you save the project as a personal project\nbefore you now make it public?",
 		"model_projects_missingIdentifier" : "Please enter BN, FN, or verbal description",
 		"all_shown_blocks_will_be_removed" : "All displayed blocks entries will be removed, continue?",
 		"result_size_exceeded"			: "The fetchable size is exceeded",

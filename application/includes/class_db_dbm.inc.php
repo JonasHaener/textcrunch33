@@ -301,6 +301,7 @@ class Database_manager extends Database {
 	{
 		// error 510
 		if( !($this->conn->query($this->configs["query"]))) {
+			print_r($this->conn);
 			$this->error_and_rollback(503);
 			return;
 		}

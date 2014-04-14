@@ -204,6 +204,48 @@ class Project extends Database_manager{
 		$this->closeConnection();
 	}
 
+	private function make_project_public($project_id)
+	{
+		## get project name
+		$query = "SELECT project_name FROM projects WHERE project_id = {$project_id}";
+		$configs = array(
+			"query" 	=> $query,
+			"expected" 	=> array("project_name")
+		);
+		$this->dbm_config($configs);
+		$this->dbm_exec_select_query(false, false);
+		// get current project name
+		$res = $this->dbm_get_result();
+		// set public project name
+		$pj_name = "_p_{$res["project_name"][0]}";
+
+	
+		## set public project name (_p_) and set user_id to public (=0)
+		$query = "UPDATE projects SET project_name = '{$pj_name}', user_id = 0 WHERE project_id = '{$project_id}'";
+		$configs = array(
+			"query" 	=> $query,
+			"expected" 	=> array()
+		);
+		$this->dbm_config($configs);
+		
+		// start transaction
+		$this->start_transaction();
+		// run query
+		$this->dbm_exec_update_query();
+		$res = $this->dbm_get_result();
+		// error returns 		
+		if($res["affected_rows"] < 0) {
+			$this->error_and_rollback();
+		}
+		$this->result["project_id"] = $project_id;
+		$this->result["project_name"] = $pj_name;
+
+		// commit transaction
+		$this->commit_transaction();
+		// close connection
+		$this->closeConnection();
+	}
+
 	private function update_project() {
 		//error 709
 
@@ -221,6 +263,11 @@ class Project extends Database_manager{
 		// do not allow public project to be overwritten
 		if($this->check_if_public($project_id)) {
 			$this->closeConnection();	
+			return;
+		}
+
+		if(isset($data["makePublic"]) &&  $data["makePublic"] === true) {
+			$this->make_project_public($project_id);
 			return;
 		}
 		

@@ -29,6 +29,7 @@ define(function(require){
 			"click .js_extend_project_blocks"	: "extendProjectBlocks",
 			"click .js_save_project"			: "saveProject",
 			"click .js_delete_project"			: "deleteProject",
+			"click .js_make_public"				: "makeProjectPublic",
 
 			"dblclick .js_block_ids"			: "unlockAndLockBlockIds",
 			"focus .js_block_ids" 				: "unlockAndLockBlockIds",
@@ -101,6 +102,8 @@ define(function(require){
 				// update first displayed project
 				this.switchDisplayedCollection(e);
 			});
+			// change events rerender collection
+			this.listenTo(this.collections.projects, "change", this.updateProjects);
 			this.listenTo(this.collections.projects, "destroy", this.updateProjects);
 			// display collection of new displayed project after removoval
 			this.listenTo(this.collections.projects, "destroy", this.switchDisplayedCollection);
@@ -628,6 +631,55 @@ define(function(require){
 				category: "",
 				searchReplaceResults :  true,
 			});	
+		},
+
+		makeProjectPublic: function()
+		{
+
+			// fetch id from displayed project
+			var id 	   	 = this.getActiveProjectId(),
+				self 	 = this,
+				model  	 = null,
+				// get block ids as tring
+				blockIds = this.getBlockIds();
+				
+			// if no field val -> NULL is returned
+			// AND blockids is not empty
+			if( id > 0) {
+				model = this.collections.projects.get(id);
+				
+				// alert user before making public
+				// quick evaluation of non-blank field
+				if( (!confirm(MESSAGES.make_project_public)) || model.get("collection") === "" ) {
+					return;
+				}
+
+				// add progress bar	
+				this.router.inprogress(true);	
+
+				// save model
+				model.save({ 
+					makePublic : true
+					},
+					{ 
+						success: function() {
+							self.router.actionSuccess();
+							// remove progress bar	
+							self.router.inprogress(false);
+						},
+						error: function() {
+							self.router.actionError();
+							// remove progress bar	
+							self.router.inprogress(false);
+						}
+					}	
+				);
+
+					
+			} else {
+				this.$blockIdField.val("");
+							
+			}
 		}
 	});
 
